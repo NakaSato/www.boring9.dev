@@ -28,6 +28,12 @@ const AllFavTechs = () => {
           initial="hide"
           animate="show"
           transition={{ delayChildren: 0.6, staggerChildren: 0.025 }}
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '1rem',
+            flexWrap: 'wrap'
+          }}
         >
           <li className="transition duration-200 hover:text-[#3178C6]">
             <motion.li variants={animation} initial="hide" animate="show">
