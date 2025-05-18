@@ -5,6 +5,9 @@ import Header from '@/components/ui/Header';
 import Footer from '@/components/ui/Footer';
 import Head from '../head';
 import FlareCursor from '@/components/ui/FlareCursor';
+import { metadata } from './layout-metadata';
+
+export { metadata };
 
 const graphik = local({
   src: [

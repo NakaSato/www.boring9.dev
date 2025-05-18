@@ -9,6 +9,7 @@ import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
 import { Element, Root } from 'hast';
 import { Plugin } from 'unified';
+import rehypeAutoHeadings from './rehype-auto-headings';
 
 // Custom plugin to handle unknown languages in code blocks
 const safeRehypePrism: Plugin<[], Root> = () => {
@@ -166,6 +167,7 @@ export async function markdownToHtml(markdown: string) {
     .use(remarkGfm)
     .use(remarkRehype)
     .use(customRenderer)
+    .use(rehypeAutoHeadings) // Add automatic heading IDs
     .use(safeRehypePrism) // Apply our safe wrapper first
     .use(rehypePrism, { ignoreMissing: true }) // Tell rehype-prism to ignore missing languages
     .use(rehypeSanitize)

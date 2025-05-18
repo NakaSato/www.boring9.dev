@@ -46,6 +46,15 @@ export default function BlogList({ posts }: BlogListProps) {
             placeholder="Search by title, category, or tags..."
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+          
+          {/* Add advanced search link */}
+          <a 
+            href="/blog/search" 
+            className="px-4 py-2 text-sm text-blue-400 hover:text-blue-300 whitespace-nowrap"
+            title="Advanced search"
+          >
+            Advanced
+          </a>
         </div>
       </AnimationContainer>
 

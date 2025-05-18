@@ -1,0 +1,10 @@
+import { MetadataRoute } from 'next';
+
+export default function Verification(): MetadataRoute.Verification {
+  return {
+    google: process.env.GOOGLE_VERIFICATION_CODE || '',
+    // Add more verification codes if needed
+    // yandex: 'YANDEX_VERIFICATION_CODE',
+    // bing: 'BING_VERIFICATION_CODE',
+  };
+}

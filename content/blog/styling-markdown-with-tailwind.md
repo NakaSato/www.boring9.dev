@@ -4,10 +4,10 @@ date: "2025-05-10"
 excerpt: "Learn how to add beautiful typography to your Markdown content using Tailwind's typography plugin"
 category: "Design"
 tags: ["tailwind", "css", "typography", "styling"]
-coverImage: "/images/default-cover.jpg"
+coverImage: "/images/blog/default-cover.png"
 author: "Chanthawat"
 authorImage: "/profile.jpeg"
-authorBio: "Full Stack Developer focused on React and Next.js"
+authorBio: "Student at UTCC"
 ---
 
 # Styling Markdown with Tailwind Typography

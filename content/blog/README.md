@@ -19,9 +19,9 @@ date: "YYYY-MM-DD"
 excerpt: "A brief summary of your post (will be displayed in previews)"
 category: "Category Name"
 tags: ["tag1", "tag2", "tag3"]
-coverImage: "/path/to/cover-image.jpg"
+coverImage: "/images/blog/default-cover.jpg"
 author: "Your Name"
-authorImage: "/path/to/author-image.jpg"
+authorImage: "/profile.jpeg"
 authorBio: "Brief author biography"
 ---
 ```

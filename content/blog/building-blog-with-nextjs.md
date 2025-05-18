@@ -4,10 +4,10 @@ date: "2025-05-15"
 excerpt: "Step by step guide to creating your own markdown-powered blog with Next.js"
 category: "Tutorials"
 tags: ["nextjs", "markdown", "tutorial", "react"]
-coverImage: "/images/default-cover.jpg"
+coverImage: "/images/blog/default-cover.png"
 author: "Chanthawat"
 authorImage: "/profile.jpeg"
-authorBio: "Full Stack Developer focused on React and Next.js"
+authorBio: "Student at UTCC"
 ---
 
 # Building a Blog with Next.js and Markdown

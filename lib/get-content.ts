@@ -108,9 +108,9 @@ export async function getBlogPosts(): Promise<BlogPostProps[]> {
             excerpt: data.excerpt || '',
             category: data.category || 'Uncategorized',
             tags: data.tags || [],
-            coverImage: data.coverImage || '/images/default-cover.jpg',
+            coverImage: data.coverImage || '/images/blog/default-cover.jpg',
             author: data.author || 'Anonymous',
-            authorImage: data.authorImage || '/images/default-avatar.jpg',
+            authorImage: data.authorImage || '/profile.jpeg',
             authorBio: data.authorBio || '',
             readingTime: readingTime(markdown).text
           };

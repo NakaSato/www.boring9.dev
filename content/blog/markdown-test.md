@@ -4,10 +4,10 @@ date: "2025-05-18"
 excerpt: "Learn how to use Markdown in your Next.js blog application for efficient content creation."
 category: "Web Development"
 tags: ["nextjs", "markdown", "react"]
-coverImage: "/images/default-cover.jpg"
+coverImage: "/images/blog/default-cover.png"
 author: "Chanthawat"
 authorImage: "/profile.jpeg"
-authorBio: "Full Stack Developer focused on React and Next.js"
+authorBio: "Student at UTCC"
 ---
 
 # Getting Started with Markdown in Next.js

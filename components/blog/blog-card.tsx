@@ -15,19 +15,25 @@ export default function BlogCard({ post }: BlogCardProps) {
           <div className="relative w-full aspect-video">
             <Image
               src={post.coverImage}
-              alt={post.title}
+              alt={`Cover image for blog post: ${post.title}`}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-300 hover:scale-105"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAEhAJAHlXiLwAAAABJRU5ErkJggg=="
             />
           </div>
         </Link>
       )}
       <div className="flex flex-col p-4">
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs font-medium px-2 py-1 rounded-full bg-gray-800 text-gray-300">
+          <Link
+            href={`/blog/categories/${post.category.toLowerCase().replace(/\s+/g, '-')}`}
+            className="text-xs font-medium px-2 py-1 rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700 transition-colors"
+          >
             {post.category}
-          </span>
+          </Link>
           <div className="flex items-center text-xs text-gray-400">
             <Clock className="w-3 h-3 mr-1" />
             <span>{post.readingTime}</span>
