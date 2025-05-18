@@ -10,6 +10,57 @@ import { visit } from 'unist-util-visit';
 import { Element, Root } from 'hast';
 import { Plugin } from 'unified';
 
+// Custom plugin to handle unknown languages in code blocks
+const safeRehypePrism: Plugin<[], Root> = () => {
+  return (tree) => {
+    // Find all pre > code elements
+    visit(tree, 'element', (node: Element) => {
+      if (
+        node.tagName === 'pre' &&
+        node.children?.[0]?.type === 'element' &&
+        node.children[0].tagName === 'code'
+      ) {
+        const codeNode = node.children[0] as Element;
+        const className = codeNode.properties?.className as string[] || [];
+        
+        // If language class is present, ensure it's one that rehype-prism-plus supports
+        // Common languages: javascript, typescript, jsx, tsx, css, html, json, bash, etc.
+        const supportedLanguages = [
+          'javascript', 'js', 
+          'typescript', 'ts', 
+          'jsx', 'tsx',
+          'css', 'html', 'xml',
+          'json', 'yaml', 'yml',
+          'markdown', 'md',
+          'bash', 'shell', 'sh',
+          'python', 'py',
+          'ruby', 'rb',
+          'java', 'c', 'cpp', 'csharp', 'cs',
+          'go', 'rust', 'php'
+        ];
+        
+        // Get the language from class (language-xxx)
+        const langClass = className.find((cls) => 
+          typeof cls === 'string' && cls.startsWith('language-')
+        );
+        
+        if (langClass) {
+          const lang = langClass.replace('language-', '');
+          if (!supportedLanguages.includes(lang)) {
+            // Replace with a supported language (plain text)
+            const idx = className.indexOf(langClass);
+            if (idx !== -1) {
+              className[idx] = 'language-text';
+            }
+          }
+        }
+        
+        codeNode.properties!.className = className;
+      }
+    });
+  };
+};
+
 const customRenderer: Plugin<[], Root> = () => {
   return (tree: Root) => {
     visit(tree, 'element', (node: Element) => {
@@ -115,7 +166,8 @@ export async function markdownToHtml(markdown: string) {
     .use(remarkGfm)
     .use(remarkRehype)
     .use(customRenderer)
-    .use(rehypePrism)
+    .use(safeRehypePrism) // Apply our safe wrapper first
+    .use(rehypePrism, { ignoreMissing: true }) // Tell rehype-prism to ignore missing languages
     .use(rehypeSanitize)
     .use(rehypeStringify)
     .process(markdown);
