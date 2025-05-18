@@ -17,48 +17,66 @@ interface ReadabilityClientProps {
 }
 
 export function ReadabilityClient({ slug, initialData, initialError }: ReadabilityClientProps) {
-  const [isLoading, setIsLoading] = useState(!initialData && !initialError);
-  const [readabilityData, setReadabilityData] = useState<ReadabilityData | null>(initialData);
-  const [errorMessage, setErrorMessage] = useState<string | null>(initialError);
+  const [data, setData] = useState<ReadabilityData | null>(initialData);
+  const [error, setError] = useState<string | null>(initialError);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  if (isLoading) {
+  const refreshData = async () => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await fetch(`/api/readability/${slug}`);
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+      const freshData = await response.json();
+      setData(freshData);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      console.error('Error refreshing readability data:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen p-4">
-        <Loader2 className="w-8 h-8 text-blue-500 animate-spin mb-4" />
-        <h2 className="text-xl font-semibold">Analyzing readability...</h2>
-        <p className="text-gray-400 mt-2">This may take a moment</p>
+      <div className="p-4 bg-red-50 border border-red-200 rounded-md">
+        <h2 className="text-lg font-semibold text-red-700">Error</h2>
+        <p className="text-red-600">{error}</p>
+        <button 
+          onClick={refreshData}
+          className="mt-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+          disabled={loading}
+        >
+          {loading ? (
+            <span className="flex items-center">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Retrying...
+            </span>
+          ) : 'Retry'}
+        </button>
       </div>
     );
   }
 
-  if (errorMessage) {
+  if (!data) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen p-4">
-        <AlertTriangle className="w-8 h-8 text-red-500 mb-4" />
-        <h2 className="text-xl font-semibold">Failed to load readability data</h2>
-        <p className="text-gray-400 mt-2">{errorMessage}</p>
-        <Link 
-          href="/seo-dashboard" 
-          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+      <div className="p-4 bg-gray-50 border border-gray-200 rounded-md">
+        <p className="text-gray-600">No readability data available.</p>
+        <button 
+          onClick={refreshData}
+          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          disabled={loading}
         >
-          Back to Dashboard
-        </Link>
-      </div>
-    );
-  }
-
-  if (!readabilityData) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen p-4">
-        <AlertTriangle className="w-8 h-8 text-red-500 mb-4" />
-        <h2 className="text-xl font-semibold">No data available</h2>
-        <p className="text-gray-400 mt-2">Could not analyze post readability</p>
-        <Link 
-          href="/seo-dashboard" 
-          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-        >
-          Back to Dashboard
-        </Link>
+          {loading ? (
+            <span className="flex items-center">
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Loading...
+            </span>
+          ) : 'Load Data'}
+        </button>
       </div>
     );
   }
@@ -67,10 +85,10 @@ export function ReadabilityClient({ slug, initialData, initialError }: Readabili
   let scoreColor = 'text-green-500';
   let scoreMessage = 'Excellent readability';
   
-  if (readabilityData.score < 50) {
+  if (data.score < 50) {
     scoreColor = 'text-red-500';
     scoreMessage = 'Difficult to read';
-  } else if (readabilityData.score < 70) {
+  } else if (data.score < 70) {
     scoreColor = 'text-yellow-500';
     scoreMessage = 'Moderately readable';
   }
@@ -104,26 +122,26 @@ export function ReadabilityClient({ slug, initialData, initialError }: Readabili
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div className="bg-gray-800 rounded-lg p-6 flex flex-col items-center justify-center text-center">
           <div className="text-sm text-gray-400 mb-2">Readability Score</div>
-          <div className={`text-4xl font-bold mb-2 ${scoreColor}`}>{readabilityData.score}</div>
+          <div className={`text-4xl font-bold mb-2 ${scoreColor}`}>{data.score}</div>
           <div className={`text-sm ${scoreColor}`}>{scoreMessage}</div>
         </div>
         
         <div className="bg-gray-800 rounded-lg p-6 flex flex-col items-center justify-center text-center">
           <div className="text-sm text-gray-400 mb-2">Reading Level</div>
           <Award className={`w-6 h-6 mb-2 ${
-            readabilityData.score > 70 ? 'text-green-500' : 
-            readabilityData.score > 50 ? 'text-yellow-500' : 'text-red-500'
+            data.score > 70 ? 'text-green-500' : 
+            data.score > 50 ? 'text-yellow-500' : 'text-red-500'
           }`} />
-          <div className="text-xl font-medium">{readabilityData.readingLevel}</div>
+          <div className="text-xl font-medium">{data.readingLevel}</div>
         </div>
       </div>
       
       <div className="bg-gray-800 rounded-lg p-6">
         <h3 className="text-xl font-semibold mb-4">Suggestions</h3>
         
-        {readabilityData.suggestions.length > 0 ? (
+        {data.suggestions.length > 0 ? (
           <ul className="space-y-3">
-            {readabilityData.suggestions.map((suggestion: string, i: number) => (
+            {data.suggestions.map((suggestion: string, i: number) => (
               <li key={i} className="flex items-start gap-3">
                 {suggestion.includes('No issues') ? (
                   <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
@@ -172,6 +190,23 @@ export function ReadabilityClient({ slug, initialData, initialError }: Readabili
             </li>
           </ul>
         </div>
+      </div>
+      
+      <div className="mt-6 flex justify-end">
+        <button 
+          onClick={refreshData}
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors flex items-center"
+          disabled={loading}
+        >
+          {loading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Refreshing...
+            </>
+          ) : (
+            <>Refresh Analysis</>
+          )}
+        </button>
       </div>
     </div>
   );

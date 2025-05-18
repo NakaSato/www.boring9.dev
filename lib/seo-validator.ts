@@ -1,3 +1,4 @@
+import 'server-only';
 import { getAllBlogPosts, getBlogPostBySlug } from './content';
 
 interface SEOValidationError {

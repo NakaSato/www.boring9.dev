@@ -7,16 +7,23 @@ interface ReadabilityData {
   suggestions: string[];
 }
 
-export default async function ReadabilityPage({ params }: { params: { slug: string } }) {
+export default async function ReadabilityPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   let data: ReadabilityData | null = null;
   let error: string | null = null;
   
+  // Await the params object before accessing its properties
+  const { slug } = await params;
+  
   try {
-    data = await getReadabilityScore(params.slug);
+    data = await getReadabilityScore(slug);
   } catch (err) {
     error = err instanceof Error ? err.message : 'An unknown error occurred';
     console.error('Error fetching readability data:', err);
   }
   
-  return <ReadabilityClient slug={params.slug} initialData={data} initialError={error} />;
+  return <ReadabilityClient slug={slug} initialData={data} initialError={error} />;
 }
