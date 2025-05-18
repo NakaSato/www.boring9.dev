@@ -1,4 +1,4 @@
-// lib/get-local-content.ts
+// lib/content.ts
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -8,26 +8,27 @@ import { BlogPostProps } from './get-content';
 
 const BLOG_DIRECTORY = path.join(process.cwd(), 'content/blog');
 
-export async function getLocalBlogPosts(): Promise<BlogPostProps[]> {
+export async function getAllBlogPosts(): Promise<BlogPostProps[]> {
   try {
-    // Create the directory if it doesn't exist
+    // Check if directory exists
     if (!fs.existsSync(BLOG_DIRECTORY)) {
-      fs.mkdirSync(BLOG_DIRECTORY, { recursive: true });
-    }
-
-    // Check if directory is empty
-    const files = fs.readdirSync(BLOG_DIRECTORY);
-    
-    if (files.length === 0) {
-      console.log('No blog posts found in content/blog directory');
+      console.error('Blog content directory not found:', BLOG_DIRECTORY);
       return [];
     }
 
-    const mdFiles = files.filter((file) => file.endsWith('.md'));
-    console.log(`Found ${mdFiles.length} local Markdown files in content/blog`);
+    // Get all files in the directory
+    const files = fs.readdirSync(BLOG_DIRECTORY)
+      .filter(filename => filename.endsWith('.md') && !filename.includes('README'));
+    
+    if (files.length === 0) {
+      console.log('No blog posts found in content directory');
+      return [];
+    }
+
+    console.log(`Found ${files.length} Markdown files in content/blog`);
 
     const posts = await Promise.all(
-      mdFiles.map(async (file) => {
+      files.map(async (file) => {
         try {
           const fullPath = path.join(BLOG_DIRECTORY, file);
           const content = fs.readFileSync(fullPath, 'utf8');
@@ -72,7 +73,7 @@ export async function getLocalBlogPosts(): Promise<BlogPostProps[]> {
             tags: data.tags || [],
             coverImage: data.coverImage || '/images/default-cover.jpg',
             author: data.author || 'Anonymous',
-            authorImage: data.authorImage || '/images/default-avatar.jpg',
+            authorImage: data.authorImage || '/profile.jpeg',
             authorBio: data.authorBio || '',
             readingTime: getReadingTime(markdown)
           };
@@ -95,7 +96,13 @@ export async function getLocalBlogPosts(): Promise<BlogPostProps[]> {
 
     return sortedPosts;
   } catch (error) {
-    console.error('Error in getLocalBlogPosts:', error);
+    console.error('Error in getAllBlogPosts:', error);
     return [];
   }
+}
+
+export async function getBlogPostBySlug(slug: string): Promise<BlogPostProps | null> {
+  const posts = await getAllBlogPosts();
+  const post = posts.find(post => post.slug === slug);
+  return post || null;
 }

@@ -1,23 +1,12 @@
-import { getBlogPosts, BlogPostProps } from '@/lib/get-content';
-import { getLocalBlogPosts } from '@/lib/get-local-content';
+import { BlogPostProps } from '@/lib/get-content';
+import { getAllBlogPosts, getBlogPostBySlug } from '@/lib/content';
 import { BlogHeader } from '@/components/blog/blog-header';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export const generateStaticParams = async () => {
-  let posts: BlogPostProps[] = [];
-  
-  try {
-    posts = await getBlogPosts();
-  } catch (error) {
-    console.error('Error fetching posts from GitHub, falling back to local content:', error);
-    try {
-      posts = await getLocalBlogPosts();
-    } catch (localError) {
-      console.error('Error fetching local posts:', localError);
-    }
-  }
+  const posts = await getAllBlogPosts();
   
   return posts.map((post) => ({
     slug: post.slug,
@@ -25,20 +14,7 @@ export const generateStaticParams = async () => {
 };
 
 export const generateMetadata = async ({ params }: { params: { slug: string } }) => {
-  let posts: BlogPostProps[] = [];
-  
-  try {
-    posts = await getBlogPosts();
-  } catch (error) {
-    console.error('Error fetching posts from GitHub, falling back to local content:', error);
-    try {
-      posts = await getLocalBlogPosts();
-    } catch (localError) {
-      console.error('Error fetching local posts:', localError);
-    }
-  }
-  
-  const post = posts.find((post) => post.slug === params.slug);
+  const post = await getBlogPostBySlug(params.slug);
 
   if (!post) {
     return {
@@ -74,21 +50,8 @@ export const generateMetadata = async ({ params }: { params: { slug: string } })
 };
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
-  let posts: BlogPostProps[] = [];
+  const post = await getBlogPostBySlug(params.slug);
   
-  try {
-    posts = await getBlogPosts();
-  } catch (error) {
-    console.error('Error fetching posts from GitHub, falling back to local content:', error);
-    try {
-      posts = await getLocalBlogPosts();
-    } catch (localError) {
-      console.error('Error fetching local posts:', localError);
-    }
-  }
-  
-  const post = posts.find((post) => post.slug === params.slug);
-
   if (!post) {
     notFound();
   }

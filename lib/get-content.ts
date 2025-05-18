@@ -75,16 +75,34 @@ export async function getBlogPosts(): Promise<BlogPostProps[]> {
           if (!data.title || !data.date) {
             console.warn(`Warning: Required fields missing in ${file.name}`);
             data.title = data.title || 'Untitled';
-            data.date = data.date || new Date().toISOString();
+            data.date = data.date || new Date().toISOString().split('T')[0];
           }
 
           // Convert markdown to HTML
           const htmlContent = await markdownToHtml(markdown);
 
+          // Safely parse the date
+          let postDate: string;
+          try {
+            // Try to create a valid date from the frontmatter date
+            const dateObj = new Date(data.date);
+            if (isNaN(dateObj.getTime())) {
+              // If date is invalid, use current date
+              postDate = new Date().toISOString();
+              console.warn(`Warning: Invalid date in ${file.name}, using current date instead`);
+            } else {
+              postDate = dateObj.toISOString();
+            }
+          } catch (error) {
+            // Fallback to current date if there's any error
+            postDate = new Date().toISOString();
+            console.warn(`Warning: Error parsing date in ${file.name}, using current date instead`);
+          }
+
           const post: BlogPostProps = {
             slug: file.name.replace('.md', ''),
             title: data.title,
-            date: new Date(data.date).toISOString(),
+            date: postDate,
             content: markdown,
             htmlContent,
             excerpt: data.excerpt || '',
