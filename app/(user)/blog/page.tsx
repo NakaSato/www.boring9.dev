@@ -6,6 +6,7 @@ import BlogContainer from '@/components/utils/BlogContainer';
 import TitleSectionPageContainer from '@/components/utils/TitleSectionPageContainer';
 import SocialShare from '@/components/sections/social-share';
 import Pagination from '@/components/blog/pagination';
+import Link from 'next/link';
 
 // Number of posts per page
 const POSTS_PER_PAGE = 9;
@@ -93,7 +94,7 @@ export default async function Blog() {
             and feel free to share them with others.
           </p>
           <div className="flex gap-4">
-            <a
+            <Link
               href="/blog/categories"
               className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
             >
@@ -112,8 +113,8 @@ export default async function Blog() {
                   d="M9 5l7 7-7 7"
                 />
               </svg>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/blog/search"
               className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
             >
@@ -132,7 +133,7 @@ export default async function Blog() {
                   d="M9 5l7 7-7 7"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </AnimationContainer>
 

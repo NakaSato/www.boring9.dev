@@ -7,6 +7,7 @@ import ReadingProgressBar from '@/components/blog/reading-progress';
 import RelatedPosts from '@/components/blog/related-posts';
 import TableOfContents from '@/components/blog/table-of-contents';
 import SocialSharing from '@/components/blog/social-sharing';
+import EnhancedCodeBlock from '@/components/blog/enhanced-code-block';
 
 export const generateStaticParams = async () => {
   const posts = await getAllBlogPosts();
@@ -103,6 +104,9 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     <>
       {/* Reading Progress Bar */}
       <ReadingProgressBar />
+      
+      {/* Code block enhancement for copy functionality */}
+      <EnhancedCodeBlock />
       
       <div className="max-w-7xl mx-auto py-10 px-4 md:px-6">
         <div className="flex flex-col xl:flex-row xl:space-x-10">

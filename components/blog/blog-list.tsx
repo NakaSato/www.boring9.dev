@@ -4,6 +4,7 @@ import { useState } from 'react';
 import BlogCard from '@/components/blog/blog-card';
 import AnimationContainer from '@/components/utils/AnimationContainer';
 import { BlogPostProps } from '@/lib/get-content';
+import Link from 'next/link';
 
 interface BlogListProps {
   posts: BlogPostProps[];
@@ -48,13 +49,13 @@ export default function BlogList({ posts }: BlogListProps) {
           />
           
           {/* Add advanced search link */}
-          <a 
+          <Link 
             href="/blog/search" 
             className="px-4 py-2 text-sm text-blue-400 hover:text-blue-300 whitespace-nowrap"
             title="Advanced search"
           >
             Advanced
-          </a>
+          </Link>
         </div>
       </AnimationContainer>
 

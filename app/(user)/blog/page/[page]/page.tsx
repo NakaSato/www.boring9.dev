@@ -5,6 +5,7 @@ import BlogContainer from '@/components/utils/BlogContainer';
 import TitleSectionPageContainer from '@/components/utils/TitleSectionPageContainer';
 import SocialShare from '@/components/sections/social-share';
 import LocalPagination from '@/components/blog/local-pagination';
+import EnhancedCodeBlock from '@/components/blog/enhanced-code-block';
 import { redirect } from 'next/navigation';
 
 // Number of posts per page
@@ -91,7 +92,10 @@ export default async function BlogPage({ params }: { params: { page: string }}) 
   
   return (
     <BlogContainer>
-      <div className="flex flex-col w-full gap-6">
+      {/* Code block enhancement for copy functionality */}
+      <EnhancedCodeBlock />
+      
+      <div className="flex flex-col w-full gap-8 pb-12">
         <TitleSectionPageContainer title={`Blog - Page ${pageNumber}`} />
 
         {/* Add JSON-LD structured data */}
@@ -100,23 +104,31 @@ export default async function BlogPage({ params }: { params: { page: string }}) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListSchema) }}
         />
 
-        <AnimationContainer customClassName="w-full flex flex-col gap-5 mb-8">
-          <p className="w-full text-base text-gray-400">
+        <AnimationContainer customClassName="w-full flex flex-col gap-6 mb-8">
+          <p className="w-full text-base text-gray-400 leading-relaxed max-w-3xl mx-auto text-center md:text-lg">
             Browse through my articles about web development, programming, and technology.
-            Page {pageNumber} of {totalPages}.
+            <span className="inline-block mt-2 font-medium">
+              Page {pageNumber} of {totalPages}.
+            </span>
           </p>
         </AnimationContainer>
 
-        <SocialShare title={`Blog - Page ${pageNumber}`} />
+        <div className="mb-8">
+          <SocialShare title={`Blog - Page ${pageNumber}`} />
+        </div>
 
-        <BlogList posts={posts} />
+        <div className="relative w-full">
+          <BlogList posts={posts} />
+        </div>
         
-        {/* Add pagination component */}
-        <LocalPagination 
-          currentPage={pageNumber} 
-          totalPages={totalPages} 
-          basePath="/blog/page" 
-        />
+        {/* Add pagination component with improved styling */}
+        <div className="mt-12">
+          <LocalPagination 
+            currentPage={pageNumber} 
+            totalPages={totalPages} 
+            basePath="/blog/page" 
+          />
+        </div>
       </div>
     </BlogContainer>
   );

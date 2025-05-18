@@ -7,9 +7,16 @@ import rehypePrism from 'rehype-prism-plus';
 import rehypeSanitize from 'rehype-sanitize';
 import rehypeStringify from 'rehype-stringify';
 import { visit } from 'unist-util-visit';
-import { Element, Root } from 'hast';
+import { Element, Root, Parent } from 'hast';
 import { Plugin } from 'unified';
 import rehypeAutoHeadings from './rehype-auto-headings';
+
+// Extend the Element type to include parent property
+declare module 'hast' {
+  interface Element {
+    parent?: Parent;
+  }
+}
 
 // Custom plugin to handle unknown languages in code blocks
 const safeRehypePrism: Plugin<[], Root> = () => {
@@ -57,6 +64,69 @@ const safeRehypePrism: Plugin<[], Root> = () => {
         }
         
         codeNode.properties!.className = className;
+      }
+    });
+  };
+};
+
+// Custom plugin to enhance code blocks with proper styling
+const enhanceCodeBlocks: Plugin<[], Root> = () => {
+  return (tree) => {
+    // Find all pre elements
+    visit(tree, 'element', (node: Element) => {
+      if (node.tagName === 'pre' && node.children?.[0]?.type === 'element') {
+        // Add styling classes to pre elements
+        if (!node.properties) {
+          node.properties = {};
+        }
+        
+        // Preserve existing classes if any
+        const existingClasses = node.properties.className || [];
+        const classes = Array.isArray(existingClasses) ? existingClasses : [existingClasses as string];
+        
+        node.properties.className = [
+          ...classes,
+          'rounded-lg',
+          'bg-slate-900',
+          'p-4',
+          'md:p-6', 
+          'overflow-x-auto',
+          'my-6',
+          'md:my-8',
+          'shadow-xl',
+          'border',
+          'border-slate-800',
+          'relative',
+          'font-mono',
+          'text-sm',
+          'leading-relaxed'
+        ];
+
+        // Add data attribute for styling hooks
+        node.properties['data-code-block'] = true;
+        
+        // Add copy button functionality hint
+        node.properties['data-copyable'] = true;
+      }
+
+      // Enhance code element inside pre as well
+      if (node.tagName === 'code' && 
+          node.properties && 
+          node.parent?.type === 'element' && 
+          (node.parent as Element).tagName === 'pre') {
+          
+        const existingClasses = node.properties.className || [];
+        const classes = Array.isArray(existingClasses) ? existingClasses : [existingClasses as string];
+        
+        node.properties.className = [
+          ...classes,
+          'font-mono',
+          'text-sm',
+          'md:text-base',
+          'block',
+          'w-full',
+          'text-slate-100'
+        ];
       }
     });
   };
@@ -169,6 +239,7 @@ export async function markdownToHtml(markdown: string) {
     .use(customRenderer)
     .use(rehypeAutoHeadings) // Add automatic heading IDs
     .use(safeRehypePrism) // Apply our safe wrapper first
+    .use(enhanceCodeBlocks) // Add proper styling to code blocks
     .use(rehypePrism, { ignoreMissing: true }) // Tell rehype-prism to ignore missing languages
     .use(rehypeSanitize)
     .use(rehypeStringify)

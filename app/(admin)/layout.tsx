@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '@/styles/globals.css';
+import Link from 'next/link';
 
 // Use the Inter font
 const inter = Inter({ subsets: ['latin'] });
@@ -26,22 +27,22 @@ export default function AdminLayout({
           <header className="bg-gray-900 border-b border-gray-800">
             <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
               <div className="flex items-center space-x-4">
-                <a href="/" className="font-bold text-xl hover:text-blue-400 transition-colors">
+                <Link href="/" className="font-bold text-xl hover:text-blue-400 transition-colors">
                   Boring9.dev
-                </a>
+                </Link>
                 <span className="text-sm px-2 py-1 bg-blue-900 text-blue-200 rounded">Admin</span>
               </div>
               <nav>
                 <ul className="flex space-x-6">
                   <li>
-                    <a href="/seo-dashboard" className="text-gray-300 hover:text-white transition-colors">
+                    <Link href="/seo-dashboard" className="text-gray-300 hover:text-white transition-colors">
                       SEO Dashboard
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/" className="text-gray-300 hover:text-white transition-colors">
+                    <Link href="/" className="text-gray-300 hover:text-white transition-colors">
                       Back to Site
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>

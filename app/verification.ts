@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 
-export default function Verification(): MetadataRoute.Verification {
+export default function verification() {
   return {
     google: process.env.GOOGLE_VERIFICATION_CODE || '',
     // Add more verification codes if needed
