@@ -1,5 +1,8 @@
-import { getReadabilityScore } from '@/lib/seo-validator';
-import { ReadabilityClient } from './client';
+'use client';
+
+import { useState } from 'react';
+import { Loader2, AlertTriangle, BookOpen, CheckCircle, Award } from 'lucide-react';
+import Link from 'next/link';
 
 interface ReadabilityData {
   score: number;
@@ -7,19 +10,16 @@ interface ReadabilityData {
   suggestions: string[];
 }
 
-export default async function ReadabilityPage({ params }: { params: { slug: string } }) {
-  let data: ReadabilityData | null = null;
-  let error: string | null = null;
-  
-  try {
-    data = await getReadabilityScore(params.slug);
-  } catch (err) {
-    error = err instanceof Error ? err.message : 'An unknown error occurred';
-    console.error('Error fetching readability data:', err);
-  }
-  
-  return <ReadabilityClient slug={params.slug} initialData={data} initialError={error} />;
+interface ReadabilityClientProps {
+  slug: string;
+  initialData: ReadabilityData | null;
+  initialError: string | null;
 }
+
+export function ReadabilityClient({ slug, initialData, initialError }: ReadabilityClientProps) {
+  const [isLoading, setIsLoading] = useState(!initialData && !initialError);
+  const [readabilityData, setReadabilityData] = useState<ReadabilityData | null>(initialData);
+  const [errorMessage, setErrorMessage] = useState<string | null>(initialError);
 
   if (isLoading) {
     return (
@@ -92,11 +92,11 @@ export default async function ReadabilityPage({ params }: { params: { slug: stri
         <div className="flex items-center">
           <BookOpen className="w-5 h-5 mr-2 text-blue-400" />
           <Link 
-            href={`/blog/${params.slug}`} 
+            href={`/blog/${slug}`} 
             className="text-lg hover:text-blue-400 transition-colors"
             target="_blank"
           >
-            {params.slug}
+            {slug}
           </Link>
         </div>
       </div>

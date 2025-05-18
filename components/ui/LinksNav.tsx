@@ -1,6 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 import { NavItemHeaderAnimation } from '@/types';
 
 export const navItemsSelected: { [key: string]: NavItemHeaderAnimation } = {
@@ -41,7 +43,7 @@ const LinksNav = () => {
           <Link
             key={path}
             href={path}
-            className={clsx(
+            className={cn(
               'hidden lg:inline-block transition ease hover:text-neutral-200 py-[2px] px-[10px]',
               {
                 'text-neutral-500': !isActive,
