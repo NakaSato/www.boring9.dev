@@ -29,10 +29,13 @@ const LinksMenuNav = () => {
       {LinksMenu.map(({ name, path, delay }) => (
         <li
           key={name}
-          className="border-gray-700 text-gray-100 text-sm font-semibold"
+          className="w-full border-b border-gray-800 py-3 last:border-0"
           style={{ transitionDelay: delay }}
         >
-          <Link href={path} className="pb-4">
+          <Link 
+            href={path} 
+            className="text-white hover:text-primary-400 transition-colors text-lg font-medium flex items-center justify-start"
+          >
             {name}
           </Link>
         </li>

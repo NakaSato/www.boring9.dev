@@ -88,52 +88,54 @@ export default async function Blog() {
         />
 
         <AnimationContainer customClassName="w-full flex flex-col gap-5 mb-8">
-          <p className="w-full text-base text-gray-400">
-            Welcome to my blog, where I share my thoughts, experiences, and tutorials about
-            web development, programming, and everything tech-related. Browse through the articles
-            and feel free to share them with others.
-          </p>
-          <div className="flex gap-4">
-            <Link
-              href="/blog/categories"
-              className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
-            >
-              <span>Browse by Category</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 ml-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+          <div className="p-6 bg-gray-900/50 rounded-xl border border-primary-800/20 shadow-lg">
+            <p className="w-full text-base text-gray-300 leading-relaxed">
+              Welcome to my blog, where I share my thoughts, experiences, and tutorials about
+              web development, programming, and everything tech-related. Browse through the articles
+              and feel free to share them with others.
+            </p>
+            <div className="flex gap-4 mt-4">
+              <Link
+                href="/blog/categories"
+                className="inline-flex items-center text-primary-400 hover:text-primary-300 transition-colors"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </Link>
-            <Link
-              href="/blog/search"
-              className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
-            >
-              <span>Advanced Search</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 ml-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+                <span>Browse by Category</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 ml-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
+              <Link
+                href="/blog/search"
+                className="inline-flex items-center text-primary-400 hover:text-primary-300 transition-colors"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </Link>
+                <span>Advanced Search</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 ml-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </Link>
+            </div>
           </div>
         </AnimationContainer>
 

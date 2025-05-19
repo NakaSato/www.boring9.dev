@@ -13,13 +13,13 @@ const CardProject = ({
 }: CardProjectProps) => {
   return (
     <AnimationContainer>
-      <div className="w-full h-42 flex flex-col justify-center items-center rounded border border-gray-800 hover:border-gray-900 bg-[#080809] shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4 transition-all ease">
+      <div className="w-full h-auto flex flex-col justify-center items-center rounded-xl border border-primary-800/20 bg-gray-900/50 shadow-lg hover:shadow-xl p-5 transition-all duration-300 ease">
         <div className="w-full flex flex-col justify-center items-start rounded gap-5">
-          <h3 className="text-2xl lg:text-2xl font-medium text-white">
+          <h3 className="text-2xl lg:text-2xl font-semibold text-white bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
             {title}
           </h3>
 
-          <p className="text-base text-gray-400">{des}</p>
+          <p className="text-base text-gray-300 leading-relaxed">{des}</p>
 
           <div className="w-full flex justify-between items-start flex-wrap flex-col lg:flex-row gap-5">
             <div className="flex justify-center items-start gap-3">
@@ -29,7 +29,7 @@ const CardProject = ({
             <div className="flex justify-center items-end gap-3">
               <ExternalLink
                 href={repo}
-                customClassName="text-white inline-flex items-center rounded-lg bg-black p-2 hover:bg-gray-900 transition-all ease"
+                customClassName="text-white inline-flex items-center rounded-lg bg-primary-900/60 p-2 hover:bg-primary-800/70 transition-all duration-300 ease"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@ const CardProject = ({
 
               <ExternalLink
                 href={link}
-                customClassName="text-white inline-flex items-center rounded-lg bg-black p-2 hover:bg-gray-900 transition-all ease"
+                customClassName="text-white inline-flex items-center rounded-lg bg-primary-900/60 p-2 hover:bg-primary-800/70 transition-all duration-300 ease"
               >
                 <svg
                   fill="currentColor"

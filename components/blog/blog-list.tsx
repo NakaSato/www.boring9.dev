@@ -22,8 +22,8 @@ export default function BlogList({ posts }: BlogListProps) {
   return (
     <>
       <AnimationContainer customClassName="w-full group flex flex-col justify-center items-center mb-8">
-        <div className="flex items-center w-full h-12 transition-all bg-black border border-gray-800 rounded shadow-lg lg:w-full group-hover:border-gray-500 ease">
-          <div className="grid w-12 h-full text-gray-500 place-items-center">
+        <div className="flex items-center w-full h-12 transition-all bg-gray-900/70 border border-primary-800/20 rounded-lg shadow-lg lg:w-full group-hover:border-primary-700/50 ease-in-out duration-300">
+          <div className="grid w-12 h-full text-primary-400 place-items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-6 h-6"
@@ -41,7 +41,7 @@ export default function BlogList({ posts }: BlogListProps) {
           </div>
 
           <input
-            className="w-full h-full px-2 text-sm text-white transition-all bg-black rounded outline-none peer group-hover:border-gray-500 ease"
+            className="w-full h-full px-2 text-sm text-white transition-all bg-transparent rounded outline-none peer focus:border-primary-500 ease"
             type="text"
             id="search"
             placeholder="Search by title, category, or tags..."
@@ -51,7 +51,7 @@ export default function BlogList({ posts }: BlogListProps) {
           {/* Add advanced search link */}
           <Link 
             href="/blog/search" 
-            className="px-4 py-2 text-sm text-blue-400 hover:text-blue-300 whitespace-nowrap"
+            className="px-4 py-2 text-sm text-primary-400 hover:text-primary-300 whitespace-nowrap transition-colors duration-300"
             title="Advanced search"
           >
             Advanced
@@ -60,9 +60,9 @@ export default function BlogList({ posts }: BlogListProps) {
       </AnimationContainer>
 
       {filteredPosts.length === 0 ? (
-        <div className="text-center py-10">
-          <h3 className="text-xl font-medium text-gray-400">No blog posts found</h3>
-          <p className="text-gray-500 mt-2">Try adjusting your search query</p>
+        <div className="text-center py-10 p-6 bg-gray-900/50 rounded-xl border border-primary-800/20 shadow-lg">
+          <h3 className="text-xl font-medium text-gray-300">No blog posts found</h3>
+          <p className="text-gray-400 mt-2">Try adjusting your search query</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

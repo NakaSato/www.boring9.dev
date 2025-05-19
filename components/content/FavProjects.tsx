@@ -19,23 +19,34 @@ const useStyles = createStyles((theme: any) => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-center',
-    padding: '10px',
+    padding: '16px',
     backgroundSize: 'cover',
-    backgroundPosition: 'center'
+    backgroundPosition: 'center',
+    borderRadius: '12px',
+    border: '1px solid rgba(var(--color-primary-800), 0.2)',
+    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2)'
   },
 
   title: {
     color: theme.white,
     lineHeight: 1.2,
-    fontSize: 32,
-    marginTop: theme.spacing.xs
+    fontSize: 28,
+    fontWeight: 700,
+    marginTop: theme.spacing.xs,
+    textShadow: '0 2px 4px rgba(0,0,0,0.5)'
   },
 
   category: {
     color: theme.white,
-    opacity: 0.7,
+    opacity: 0.9,
     fontWeight: 700,
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    backgroundColor: 'rgba(var(--color-primary-600), 0.7)',
+    display: 'inline-block',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    fontSize: '12px',
+    textShadow: '0 1px 2px rgba(0,0,0,0.3)'
   }
 }));
 
@@ -52,9 +63,11 @@ const Card = ({ image, title, category, repo, link }: CardProps) => {
 
   return (
     <Paper
-      shadow="md"
+      shadow="xl"
       radius="md"
-      style={{ backgroundImage: `url(${image})` }}
+      style={{ 
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)), url(${image})` 
+      }}
       className={classes.card}
     >
       <div>
@@ -69,7 +82,7 @@ const Card = ({ image, title, category, repo, link }: CardProps) => {
       <div className="flex items-center justify-end gap-3">
         <ExternalLink
           href={repo}
-          customClassName="text-white inline-flex items-center rounded-lg bg-black p-2 hover:bg-gray-900 transition-all ease shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
+          customClassName="text-white inline-flex items-center rounded-lg bg-primary-600 p-2 hover:bg-primary-700 transition-all duration-300 shadow-lg"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +100,7 @@ const Card = ({ image, title, category, repo, link }: CardProps) => {
 
         <ExternalLink
           href={link}
-          customClassName="text-white inline-flex items-center rounded-lg bg-black p-2 hover:bg-gray-900 transition-all ease shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
+          customClassName="text-white inline-flex items-center rounded-lg bg-accent-600 p-2 hover:bg-accent-700 transition-all duration-300 shadow-lg"
         >
           <svg
             fill="currentColor"
@@ -133,23 +146,37 @@ const FavProjects = () => {
   ));
 
   return (
-    <AnimationContainer customClassName="w-full flex flex-col justify-center text-center lg:items-start mb-16">
-      <h2 className="font-bold text-2xl lg:text-2xl tracking-tight mb-8 text-white text-center lg:text-start">
-        Top projects
-      </h2>
+    <AnimationContainer customClassName="w-full">
+      <div className="w-full p-6 bg-gray-900/50 rounded-xl border border-primary-800/20 shadow-lg">
+        <h2 className="font-bold text-2xl md:text-3xl tracking-tight mb-8 text-white text-start bg-gradient-to-r from-secondary-400 to-accent-400 bg-clip-text text-transparent">
+          Featured Projects
+        </h2>
 
-      <Carousel
-        slideSize="50%"
-        breakpoints={[{ maxWidth: 'xs', slideSize: '100%', slideGap: 1 }]}
-        slideGap="xs"
-        align="center"
-        slidesToScroll={mobile ? 1 : 2}
-        withControls={false}
-        style={{ width: '100%', cursor: 'grab' }}
-        loop
-      >
-        {slides}
-      </Carousel>
+        <Carousel
+          slideSize="50%"
+          breakpoints={[{ maxWidth: 'sm', slideSize: '100%', slideGap: 2 }]}
+          slideGap="md"
+          align="center"
+          slidesToScroll={mobile ? 1 : 2}
+          withControls={true}
+          controlsOffset="xs"
+          style={{ width: '100%', cursor: 'grab' }}
+          loop
+          styles={{
+            control: {
+              backgroundColor: 'rgba(var(--color-primary-600), 0.7)',
+              color: 'white',
+              borderRadius: '50%',
+              border: 'none',
+              '&:hover': {
+                backgroundColor: 'rgba(var(--color-primary-700), 0.9)',
+              },
+            }
+          }}
+        >
+          {slides}
+        </Carousel>
+      </div>
     </AnimationContainer>
   );
 };

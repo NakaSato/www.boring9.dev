@@ -2,17 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background: #080809;
+  --text: #ffffff;
+  --primary: #0ea5e9;
+  --secondary: #10b981;
+  --accent: #ec4899;
+}
+
 html,body {
   scroll-behavior: smooth;
 }
 
 body, * {
-  box-sizing: content-box;
+  box-sizing: border-box;
   cursor: none;
 }
 
+@media screen and (max-width: 768px) {
+  body, * {
+    cursor: auto;
+  }
+}
+
 ::selection {
-  background-color: #fefefe;
+  background-color: var(--primary);
   color: #000;
 }
 
@@ -20,14 +34,20 @@ body, * {
 
 .flare {
   position: fixed;
-  border: 2px solid #ffffff2b;
+  border: 2px solid rgba(var(--color-primary-500), 0.3);
   border-radius: 50%;
   mix-blend-mode: screen;
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 999999 !important;
   backdrop-filter: blur(1px);
-  background-color: #0000005e;
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-primary-500), 0.15) 0%,
+    rgba(var(--color-secondary-500), 0.1) 70%,
+    rgba(var(--color-accent-500), 0.05) 100%
+  );
+  box-shadow: 0 0 10px rgba(var(--color-primary-500), 0.2);
   transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
   cursor: none !important;
 }

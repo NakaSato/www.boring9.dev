@@ -42,12 +42,15 @@ export function ReadabilityClient({ slug, initialData, initialError }: Readabili
 
   if (error) {
     return (
-      <div className="p-4 bg-red-50 border border-red-200 rounded-md">
-        <h2 className="text-lg font-semibold text-red-700">Error</h2>
-        <p className="text-red-600">{error}</p>
+      <div className="p-4 bg-gray-900 border border-accent-700 rounded-md shadow-lg">
+        <div className="flex items-center mb-2">
+          <AlertTriangle className="w-5 h-5 text-accent-500 mr-2" />
+          <h2 className="text-lg font-semibold text-accent-400">Error</h2>
+        </div>
+        <p className="text-gray-300">{error}</p>
         <button 
           onClick={refreshData}
-          className="mt-4 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+          className="mt-4 px-4 py-2 bg-accent-600 text-white rounded-md hover:bg-accent-700 transition-colors focus:ring-2 focus:ring-accent-400 focus:ring-opacity-50"
           disabled={loading}
         >
           {loading ? (
@@ -63,11 +66,11 @@ export function ReadabilityClient({ slug, initialData, initialError }: Readabili
 
   if (!data) {
     return (
-      <div className="p-4 bg-gray-50 border border-gray-200 rounded-md">
-        <p className="text-gray-600">No readability data available.</p>
+      <div className="p-4 bg-gray-900 border border-gray-800 rounded-md shadow-lg">
+        <p className="text-gray-300">No readability data available.</p>
         <button 
           onClick={refreshData}
-          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          className="mt-4 px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors focus:ring-2 focus:ring-primary-400 focus:ring-opacity-50"
           disabled={loading}
         >
           {loading ? (
@@ -82,11 +85,11 @@ export function ReadabilityClient({ slug, initialData, initialError }: Readabili
   }
 
   // Determine score color and message
-  let scoreColor = 'text-green-500';
+  let scoreColor = 'text-secondary-500';
   let scoreMessage = 'Excellent readability';
   
   if (data.score < 50) {
-    scoreColor = 'text-red-500';
+    scoreColor = 'text-accent-500';
     scoreMessage = 'Difficult to read';
   } else if (data.score < 70) {
     scoreColor = 'text-yellow-500';
@@ -95,23 +98,23 @@ export function ReadabilityClient({ slug, initialData, initialError }: Readabili
 
   return (
     <div className="max-w-4xl mx-auto p-4 md:p-8">
-      <div className="flex items-center mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <h1 className="text-2xl font-bold text-white">Readability Analysis</h1>
         <Link 
           href="/seo-dashboard" 
-          className="text-blue-400 hover:text-blue-300 transition-colors mr-4"
+          className="text-primary-400 hover:text-primary-300 transition-colors flex items-center"
         >
           ← Back to Dashboard
         </Link>
-        <h1 className="text-2xl font-bold">Readability Analysis</h1>
       </div>
       
-      <div className="mb-6">
-        <div className="text-sm text-gray-400 mb-2">Post</div>
+      <div className="mb-6 bg-gray-900 p-4 rounded-lg border border-gray-800">
+        <div className="text-sm text-gray-400 mb-2">Analyzing Post</div>
         <div className="flex items-center">
-          <BookOpen className="w-5 h-5 mr-2 text-blue-400" />
+          <BookOpen className="w-5 h-5 mr-2 text-primary-400" />
           <Link 
             href={`/blog/${slug}`} 
-            className="text-lg hover:text-blue-400 transition-colors"
+            className="text-lg hover:text-primary-400 transition-colors"
             target="_blank"
           >
             {slug}
@@ -120,31 +123,47 @@ export function ReadabilityClient({ slug, initialData, initialError }: Readabili
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div className="bg-gray-800 rounded-lg p-6 flex flex-col items-center justify-center text-center">
+        <div className="bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-800 shadow-lg hover:border-primary-800 transition-all">
           <div className="text-sm text-gray-400 mb-2">Readability Score</div>
           <div className={`text-4xl font-bold mb-2 ${scoreColor}`}>{data.score}</div>
           <div className={`text-sm ${scoreColor}`}>{scoreMessage}</div>
         </div>
         
-        <div className="bg-gray-800 rounded-lg p-6 flex flex-col items-center justify-center text-center">
+        <div className="bg-gray-900 rounded-lg p-6 flex flex-col items-center justify-center text-center border border-gray-800 shadow-lg hover:border-primary-800 transition-all">
           <div className="text-sm text-gray-400 mb-2">Reading Level</div>
           <Award className={`w-6 h-6 mb-2 ${
-            data.score > 70 ? 'text-green-500' : 
-            data.score > 50 ? 'text-yellow-500' : 'text-red-500'
+            data.score > 70 ? 'text-secondary-500' : 
+            data.score > 50 ? 'text-yellow-500' : 'text-accent-500'
           }`} />
-          <div className="text-xl font-medium">{data.readingLevel}</div>
+          <div className="text-xl font-medium text-white">{data.readingLevel}</div>
         </div>
       </div>
       
-      <div className="bg-gray-800 rounded-lg p-6">
-        <h3 className="text-xl font-semibold mb-4">Suggestions</h3>
+      <div className="bg-gray-900 rounded-lg p-6 border border-gray-800 shadow-lg">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-xl font-semibold text-white">Suggestions</h3>
+          <button 
+            onClick={refreshData}
+            className="px-3 py-1.5 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors text-sm focus:ring-2 focus:ring-primary-400 focus:ring-opacity-50 flex items-center"
+            disabled={loading}
+          >
+            {loading ? (
+              <span className="flex items-center">
+                <Loader2 className="mr-1 h-3 w-3 animate-spin" />
+                Refreshing...
+              </span>
+            ) : (
+              <span>Refresh Analysis</span>
+            )}
+          </button>
+        </div>
         
         {data.suggestions.length > 0 ? (
           <ul className="space-y-3">
             {data.suggestions.map((suggestion: string, i: number) => (
-              <li key={i} className="flex items-start gap-3">
+              <li key={i} className="flex items-start gap-3 bg-gray-800 p-3 rounded-md">
                 {suggestion.includes('No issues') ? (
-                  <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <CheckCircle className="w-5 h-5 text-secondary-500 flex-shrink-0 mt-0.5" />
                 ) : (
                   <AlertTriangle className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
                 )}

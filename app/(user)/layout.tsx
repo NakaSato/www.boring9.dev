@@ -31,21 +31,18 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html
       lang="en"
       className={clsx(
-        'text-black bg-white dark:text-white dark:bg-[#111010]',
+        'text-white bg-gray-950',
         graphik.variable
       )}
     >
       <Head />
 
-      <body className="bg-[#080809] transition ease">
+      <body className="bg-gray-950 min-h-screen flex flex-col transition-colors duration-300">
+        <FlareCursor />
         <Header />
-
-        <main className="flex flex-col items-center justify-center mx-auto">
-          <FlareCursor />
-
+        <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           {children}
         </main>
-
         <Footer />
       </body>
     </html>

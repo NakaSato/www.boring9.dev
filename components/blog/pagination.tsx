@@ -76,13 +76,13 @@ export default function Pagination({ currentPage, totalPages, basePath }: Pagina
           {currentPage > 1 ? (
             <Link 
               href={getPageUrl(currentPage - 1)}
-              className="flex items-center justify-center w-10 h-10 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors" 
+              className="flex items-center justify-center w-10 h-10 border border-primary-800/30 rounded-lg bg-gray-900/50 hover:bg-primary-900/30 hover:border-primary-700/50 transition-all duration-300 shadow-sm" 
               aria-label="Previous page"
             >
-              <ChevronLeft size={18} />
+              <ChevronLeft size={18} className="text-gray-300" />
             </Link>
           ) : (
-            <span className="flex items-center justify-center w-10 h-10 border border-gray-800 rounded-lg text-gray-600 cursor-not-allowed">
+            <span className="flex items-center justify-center w-10 h-10 border border-gray-800/20 rounded-lg text-gray-700 bg-gray-900/30 cursor-not-allowed">
               <ChevronLeft size={18} />
             </span>
           )}
@@ -98,10 +98,10 @@ export default function Pagination({ currentPage, totalPages, basePath }: Pagina
             ) : (
               <Link
                 href={getPageUrl(page as number)}
-                className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors ${
+                className={`flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-300 ${
                   currentPage === page
-                    ? 'bg-blue-600 text-white font-medium'
-                    : 'border border-gray-700 hover:bg-gray-800 text-gray-200'
+                    ? 'bg-primary-700 text-white font-medium border border-primary-600 shadow-md'
+                    : 'border border-primary-800/30 bg-gray-900/50 hover:bg-primary-900/30 hover:border-primary-700/50 text-gray-300 shadow-sm'
                 }`}
                 aria-label={`Page ${page}`}
                 aria-current={currentPage === page ? 'page' : undefined}
@@ -117,13 +117,13 @@ export default function Pagination({ currentPage, totalPages, basePath }: Pagina
           {currentPage < totalPages ? (
             <Link 
               href={getPageUrl(currentPage + 1)}
-              className="flex items-center justify-center w-10 h-10 border border-gray-700 rounded-lg hover:bg-gray-800 transition-colors" 
+              className="flex items-center justify-center w-10 h-10 border border-primary-800/30 rounded-lg bg-gray-900/50 hover:bg-primary-900/30 hover:border-primary-700/50 transition-all duration-300 shadow-sm" 
               aria-label="Next page"
             >
-              <ChevronRight size={18} />
+              <ChevronRight size={18} className="text-gray-300" />
             </Link>
           ) : (
-            <span className="flex items-center justify-center w-10 h-10 border border-gray-800 rounded-lg text-gray-600 cursor-not-allowed">
+            <span className="flex items-center justify-center w-10 h-10 border border-gray-800/20 rounded-lg text-gray-700 bg-gray-900/30 cursor-not-allowed">
               <ChevronRight size={18} />
             </span>
           )}
