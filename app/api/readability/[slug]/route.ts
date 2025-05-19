@@ -3,10 +3,10 @@ import { getReadabilityScore } from '@/lib/seo-validator';
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const slug = params.slug;
+    const { slug } = await params;
     const data = await getReadabilityScore(slug);
     return NextResponse.json(data);
   } catch (error) {

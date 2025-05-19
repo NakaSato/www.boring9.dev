@@ -24,8 +24,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { page: string }}) {
-  const pageNumber = parseInt(params.page);
+export async function generateMetadata({ params }: { params: Promise<{ page: string }> }) {
+  const { page } = await params;
+  const pageNumber = parseInt(page);
   
   return {
     title: `Blog Page ${pageNumber} | Boring9.dev`,
@@ -41,8 +42,9 @@ export async function generateMetadata({ params }: { params: { page: string }}) 
   };
 }
 
-export default async function BlogPage({ params }: { params: { page: string }}) {
-  const pageNumber = parseInt(params.page);
+export default async function BlogPage({ params }: { params: Promise<{ page: string }> }) {
+  const { page } = await params;
+  const pageNumber = parseInt(page);
   
   // If page number is invalid, redirect to the first page
   if (isNaN(pageNumber) || pageNumber < 1) {

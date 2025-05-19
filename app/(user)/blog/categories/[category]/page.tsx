@@ -12,12 +12,12 @@ import BackToCategoriesButton from '@/components/blog/back-to-categories-button'
 const POSTS_PER_PAGE = 9;
 
 interface CategoryPageProps {
-  params: {
+  params: Promise<{
     category: string;
-  };
-  searchParams: {
+  }>;
+  searchParams: Promise<{
     page?: string;
-  };
+  }>;
 }
 
 // Generate static params for common categories
@@ -36,8 +36,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: CategoryPageProps) {
-  const categorySlug = params.category;
-  const categoryName = categorySlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  const { category: categorySlug } = await params;
+  const categoryName = categorySlug.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase());
   
   return {
     title: `${categoryName} Articles | Boring9.dev Blog`,
@@ -56,11 +56,12 @@ export async function generateMetadata({ params }: CategoryPageProps) {
 }
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
-  const categorySlug = params.category;
-  const pageNumber = parseInt(searchParams.page || '1');
+  const { category: categorySlug } = await params;
+  const { page = '1' } = await searchParams;
+  const pageNumber = parseInt(page);
   
   // Convert slug to proper category name (replace hyphens with spaces and capitalize)
-  const categoryName = categorySlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  const categoryName = categorySlug.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase());
   
   // Get all posts
   const allPosts = await getAllBlogPosts();

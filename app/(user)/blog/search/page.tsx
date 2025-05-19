@@ -1,6 +1,7 @@
 import { getAllBlogPosts } from '@/lib/content';
 import BlogSearch from '@/components/blog/blog-search';
 import BlogContainer from '@/components/utils/BlogContainer';
+import { Suspense } from 'react';
 
 export const metadata = {
   title: 'Search Blog | Boring9.dev',
@@ -21,7 +22,9 @@ export default async function SearchPage() {
   
   return (
     <BlogContainer>
-      <BlogSearch posts={posts} />
+      <Suspense fallback={<div>Loading search...</div>}>
+        <BlogSearch posts={posts} />
+      </Suspense>
     </BlogContainer>
   );
 }

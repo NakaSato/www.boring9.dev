@@ -44,9 +44,18 @@ export default function TableOfContents() {
       // Find the last heading that's above the middle of the viewport
       const scrollPosition = window.scrollY + 150;
       
-      const currentHeading = headingElements
-        .filter((heading): heading is HTMLElement => heading !== null)
-        .findLast((heading) => heading.offsetTop <= scrollPosition);
+      const filteredHeadings = headingElements
+        .filter((heading): heading is HTMLElement => heading !== null);
+      
+      // Find the last heading element that's above the scroll position
+      let currentHeading: HTMLElement | null = null;
+      for (let i = 0; i < filteredHeadings.length; i++) {
+        if (filteredHeadings[i].offsetTop <= scrollPosition) {
+          currentHeading = filteredHeadings[i];
+        } else {
+          break;
+        }
+      }
       
       if (currentHeading) {
         setActiveId(currentHeading.id);

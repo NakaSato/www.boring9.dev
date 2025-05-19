@@ -7,16 +7,11 @@ interface ReadabilityData {
   suggestions: string[];
 }
 
-export default async function ReadabilityPage({
-  params
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ReadabilityPage({ params }: { params: { slug: string } }) {
   let data: ReadabilityData | null = null;
   let error: string | null = null;
   
-  // Await the params object before accessing its properties
-  const { slug } = await params;
+  const slug = params.slug;
   
   try {
     data = await getReadabilityScore(slug);
