@@ -189,7 +189,7 @@ const Footer = () => {
               {/* Explore Section - Enhanced Blue Theme */}
               <div className="text-center md:text-left">
                 <div className="mb-8">
-                  <div className="flex items-center justify-center md:justify-start mb-4 group cursor-pointer">
+                  <div className="flex items-center justify-center md:justify-start mb-4 group">
                     <div className="relative">
                       <div className="w-3 h-3 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full shadow-lg shadow-blue-500/50 group-hover:scale-125 transition-transform duration-300 animate-glow-advanced" />
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-full blur-sm opacity-60 group-hover:opacity-80 transition-opacity duration-300 animate-border-pulse" />
@@ -199,7 +199,7 @@ const Footer = () => {
                       Explore
                     </h3>
                   </div>
-                  <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto md:mx-0 rounded-full shadow-lg shadow-blue-500/25 hover:w-20 hover:h-1.5 transition-all duration-500 cursor-pointer animate-border-pulse-slow" />
+                  <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-cyan-500 mx-auto md:mx-0 rounded-full shadow-lg shadow-blue-500/25 hover:w-20 hover:h-1.5 transition-all duration-500 animate-border-pulse-slow" />
                 </div>
                 
                 <nav className="space-y-5">
@@ -244,7 +244,7 @@ const Footer = () => {
               {/* Content Section - Enhanced Purple Theme */}
               <div className="text-center md:text-left">
                 <div className="mb-8">
-                  <div className="flex items-center justify-center md:justify-start mb-4 group cursor-pointer">
+                  <div className="flex items-center justify-center md:justify-start mb-4 group">
                     <div className="relative">
                       <div className="w-3 h-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full shadow-lg shadow-purple-500/50 group-hover:scale-125 transition-transform duration-300 animate-glow-advanced [animation-delay:2s]" />
                       <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full blur-sm opacity-60 group-hover:opacity-80 transition-opacity duration-300 animate-border-pulse [animation-delay:1s]" />
@@ -287,7 +287,7 @@ const Footer = () => {
               {/* Connect Section - Enhanced Green Theme */}
               <div className="text-center md:text-left">
                 <div className="mb-8">
-                  <div className="flex items-center justify-center md:justify-start mb-4 group cursor-pointer">
+                  <div className="flex items-center justify-center md:justify-start mb-4 group">
                     <div className="relative">
                       <div className="w-3 h-3 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full shadow-lg shadow-emerald-500/50 group-hover:scale-125 transition-transform duration-300 animate-glow-advanced [animation-delay:4s]" />
                       <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 to-teal-400 rounded-full blur-sm opacity-60 group-hover:opacity-80 transition-opacity duration-300 animate-border-pulse [animation-delay:2s]" />
@@ -297,7 +297,7 @@ const Footer = () => {
                       Connect
                     </h3>
                   </div>
-                  <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto md:mx-0 rounded-full shadow-lg shadow-emerald-500/25 hover:w-20 hover:h-1.5 transition-all duration-500 cursor-pointer animate-border-pulse-slow [animation-delay:2s]" />
+                  <div className="w-16 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 mx-auto md:mx-0 rounded-full shadow-lg shadow-emerald-500/25 hover:w-20 hover:h-1.5 transition-all duration-500 animate-border-pulse-slow [animation-delay:2s]" />
                 </div>
                 
                 {/* Ultra Modern Social Links with 3D Effects */}
