@@ -14,6 +14,10 @@ const MenuIcon = (props: JSX.IntrinsicElements['svg']) => {
       height="20"
       viewBox="0 0 20 20"
       fill="none"
+      style={{
+        shapeRendering: "geometricPrecision",
+        transform: "translateZ(0)"
+      }}
       {...props}
     >
       <path
@@ -47,6 +51,9 @@ const CrossIcon = (props: JSX.IntrinsicElements['svg']) => {
       strokeLinejoin="round"
       fill="none"
       shapeRendering="geometricPrecision"
+      style={{
+        transform: "translateZ(0)"
+      }}
       {...props}
     >
       <path d="M18 6L6 18" />
@@ -72,6 +79,10 @@ const MobileMenuNav = () => {
         aria-label="Toggle menu"
         type="button"
         onClick={toggleMenu}
+        style={{
+          willChange: "transform",
+          transform: "translateZ(0)"
+        }}
       >
         <MenuIcon data-hide={isMenuOpen} />
 
@@ -84,6 +95,11 @@ const MobileMenuNav = () => {
             'flex flex-col items-start justify-center absolute right-0 backdrop-blur-sm bg-black/20 text-end p-5 rounded-br-2xl mr-5',
             isMenuRendered && styles.menuRendered
           )}
+          style={{
+            willChange: "transform, opacity",
+            transform: "translateZ(0)",
+            backdropFilter: "blur(8px)"
+          }}
         >
           <LinksMenuNav />
         </ul>

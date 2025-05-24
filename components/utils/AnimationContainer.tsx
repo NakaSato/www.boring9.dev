@@ -12,7 +12,15 @@ const AnimationContainer = ({
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ delay: customDelay }}
+      transition={{ 
+        delay: customDelay,
+        ease: [0.4, 0, 0.2, 1] // Chrome-optimized cubic-bezier
+      }}
+      style={{
+        // Chrome optimization: Enable hardware acceleration
+        willChange: "transform, opacity",
+        transform: "translateZ(0)"
+      }}
     >
       {children}
     </motion.div>

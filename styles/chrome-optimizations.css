@@ -1,0 +1,259 @@
+/* Chrome-specific CSS optimizations */
+
+/* Enable hardware acceleration for better performance */
+.chrome-optimized {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Optimize text rendering in Chrome */
+.chrome-text {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: auto;
+  -webkit-font-kerning: auto;
+}
+
+/* Better gradient performance in Chrome */
+.chrome-gradient {
+  background-attachment: scroll;
+  -webkit-background-attachment: scroll;
+  background-blend-mode: normal;
+  -webkit-background-blend-mode: normal;
+}
+
+/* SVG optimization for Chrome */
+.chrome-svg {
+  shape-rendering: geometricPrecision;
+  -webkit-shape-rendering: geometricPrecision;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+}
+
+/* Transition optimizations for Chrome */
+.chrome-transition {
+  will-change: transform, opacity, color, background-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Chrome-specific filter optimizations */
+.chrome-filter {
+  -webkit-filter: blur(0);
+  filter: blur(0);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Backdrop filter optimizations */
+.chrome-backdrop {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Grid layout optimizations for Chrome */
+.chrome-grid {
+  display: grid;
+  contain: layout style paint;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Flexbox optimizations for Chrome */
+.chrome-flex {
+  display: flex;
+  contain: layout style;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Animation performance optimizations */
+@keyframes chrome-fade-in {
+  from {
+    opacity: 0;
+    transform: translateZ(0) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateZ(0) translateY(0);
+  }
+}
+
+.chrome-animate {
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+}
+
+/* Scroll performance optimizations */
+.chrome-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  contain: layout style paint;
+  will-change: scroll-position;
+}
+
+/* Border radius optimizations */
+.chrome-border {
+  border-radius: 0.75rem;
+  -webkit-border-radius: 0.75rem;
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+}
+
+/* Box shadow optimizations */
+.chrome-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  -webkit-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Transform optimizations */
+.chrome-transform {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+/* Opacity optimizations */
+.chrome-opacity {
+  opacity: 1;
+  -webkit-opacity: 1;
+  will-change: opacity;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Chrome Performance Monitoring CSS */
+.chrome-performance-monitor {
+  contain: strict;
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+/* Chrome-specific focus optimizations */
+.chrome-focus {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+  transition: outline-color 0.15s ease-in-out;
+  -webkit-transition: outline-color 0.15s ease-in-out;
+}
+
+/* Chrome memory optimization for large lists */
+.chrome-virtualized {
+  contain: strict;
+  overflow: auto;
+  height: 100%;
+  will-change: scroll-position;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Chrome font loading optimization */
+.chrome-font-display {
+  font-display: swap;
+  font-synthesis: none;
+  -webkit-font-synthesis: none;
+}
+
+/* Chrome input optimizations */
+.chrome-input {
+  contain: layout style;
+  will-change: border-color, box-shadow;
+  transition-property: border-color, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-transition-property: border-color, box-shadow;
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Chrome video/media optimizations */
+.chrome-video {
+  object-fit: cover;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Chrome table optimizations */
+.chrome-table {
+  table-layout: fixed;
+  contain: layout style;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Chrome modal/overlay optimizations */
+.chrome-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  will-change: opacity, visibility;
+}
+
+/* Chrome tooltip optimizations */
+.chrome-tooltip {
+  contain: layout style paint;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: opacity, transform;
+  pointer-events: none;
+}
+
+/* Chrome dropdown optimizations */
+.chrome-dropdown {
+  contain: layout style paint;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: opacity, transform, visibility;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Chrome print optimizations */
+@media print {
+  .chrome-print-optimize {
+    transform: none !important;
+    will-change: auto !important;
+    contain: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* Chrome dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .chrome-dark-mode {
+    color-scheme: dark;
+    -webkit-color-scheme: dark;
+  }
+}
+
+/* Chrome high contrast optimizations */
+@media (prefers-contrast: high) {
+  .chrome-high-contrast {
+    filter: contrast(1.2);
+    -webkit-filter: contrast(1.2);
+  }
+}
+
+/* Chrome reduced transparency optimization */
+@media (prefers-reduced-transparency: reduce) {
+  .chrome-reduce-transparency {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
+  }
+}

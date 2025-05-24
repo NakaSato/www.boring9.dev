@@ -32,10 +32,31 @@ export const navItemsSelected: { [key: string]: NavItemHeaderAnimation } = {
   }
 };
 
-const LinksNav = () => {
+const LinksNav = ({ isMounted = true }: { isMounted?: boolean }) => {
   let pathname = usePathname() as string;
+  
+  // Handle blog subpaths
+  if (pathname.includes('/blog/')) pathname = '/blog';
+
+  // Don't render active styles until mounted to prevent hydration mismatch
+  if (!isMounted) {
+    return (
+      <div className="hidden lg:flex items-center space-x-1">
+        {Object.entries(navItemsSelected).map(([path, { name }]) => (
+          <Link
+            key={path}
+            href={path}
+            className="relative px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:text-white hover:bg-gray-800/30 text-gray-400"
+          >
+            {name}
+          </Link>
+        ))}
+      </div>
+    );
+  }
+  
   return (
-    <>
+    <div className="hidden lg:flex items-center space-x-1">
       {Object.entries(navItemsSelected).map(([path, { name }]) => {
         const isActive = path === pathname;
 
@@ -44,18 +65,21 @@ const LinksNav = () => {
             key={path}
             href={path}
             className={cn(
-              'hidden lg:inline-block transition ease hover:text-neutral-200 py-[2px] px-[10px]',
+              'relative px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:text-white hover:bg-gray-800/30',
               {
-                'text-neutral-500': !isActive,
-                'font-bold': isActive
+                'text-gray-400': !isActive,
+                'text-white bg-gray-800/20': isActive
               }
             )}
           >
             {name}
+            {isActive && (
+              <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full"></span>
+            )}
           </Link>
         );
       })}
-    </>
+    </div>
   );
 };
 

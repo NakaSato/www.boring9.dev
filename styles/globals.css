@@ -1,9 +1,102 @@
+/* Import Chrome-specific optimizations */
+@import './chrome-optimizations.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Responsive utilities layer */
+@layer utilities {
+  /* Enhanced line clamping for different screen sizes */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Responsive text sizes with better scaling */
+  .text-responsive-xs {
+    @apply text-xs xs:text-sm md:text-base;
+  }
+  
+  .text-responsive-sm {
+    @apply text-sm xs:text-base md:text-lg;
+  }
+  
+  .text-responsive-base {
+    @apply text-base xs:text-lg md:text-xl;
+  }
+  
+  .text-responsive-lg {
+    @apply text-lg xs:text-xl md:text-2xl;
+  }
+  
+  .text-responsive-xl {
+    @apply text-xl xs:text-2xl md:text-3xl;
+  }
+  
+  /* Responsive spacing utilities */
+  .space-responsive-sm {
+    @apply space-y-2 xs:space-y-3 md:space-y-4;
+  }
+  
+  .space-responsive-md {
+    @apply space-y-4 xs:space-y-6 md:space-y-8;
+  }
+  
+  .space-responsive-lg {
+    @apply space-y-6 xs:space-y-8 md:space-y-12;
+  }
+  
+  /* Responsive padding utilities */
+  .p-responsive-sm {
+    @apply p-2 xs:p-3 md:p-4;
+  }
+  
+  .p-responsive-md {
+    @apply p-4 xs:p-6 md:p-8;
+  }
+  
+  .p-responsive-lg {
+    @apply p-6 xs:p-8 md:p-12;
+  }
+  
+  /* Mobile-optimized touch targets */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] mobile:min-h-[48px] mobile:min-w-[48px];
+  }
+  
+  /* Responsive grid utilities */
+  .grid-responsive-auto {
+    @apply grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+  }
+  
+  .grid-responsive-blog {
+    @apply grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4;
+  }
+}
+
 html,body {
   scroll-behavior: smooth;
+  /* Chrome optimization: Better text rendering */
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body, * {
@@ -286,4 +379,407 @@ table {
         rgba(128, 128, 128, 0) 25%
       );
   }
+}
+
+/* ========================================
+   CROSS-BROWSER COMPATIBILITY UTILITIES
+   ======================================== */
+
+/* CSS Reset for older browsers */
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+/* HTML5 elements display fixes for IE9+ */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, nav, section, summary {
+  display: block;
+}
+
+/* CSS Grid fallbacks for older browsers */
+@supports not (display: grid) {
+  .grid {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  
+  .grid > * {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .grid-cols-1 > * { width: 100%; }
+  .grid-cols-2 > * { width: 50%; }
+  .grid-cols-3 > * { width: 33.333%; }
+  .grid-cols-4 > * { width: 25%; }
+  .grid-cols-6 > * { width: 16.666%; }
+  .grid-cols-12 > * { width: 8.333%; }
+}
+
+/* Flexbox fallbacks and prefixes */
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.inline-flex {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.items-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.items-start {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+
+.justify-center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.justify-between {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.flex-col {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.flex-wrap {
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+/* Backdrop filter fallbacks */
+@supports not (backdrop-filter: blur(10px)) {
+  .backdrop-blur-sm {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .backdrop-blur {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .backdrop-blur-lg {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* WebKit backdrop filter support */
+.backdrop-blur-sm {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.backdrop-blur {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.backdrop-blur-lg {
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+/* Transform fallbacks with vendor prefixes */
+.transform {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.scale-110 {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.scale-105 {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.rotate-3 {
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  transform: rotate(3deg);
+}
+
+.-rotate-3 {
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+
+/* Transition fallbacks with vendor prefixes */
+.transition-all {
+  -webkit-transition: all 0.15s ease-in-out;
+  -moz-transition: all 0.15s ease-in-out;
+  -ms-transition: all 0.15s ease-in-out;
+  -o-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+
+.transition-colors {
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  -moz-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  -ms-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.transition-transform {
+  -webkit-transition: -webkit-transform 0.15s ease-in-out;
+  -moz-transition: -moz-transform 0.15s ease-in-out;
+  -ms-transition: -ms-transform 0.15s ease-in-out;
+  -o-transition: -o-transform 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out;
+}
+
+/* Filter effects fallbacks with vendor prefixes */
+.blur-3xl {
+  filter: blur(48px);
+  -webkit-filter: blur(48px);
+  -moz-filter: blur(48px);
+  -ms-filter: blur(48px);
+  -o-filter: blur(48px);
+  opacity: 0.3;
+}
+
+.blur-2xl {
+  filter: blur(40px);
+  -webkit-filter: blur(40px);
+  -moz-filter: blur(40px);
+  -ms-filter: blur(40px);
+  -o-filter: blur(40px);
+  opacity: 0.4;
+}
+
+.blur-xl {
+  filter: blur(24px);
+  -webkit-filter: blur(24px);
+  -moz-filter: blur(24px);
+  -ms-filter: blur(24px);
+  -o-filter: blur(24px);
+  opacity: 0.5;
+}
+
+/* Hardware acceleration for better performance */
+.gpu-accelerated {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
+}
+
+/* Custom Responsive Utilities */
+@media (max-width: 475px) {
+  .mobile-optimized {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .text-mobile-sm {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+  
+  .text-mobile-base {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  
+  .text-mobile-lg {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+@media (min-width: 475px) and (max-width: 640px) {
+  .xs-optimized {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tablet-optimized {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Enhanced line clamping for cross-browser support */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Touch-friendly interactive elements */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Responsive text sizing */
+.text-responsive-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+@media (min-width: 475px) {
+  .text-responsive-xs {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .text-responsive-xs {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+.text-responsive-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+@media (min-width: 475px) {
+  .text-responsive-sm {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .text-responsive-sm {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+/* Responsive padding utilities */
+.p-responsive-sm {
+  padding: 0.5rem;
+}
+
+@media (min-width: 475px) {
+  .p-responsive-sm {
+    padding: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .p-responsive-sm {
+    padding: 1rem;
+  }
+}
+
+.p-responsive-md {
+  padding: 1rem;
+}
+
+@media (min-width: 475px) {
+  .p-responsive-md {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .p-responsive-md {
+    padding: 2rem;
+  }
+}
+
+/* Chrome optimization for transforms */
+.will-change-transform {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.will-change-scroll {
+  will-change: scroll-position;
+}
+
+.contain-layout {
+  contain: layout;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+.contain-style {
+  contain: style;
+}
+
+.contain-all {
+  contain: layout style paint;
 }

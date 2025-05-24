@@ -56,10 +56,17 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
   };
   
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto" style={{
+      // Chrome optimization: Layout containment for search container
+      contain: "layout style",
+      transform: "translateZ(0)"
+    }}>
       <h1 className="text-3xl font-bold mb-6">Search Blog Posts</h1>
       
-      <div className="mb-8">
+      <div className="mb-8" style={{
+        // Chrome optimization: Form container optimization
+        contain: "layout style"
+      }}>
         <div className="relative mb-4">
           <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
           <input
@@ -69,6 +76,11 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             aria-label="Search blog posts"
+            style={{
+              // Chrome optimization: Input field optimization
+              willChange: "border-color, box-shadow",
+              transform: "translateZ(0)"
+            }}
           />
         </div>
         
@@ -77,7 +89,10 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
             <FilterIcon size={16} className="mr-2 text-gray-400" />
             <span className="text-sm text-gray-400">Filter by tag:</span>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2" style={{
+            // Chrome optimization: Tag container optimization
+            contain: "layout"
+          }}>
             {allTags.map(tag => (
               <button
                 key={tag}
@@ -88,6 +103,11 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
                 }`}
                 aria-pressed={selectedTag === tag}
+                style={{
+                  // Chrome optimization: Button performance
+                  willChange: "background-color, color",
+                  transform: "translateZ(0)"
+                }}
               >
                 #{tag}
               </button>

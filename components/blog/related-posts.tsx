@@ -37,27 +37,27 @@ export default function RelatedPosts({
   }
 
   return (
-    <div className="mt-12 pt-8 border-t border-gray-800">
-      <h3 className="text-2xl font-bold mb-6">Related Posts</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="mt-8 xs:mt-10 md:mt-12 pt-6 xs:pt-8 border-t border-gray-800 mobile:mx-4">
+      <h3 className="text-lg xs:text-xl md:text-2xl font-bold mb-4 xs:mb-6">Related Posts</h3>
+      <div className="grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-5 md:gap-6">
         {relatedPosts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
-            <div className="flex flex-col bg-gray-900 rounded-lg overflow-hidden shadow-md transition-all hover:shadow-xl group-hover:transform group-hover:-translate-y-1">
+            <div className="flex flex-col bg-gray-900 rounded-lg xs:rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl group-hover:transform group-hover:-translate-y-1 mobile:hover:-translate-y-0.5 h-full">
               {post.coverImage && (
                 <div className="relative w-full aspect-video">
                   <Image
                     src={post.coverImage}
                     alt={`Cover image for ${post.title}`}
                     fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 20vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 475px) 100vw, (max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     loading="lazy"
                   />
                 </div>
               )}
-              <div className="p-4">
-                <h4 className="text-lg font-semibold group-hover:text-blue-400 transition-colors">{post.title}</h4>
-                <p className="text-sm text-gray-400 mt-2 line-clamp-2">{post.excerpt}</p>
+              <div className="p-3 xs:p-4 md:p-5 flex-grow">
+                <h4 className="text-base xs:text-lg font-semibold group-hover:text-blue-400 transition-colors leading-tight mb-2">{post.title}</h4>
+                <p className="text-xs xs:text-sm text-gray-400 line-clamp-2 xs:line-clamp-3 leading-relaxed">{post.excerpt}</p>
               </div>
             </div>
           </Link>

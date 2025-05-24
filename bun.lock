@@ -22,6 +22,7 @@
         "framer-motion": "^8.5.5",
         "next": "15.0.3",
         "next-mdx-remote": "^5.0.0",
+        "postcss-flexbugs-fixes": "^5.0.2",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "sharp": "^0.31.3",
@@ -1197,6 +1198,8 @@
     "postcss-double-position-gradients": ["postcss-double-position-gradients@3.1.2", "", { "dependencies": { "@csstools/postcss-progressive-custom-properties": "^1.1.0", "postcss-value-parser": "^4.2.0" }, "peerDependencies": { "postcss": "^8.2" } }, "sha512-GX+FuE/uBR6eskOK+4vkXgT6pDkexLokPaz/AbJna9s5Kzp/yl488pKPjhy0obB475ovfT1Wv8ho7U/cHNaRgQ=="],
 
     "postcss-env-function": ["postcss-env-function@4.0.6", "", { "dependencies": { "postcss-value-parser": "^4.2.0" }, "peerDependencies": { "postcss": "^8.4" } }, "sha512-kpA6FsLra+NqcFnL81TnsU+Z7orGtDTxcOhl6pwXeEq1yFPpRMkCDpHhrz8CFQDr/Wfm0jLiNQ1OsGGPjlqPwA=="],
+
+    "postcss-flexbugs-fixes": ["postcss-flexbugs-fixes@5.0.2", "", { "peerDependencies": { "postcss": "^8.1.4" } }, "sha512-18f9voByak7bTktR2QgDveglpn9DTbBWPUzSOe9g0N4WR/2eSt6Vrcbf0hmspvMI6YWGywz6B9f7jzpFNJJgnQ=="],
 
     "postcss-focus-visible": ["postcss-focus-visible@6.0.4", "", { "dependencies": { "postcss-selector-parser": "^6.0.9" }, "peerDependencies": { "postcss": "^8.4" } }, "sha512-QcKuUU/dgNsstIK6HELFRT5Y3lbrMLEOwG+A4s5cA+fx3A3y/JTq3X9LaOj3OC3ALH0XqyrgQIgey/MIZ8Wczw=="],
 
