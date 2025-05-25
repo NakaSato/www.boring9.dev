@@ -1,7 +1,7 @@
 // components/blog/affiliate-link.tsx
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { ExternalLink, Tag, ArrowRight } from 'lucide-react';
 import { AffiliateLink } from '@/lib/get-content';
@@ -21,6 +21,14 @@ export default function AffiliateLinkComponent({
   context = 'blog-post'
 }: AffiliateLinkProps) {
   const { trackClick } = useAffiliateTracking();
+  
+  // Log the affiliate link details for debugging
+  useEffect(() => {
+    console.log(`Rendering affiliate link: ${link.title}`, {
+      imageUrl: link.imageUrl,
+      platform: link.platform
+    });
+  }, [link.title, link.imageUrl, link.platform]);
 
   const handleClick = () => {
     trackClick(link, context);
