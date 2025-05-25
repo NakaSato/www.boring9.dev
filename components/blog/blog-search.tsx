@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { BlogPostProps } from '@/lib/get-content';
 import BlogCard from '@/components/blog/blog-card';
+import ResponsiveBlogGrid from '@/components/blog/responsive-blog-grid';
+import ResponsiveBlogLayout from '@/components/blog/responsive-blog-layout';
 import AnimationContainer from '@/components/utils/AnimationContainer';
 import { SearchIcon, FilterIcon } from 'lucide-react';
 

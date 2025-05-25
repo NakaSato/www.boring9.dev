@@ -37,6 +37,14 @@ const NavItem = () => {
                   stiffness: 350,
                   damping: 30
                 }}
+                style={{
+                  height: '40px',
+                  background: 'linear-gradient(to right, rgba(14, 165, 233, 0.2), rgba(14, 165, 233, 0.3), rgba(14, 165, 233, 0.2))',
+                  borderRadius: '8px',
+                  border: '1px solid rgba(14, 165, 233, 0.4)',
+                  boxShadow: '0 4px 12px rgba(14, 165, 233, 0.2)',
+                  backdropFilter: 'blur(4px)'
+                }}
               />
             </div>
           </div>

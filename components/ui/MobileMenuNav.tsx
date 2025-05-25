@@ -9,7 +9,7 @@ import LinksMenuNav from './LinksMenuNav';
 const MenuIcon = (props: JSX.IntrinsicElements['svg']) => {
   return (
     <svg
-      className="h-5 w-5 absolute text-gray-200"
+      className="h-5 w-5 absolute text-gray-300 hover:text-primary-400 transition-colors"
       width="20"
       height="20"
       viewBox="0 0 20 20"
@@ -37,7 +37,7 @@ const MenuIcon = (props: JSX.IntrinsicElements['svg']) => {
 const CrossIcon = (props: JSX.IntrinsicElements['svg']) => {
   return (
     <svg
-      className="h-5 w-5 absolute text-gray-200"
+      className="h-5 w-5 absolute text-gray-300 hover:text-primary-400 transition-colors"
       viewBox="0 0 24 24"
       width="24"
       height="24"
@@ -84,7 +84,7 @@ const MobileMenuNav = () => {
   return (
     <>
       <button
-        className={cn(styles.burger, 'visible lg:hidden')}
+        className={cn(styles.burger, 'visible lg:hidden hover:bg-primary-500/10 rounded-lg p-2 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/20')}
         aria-label="Toggle menu"
         type="button"
         onClick={toggleMenu}
@@ -97,7 +97,7 @@ const MobileMenuNav = () => {
         <ul
           className={cn(
             styles.menu,
-            'flex flex-col items-start justify-center absolute right-0 backdrop-blur-lg bg-white/90 text-end p-6 rounded-lg shadow-xl border border-gray-200 z-50',
+            'flex flex-col items-start justify-center absolute right-0 backdrop-blur-xl bg-gradient-to-br from-gray-900/95 via-black/90 to-gray-800/95 text-end p-6 rounded-xl shadow-2xl border border-primary-500/30 z-50',
             isMenuRendered && styles.menuRendered
           )}
         >

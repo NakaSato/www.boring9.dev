@@ -51,14 +51,14 @@ const LinksNav = ({ isMounted = false }: LinksNavProps) => {
   // Prevent hydration mismatch by not showing active state until mounted
   if (!shouldShowActiveState) {
     return (
-      <div className="hidden lg:flex items-center space-x-1">
+      <div className="hidden lg:flex items-center space-x-2">
         {Object.entries(navItemsSelected).map(([path, { name }]) => (
           <Link
             key={path}
             href={path}
-            className="relative px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-white hover:text-primary-400"
+            className="relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 text-gray-300 hover:text-primary-300 hover:bg-primary-500/10"
           >
-            {name}
+            <span className="relative z-10">{name}</span>
           </Link>
         ))}
       </div>
@@ -66,7 +66,7 @@ const LinksNav = ({ isMounted = false }: LinksNavProps) => {
   }
 
   return (
-    <div className="hidden lg:flex items-center space-x-1">
+    <div className="hidden lg:flex items-center space-x-2">
       {Object.entries(navItemsSelected).map(([path, { name }]) => {
         const isActive = path === pathname;
 
@@ -75,14 +75,17 @@ const LinksNav = ({ isMounted = false }: LinksNavProps) => {
             key={path}
             href={path}
             className={cn(
-              'relative px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200',
+              'relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 group',
               {
-                'text-gray-300 hover:text-primary-400': !isActive,
-                'text-primary-400 font-bold': isActive
+                'text-gray-300 hover:text-primary-300 hover:bg-primary-500/10 hover:shadow-lg hover:shadow-primary-500/20': !isActive,
+                'text-primary-400 bg-primary-500/20 shadow-md shadow-primary-500/30 font-bold': isActive
               }
             )}
           >
-            {name}
+            <span className="relative z-10">{name}</span>
+            {!isActive && (
+              <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary-500/0 via-primary-500/5 to-primary-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            )}
           </Link>
         );
       })}
