@@ -20,6 +20,13 @@ export default function AffiliateLinksSection({
   if (!links || links.length === 0) {
     return null;
   }
+  
+  // Log for debugging
+  console.log('Rendering affiliate links section:', links.map(l => ({
+    id: l.id,
+    title: l.title,
+    imageUrl: l.imageUrl
+  })));
 
   return (
     <div className={`my-8 ${className}`}>

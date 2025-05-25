@@ -71,7 +71,7 @@ export default function AffiliateLinkComponent({
         {link.imageUrl && (
           <div className="flex-shrink-0">
             <Image
-              src={link.imageUrl}
+              src={link.imageUrl || '/images/affiliates/product.svg'}
               alt={link.title}
               width={80}
               height={80}
@@ -80,6 +80,8 @@ export default function AffiliateLinkComponent({
                 // If image fails to load, replace with a placeholder
                 e.currentTarget.src = `/images/affiliates/product.svg`;
               }}
+              placeholder="blur"
+              blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iODAiIGZpbGw9IiMzMzMiLz48L3N2Zz4="
             />
           </div>
         )}

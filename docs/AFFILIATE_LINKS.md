@@ -98,10 +98,11 @@ The system includes built-in support for:
 ### Example Image Structure
 ```
 /public/images/affiliates/
-├── amazon-kindle.svg
-├── macbook-pro.svg
-├── notion-pro.svg
-└── figma-pro.svg
+├── github-copilot.svg
+├── vercel.svg
+├── figma.svg
+├── webstorm.svg
+└── amazon-aws.svg
 ```
 
 ## FTC Compliance
@@ -211,9 +212,10 @@ Access the affiliate link management interface at `/admin/affiliate-manager` to:
 - Verify all required fields are present
 
 **Images not loading:**
-- Check image paths are correct
+- Check image paths are correct (we recommend using SVG files)
 - Ensure images exist in `/public/images/affiliates/`
-- Verify image file extensions
+- Verify image file extensions match the reference in the blog post
+- If needed, run `node scripts/fix-affiliate-images.js` to generate missing placeholder images
 
 **Tracking not working:**
 - Confirm analytics is properly installed

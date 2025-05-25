@@ -12,6 +12,8 @@
     "start": "next start",
     "lint": "next lint",
     "check-links": "bun run scripts/check-broken-links.ts",
+    "check-images": "node scripts/check-image-links.js",
+    "fix-affiliates": "node scripts/fix-affiliate-images.js",
     "seo-validate": "curl -X GET http://localhost:3000/api/seo-validation"
   },
   "dependencies": {
