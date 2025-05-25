@@ -7,6 +7,7 @@ module.exports = {
     './layouts/**/*.tsx', 
     './app/**/*.tsx'
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -52,10 +53,11 @@ module.exports = {
         },
         gray: {
           0: '#fff',
-          100: '#fafafa',
+          50: '#fafafa',
+          100: '#f5f5f5',
           200: '#eaeaea',
-          300: '#999999',
-          400: '#d4d4d4',
+          300: '#d4d4d4',
+          400: '#999999',
           500: '#666666',
           600: '#444444',
           700: '#333333',
@@ -70,54 +72,35 @@ module.exports = {
       typography: (theme) => ({
         DEFAULT: {
           css: {
-            color: theme('colors.gray.700'),
-            a: {
-              color: theme('colors.blue.500'),
-              '&:hover': {
-                color: theme('colors.blue.700')
-              },
-              code: { color: theme('colors.blue.400') }
-            },
-            'h2,h3,h4': {
-              'scroll-margin-top': spacing[32]
-            },
-            thead: {
-              borderBottomColor: theme('colors.gray.200')
-            },
-            code: { color: theme('colors.pink.500') },
-            'blockquote p:first-of-type::before': false,
-            'blockquote p:last-of-type::after': false
-          }
-        },
-        invert: {
-          css: {
             color: theme('colors.gray.300'),
             a: {
-              color: theme('colors.blue.400'),
+              color: theme('colors.primary.400'),
               '&:hover': {
-                color: theme('colors.blue.300')
+                color: theme('colors.primary.300')
               },
-              code: { color: theme('colors.blue.300') }
-            },
-            blockquote: {
-              borderLeftColor: theme('colors.gray.700'),
-              color: theme('colors.gray.300')
+              code: { color: theme('colors.primary.400') }
             },
             'h1,h2,h3,h4,h5,h6': {
-              color: theme('colors.gray.100')
-            },
-            hr: { borderColor: theme('colors.gray.700') },
-            ol: {
-              li: {
-                '&:before': { color: theme('colors.gray.500') }
-              }
-            },
-            ul: {
-              li: {
-                '&:before': { backgroundColor: theme('colors.gray.500') }
-              }
+              color: theme('colors.gray.100'),
+              'scroll-margin-top': spacing[32]
             },
             strong: { color: theme('colors.gray.100') },
+            code: { 
+              color: theme('colors.yellow.400'),
+              backgroundColor: theme('colors.gray.800'),
+              padding: '0.125rem 0.375rem',
+              borderRadius: '0.375rem',
+              border: `1px solid ${theme('colors.gray.700')}`
+            },
+            pre: {
+              backgroundColor: theme('colors.gray.900'),
+              border: `1px solid ${theme('colors.gray.700')}`
+            },
+            blockquote: {
+              borderLeftColor: theme('colors.gray.600'),
+              color: theme('colors.gray.300')
+            },
+            hr: { borderColor: theme('colors.gray.700') },
             thead: {
               color: theme('colors.gray.100'),
               borderBottomColor: theme('colors.gray.600')
@@ -126,11 +109,15 @@ module.exports = {
               tr: {
                 borderBottomColor: theme('colors.gray.700')
               }
-            }
+            },
+            'blockquote p:first-of-type::before': false,
+            'blockquote p:last-of-type::after': false
           }
         }
       })
     }
   },
-  plugins: [require('@tailwindcss/typography')]
+  plugins: [
+    require('@tailwindcss/typography')
+  ]
 };

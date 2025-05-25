@@ -3,9 +3,9 @@ import AnimationContainer from '../utils/AnimationContainer';
 const ContactMe = () => {
   return (
     <AnimationContainer>
-      <div className="w-full">
+      <div className="w-full bg-gray-950 py-16">
         <h2
-          className="font-bold text-2xl md:text-2xl tracking-tight mb-8 text-white text-center lg:text-start"
+          className="font-bold text-2xl md:text-2xl tracking-tight mb-8 text-gray-100 text-center lg:text-start"
           id="contact"
         >
           Contact me
@@ -14,16 +14,16 @@ const ContactMe = () => {
         <div className="w-full flex justify-between items-center flex-col mx-auto max-w-screen-xl">
           <div className="w-full flex justify-between items-center flex-col lg:flex-row gap-6 mb-10">
             <a
-              href="mailto:jeanrdev@gmail.com"
+              href="mailto:wit.chanthawat@gmail.com"
               target="_blank"
               rel="noreferrer"
               className="w-full"
             >
-              <div className="rounded border border-gray-800 hover:border-gray-900 bg-[#080809] p-4 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] sm:p-6 transition ease">
-                <h6 className="font-bold text-1xl tracking-tight text-white text-start">
+              <div className="rounded-lg border border-gray-700 hover:border-gray-600 bg-gradient-to-br from-gray-800 to-gray-900 p-4 shadow-lg hover:shadow-[0_12px_40px_rgb(0,0,0,0.6)] sm:p-6 transition-all duration-300 ease-in-out hover:scale-[1.02] backdrop-blur-sm">
+                <h6 className="font-bold text-xl tracking-tight text-gray-100 text-start">
                   Email
                 </h6>
-                <p className="text-base mt-2 text-gray-400">
+                <p className="text-base mt-2 text-gray-300">
                   wit.chanthawat@gmail.com
                 </p>
               </div>
@@ -35,11 +35,11 @@ const ContactMe = () => {
               rel="noreferrer"
               className="w-full"
             >
-              <div className="rounded border border-gray-800 hover:border-gray-900 bg-[#080809] p-4 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] sm:p-6 transition ease">
-                <h6 className="font-bold text-1xl tracking-tight text-white text-start">
+              <div className="rounded-lg border border-gray-700 hover:border-gray-600 bg-gradient-to-br from-gray-800 to-gray-900 p-4 shadow-lg hover:shadow-[0_12px_40px_rgb(0,0,0,0.6)] sm:p-6 transition-all duration-300 ease-in-out hover:scale-[1.02] backdrop-blur-sm">
+                <h6 className="font-bold text-xl tracking-tight text-gray-100 text-start">
                   Phone
                 </h6>
-                <p className="text-base mt-2 text-gray-400">+62 558 6316</p>
+                <p className="text-base mt-2 text-gray-300">+62 558 6316</p>
               </div>
             </a>
           </div>
@@ -48,14 +48,14 @@ const ContactMe = () => {
             <form
               action="https://formspree.io/f/xdorkorr"
               method="POST"
-              className="w-full space-y-4"
+              className="w-full space-y-6 bg-gradient-to-br from-gray-900/80 to-gray-950/80 backdrop-blur-lg p-8 rounded-xl border border-gray-700 shadow-2xl"
             >
               <div>
                 <label className="sr-only" htmlFor="name">
                   Name
                 </label>
                 <input
-                  className="w-full rounded p-3 text-base outline-none border text-white bg-black border-gray-900 focus:border-gray-800 transition ease"
+                  className="w-full rounded-lg p-4 text-base outline-none border text-gray-100 bg-gray-800/90 border-gray-600 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-200 ease backdrop-blur-sm placeholder:text-gray-400"
                   placeholder="Name"
                   type="text"
                   id="name"
@@ -64,13 +64,13 @@ const ContactMe = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-1 gap-4 lg:gap-8 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
                   <label className="sr-only" htmlFor="email">
                     Email
                   </label>
                   <input
-                    className="w-full rounded p-3 text-base outline-none border text-white bg-black border-gray-900 focus:border-gray-800 transition ease"
+                    className="w-full rounded-lg p-4 text-base outline-none border text-gray-100 bg-gray-800/90 border-gray-600 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-200 ease backdrop-blur-sm placeholder:text-gray-400"
                     placeholder="Email"
                     type="email"
                     id="email"
@@ -84,7 +84,7 @@ const ContactMe = () => {
                     Phone
                   </label>
                   <input
-                    className="w-full rounded p-3 text-base outline-none border text-white bg-black border-gray-900 focus:border-gray-800 transition ease"
+                    className="w-full rounded-lg p-4 text-base outline-none border text-gray-100 bg-gray-800/90 border-gray-600 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-200 ease backdrop-blur-sm placeholder:text-gray-400"
                     placeholder="Phone"
                     type="tel"
                     id="phone"
@@ -99,7 +99,7 @@ const ContactMe = () => {
                   Message
                 </label>
                 <textarea
-                  className="w-full h-32 rounded p-3 text-base outline-none border text-white bg-black border-gray-900 focus:border-gray-800 transition ease"
+                  className="w-full h-36 rounded-lg p-4 text-base outline-none border text-gray-100 bg-gray-800/90 border-gray-600 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-200 ease backdrop-blur-sm resize-none placeholder:text-gray-400"
                   placeholder="Message"
                   id="message"
                   name="message"
@@ -109,9 +109,9 @@ const ContactMe = () => {
 
               <button
                 type="submit"
-                className="flex items-center justify-center rounded px-5 py-3 text-white bg-black hover:bg-gray-900 shadow-sm transition ease mx-auto"
+                className="flex items-center justify-center rounded-lg px-8 py-4 text-white bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 shadow-lg hover:shadow-primary-500/25 transition-all duration-300 ease mx-auto font-medium text-base hover:scale-105 border border-primary-500/20"
               >
-                <span className="font-medium text-base">Send</span>
+                <span className="font-medium">Send Message</span>
 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

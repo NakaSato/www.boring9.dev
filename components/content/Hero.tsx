@@ -9,13 +9,13 @@ const Hero = () => {
     <div className="flex flex-col-reverse items-center justify-between w-full lg:flex-row mb-16 md:mb-24">
       <AnimationContainer customClassName="w-full lg:w-3/5">
         <div className="flex flex-col items-center justify-between lg:items-start p-0 lg:pr-8">
-          <h1 className="mx-auto mb-3 text-3xl font-bold tracking-tight text-center text-white lg:text-5xl lg:text-start lg:mx-0 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400">
+          <h1 className="mx-auto mb-3 text-3xl font-bold tracking-tight text-center text-gray-900 lg:text-5xl lg:text-start lg:mx-0 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400">
             Chanthawat Kiriyadee
           </h1>
         </div>
 
-        <h2 className="flex items-center gap-2 mx-auto mb-8 text-gray-200 text-xl lg:text-2xl lg:mx-0">
-          <span className="font-semibold text-primary-300">ComEng</span>
+        <h2 className="flex items-center gap-2 mx-auto mb-8 text-gray-700 text-xl lg:text-2xl lg:mx-0">
+          <span className="font-semibold text-primary-600">ComEng</span>
           <span className="relative">
             Student
             <motion.span
@@ -34,7 +34,7 @@ const Hero = () => {
           </span>
         </h2>
 
-        <p className="text-gray-300 max-w-lg mb-8 text-center lg:text-left">
+        <p className="text-gray-600 max-w-lg mb-8 text-center lg:text-left">
           Passionate about building beautiful and functional web experiences.
           Constantly learning and experimenting with new technologies.
         </p>
@@ -73,7 +73,7 @@ const Hero = () => {
             src="/profile.jpeg"
             sizes="(max-width: 640px) 120px, 200px"
             priority
-            className="rounded-[12px] relative z-10 filter grayscale hover:grayscale-0 transition-all duration-300 ease transform group-hover:scale-105 shadow-lg border-2 border-gray-800/50"
+            className="rounded-[12px] relative z-10 filter grayscale hover:grayscale-0 transition-all duration-300 ease transform group-hover:scale-105 shadow-lg border-2 border-gray-200"
           />
         </div>
       </AnimationContainer>

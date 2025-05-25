@@ -4,7 +4,7 @@ import local from 'next/font/local';
 import Header from '@/components/ui/Header';
 import Footer from '@/components/ui/Footer';
 import Head from '../head';
-import FlareCursor from '@/components/ui/FlareCursor';
+import ClientOnlyFlareCursor from '@/components/ui/ClientOnlyFlareCursor';
 import { metadata } from './layout-metadata';
 
 export { metadata };
@@ -31,16 +31,16 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html
       lang="en"
       className={clsx(
-        'text-white bg-gray-950',
+        'text-gray-100 bg-black dark',
         graphik.variable
       )}
     >
       <Head />
 
-      <body className="bg-gray-950 min-h-screen flex flex-col transition-colors duration-300">
-        <FlareCursor />
+      <body className="bg-black text-gray-100 min-h-screen flex flex-col transition-colors duration-300">
+        <ClientOnlyFlareCursor />
         <Header />
-        <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+        <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 bg-black">
           {children}
         </main>
         <Footer />

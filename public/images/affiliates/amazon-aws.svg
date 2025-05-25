@@ -1,0 +1,10 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#ff9500"/>
+  <rect x="50" y="50" width="300" height="300" rx="20" fill="#fff"/>
+  <text x="200" y="190" text-anchor="middle" fill="#ff9500" font-family="Arial, sans-serif" font-size="20" font-weight="bold">Amazon AWS</text>
+  <text x="200" y="230" text-anchor="middle" fill="#666" font-family="Arial, sans-serif" font-size="14">Cloud computing platform</text>
+  <rect x="160" y="120" width="80" height="50" rx="8" fill="#ff9500"/>
+  <rect x="170" y="130" width="20" height="30" fill="#fff"/>
+  <rect x="195" y="130" width="20" height="30" fill="#fff"/>
+  <rect x="220" y="130" width="20" height="30" fill="#fff"/>
+</svg>

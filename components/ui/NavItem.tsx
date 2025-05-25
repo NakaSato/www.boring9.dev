@@ -1,17 +1,22 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import LinksNav, { navItemsSelected } from './LinksNav';
 
 const NavItem = () => {
-  let pathname = usePathname() as string;
+  const [isMounted, setIsMounted] = useState(false);
+  const pathname = usePathname();
+  const cleanPathname = pathname.includes('/blog/') ? '/blog' : pathname;
 
-  if (pathname.includes('/blog/')) pathname = '/blog';
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <>
-      {navItemsSelected[pathname] ? (
+      {isMounted && navItemsSelected[cleanPathname] ? (
         <>
           <div className="hidden lg:block">
             <div className="absolute z-[-1]">
@@ -19,13 +24,13 @@ const NavItem = () => {
                 layoutId="id_1"
                 initial={{
                   opacity: 0,
-                  x: navItemsSelected[pathname].x,
-                  y: navItemsSelected[pathname].y
+                  x: navItemsSelected[cleanPathname].x,
+                  y: navItemsSelected[cleanPathname].y
                 }}
                 animate={{
                   opacity: 1,
-                  x: navItemsSelected[pathname].x,
-                  width: navItemsSelected[pathname].w
+                  x: navItemsSelected[cleanPathname].x,
+                  width: navItemsSelected[cleanPathname].w
                 }}
                 transition={{
                   type: 'spring',
@@ -38,7 +43,7 @@ const NavItem = () => {
         </>
       ) : null}
 
-      {<LinksNav />}
+      <LinksNav isMounted={isMounted} />
     </>
   );
 };

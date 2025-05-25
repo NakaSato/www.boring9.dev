@@ -23,8 +23,8 @@ const useStyles = createStyles((theme: any) => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     borderRadius: '12px',
-    border: '1px solid rgba(var(--color-primary-800), 0.2)',
-    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.2)'
+    border: '1px solid rgba(229, 231, 235, 0.5)',
+    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05)'
   },
 
   title: {
@@ -33,20 +33,20 @@ const useStyles = createStyles((theme: any) => ({
     fontSize: 28,
     fontWeight: 700,
     marginTop: theme.spacing.xs,
-    textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+    textShadow: '0 2px 4px rgba(0,0,0,0.7)'
   },
 
   category: {
     color: theme.white,
-    opacity: 0.9,
+    opacity: 0.95,
     fontWeight: 700,
     textTransform: 'uppercase',
-    backgroundColor: 'rgba(var(--color-primary-600), 0.7)',
+    backgroundColor: 'rgba(var(--color-primary-600), 0.8)',
     display: 'inline-block',
     padding: '4px 8px',
     borderRadius: '4px',
     fontSize: '12px',
-    textShadow: '0 1px 2px rgba(0,0,0,0.3)'
+    textShadow: '0 1px 2px rgba(0,0,0,0.5)'
   }
 }));
 
@@ -147,8 +147,8 @@ const FavProjects = () => {
 
   return (
     <AnimationContainer customClassName="w-full">
-      <div className="w-full p-6 bg-gray-900/50 rounded-xl border border-primary-800/20 shadow-lg">
-        <h2 className="font-bold text-2xl md:text-3xl tracking-tight mb-8 text-white text-start bg-gradient-to-r from-secondary-400 to-accent-400 bg-clip-text text-transparent">
+      <div className="w-full p-6 bg-gray-50 rounded-xl border border-gray-200 shadow-lg">
+        <h2 className="font-bold text-2xl md:text-3xl tracking-tight mb-8 text-gray-900 text-start bg-gradient-to-r from-secondary-400 to-accent-400 bg-clip-text text-transparent">
           Featured Projects
         </h2>
 

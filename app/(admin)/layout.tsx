@@ -48,10 +48,10 @@ export default function AdminLayout({
               </nav>
             </div>
           </header>
-          <main className="flex-grow bg-gray-900">
+          <main className="flex-grow bg-black">
             {children}
           </main>
-          <footer className="bg-gray-900 border-t border-gray-800 py-4 text-center text-sm text-gray-500">
+          <footer className="bg-gray-900 border-t border-gray-800 py-4 text-center text-sm text-gray-300">
             Boring9.dev Admin Dashboard
           </footer>
         </div>

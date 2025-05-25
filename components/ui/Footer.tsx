@@ -4,18 +4,18 @@ import ExternalLink from './ExternalLink';
 
 const Footer = () => {
   return (
-    <footer className="w-full container mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-12 bg-gradient-to-b from-gray-900 to-gray-950">
-      <hr className="w-full border-1 border-primary-800/30 mb-10" />
+    <footer className="w-full container mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-12 bg-gradient-to-b from-gray-50 to-gray-100 border-t border-gray-200">
+      <hr className="w-full border-1 border-primary-300/30 mb-10" />
 
       <AnimationContainer>
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="space-y-4">
-              <h3 className="text-white font-semibold text-lg mb-3 border-b border-primary-700/30 pb-2">Navigation</h3>
+              <h3 className="text-gray-800 font-semibold text-lg mb-3 border-b border-primary-300/30 pb-2">Navigation</h3>
               <div className="flex flex-col space-y-3">
                 <Link
                   href="/"
-                  className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-all duration-300 ease-in-out hover:translate-x-1"
+                  className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-all duration-300 ease-in-out hover:translate-x-1"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +34,7 @@ const Footer = () => {
 
                 <Link
                   href="/about"
-                  className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-all duration-300 ease-in-out hover:translate-x-1"
+                  className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-all duration-300 ease-in-out hover:translate-x-1"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +49,7 @@ const Footer = () => {
 
                 <Link
                   href="/projects"
-                  className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-all duration-300 ease-in-out hover:translate-x-1"
+                  className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-all duration-300 ease-in-out hover:translate-x-1"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -69,11 +69,11 @@ const Footer = () => {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-white font-semibold text-lg mb-3 border-b border-primary-700/30 pb-2">Connect</h3>
+              <h3 className="text-gray-800 font-semibold text-lg mb-3 border-b border-primary-300/30 pb-2">Connect</h3>
               <div className="flex flex-col space-y-3">
                 <ExternalLink 
                   href="https://github.com/NakaSato"
-                  customClassName="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-all duration-300 ease-in-out hover:translate-x-1"
+                  customClassName="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-all duration-300 ease-in-out hover:translate-x-1"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +92,7 @@ const Footer = () => {
 
                 <ExternalLink 
                   href="https://linkedin.com"
-                  customClassName="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-all duration-300 ease-in-out hover:translate-x-1"
+                  customClassName="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-all duration-300 ease-in-out hover:translate-x-1"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +112,7 @@ const Footer = () => {
 
                 <ExternalLink 
                   href="https://twitter.com/"
-                  customClassName="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-all duration-300 ease-in-out hover:translate-x-1"
+                  customClassName="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-all duration-300 ease-in-out hover:translate-x-1"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -130,11 +130,11 @@ const Footer = () => {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-white font-semibold text-lg mb-3 border-b border-primary-700/30 pb-2">Content</h3>
+              <h3 className="text-gray-800 font-semibold text-lg mb-3 border-b border-primary-300/30 pb-2">Content</h3>
               <div className="flex flex-col space-y-3">
                 <Link
                   href="/blog"
-                  className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-all duration-300 ease-in-out hover:translate-x-1"
+                  className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-all duration-300 ease-in-out hover:translate-x-1"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +149,7 @@ const Footer = () => {
                 
                 <Link
                   href="/blog/categories"
-                  className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-all duration-300 ease-in-out hover:translate-x-1"
+                  className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-all duration-300 ease-in-out hover:translate-x-1"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +164,7 @@ const Footer = () => {
 
                 <Link
                   href="/contact"
-                  className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-all duration-300 ease-in-out hover:translate-x-1"
+                  className="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-all duration-300 ease-in-out hover:translate-x-1"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -184,11 +184,11 @@ const Footer = () => {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-white font-semibold text-lg mb-3 border-b border-primary-700/30 pb-2">Resources</h3>
+              <h3 className="text-gray-800 font-semibold text-lg mb-3 border-b border-primary-300/30 pb-2">Resources</h3>
               <div className="flex flex-col space-y-3">
                 <ExternalLink 
                   href=""
-                  customClassName="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-all duration-300 ease-in-out hover:translate-x-1"
+                  customClassName="flex items-center gap-2 text-gray-600 hover:text-primary-600 transition-all duration-300 ease-in-out hover:translate-x-1"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -208,8 +208,8 @@ const Footer = () => {
             </div>
           </div>
           
-          <div className="mt-12 border-t border-primary-800/30 pt-8">
-            <p className="text-center text-gray-400 text-sm">
+          <div className="mt-12 border-t border-primary-300/30 pt-8">
+            <p className="text-center text-gray-600 text-sm">
               © {new Date().getFullYear()} Boring9.dev. All rights reserved.
             </p>
           </div>

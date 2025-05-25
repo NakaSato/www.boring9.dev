@@ -8,6 +8,8 @@ import RelatedPosts from '@/components/blog/related-posts';
 import TableOfContents from '@/components/blog/table-of-contents';
 import SocialSharing from '@/components/blog/social-sharing';
 import EnhancedCodeBlock from '@/components/blog/enhanced-code-block';
+import AffiliateLinksSection from '@/components/blog/affiliate-links-section';
+import AffiliateDisclosure from '@/components/blog/affiliate-disclosure';
 
 export const generateStaticParams = async () => {
   const posts = await getAllBlogPosts();
@@ -168,6 +170,15 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               dangerouslySetInnerHTML={{ __html: post.htmlContent }}
             />
             
+            {/* Affiliate Links Section */}
+            {post.hasAffiliateLinks && post.affiliateLinks && (
+              <AffiliateLinksSection 
+                links={post.affiliateLinks}
+                title="Recommended Products & Services"
+                showDisclosure={false} // We'll show disclosure separately
+              />
+            )}
+            
             {/* Social sharing buttons at the bottom */}
             <SocialSharing 
               title={post.title} 
@@ -209,8 +220,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               </div>
             )}
             
-            {/* Related Posts Section */}
-            <RelatedPosts currentPost={post} allPosts={allPosts} maxPosts={3} />
+            {/* Affiliate Disclosure Footer */}
+            {post.hasAffiliateLinks && (
+              <AffiliateDisclosure variant="footer" />
+            )}
           </article>
         </div>
       </div>

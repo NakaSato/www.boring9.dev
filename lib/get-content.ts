@@ -3,6 +3,17 @@ import matter from 'gray-matter';
 import { markdownToHtml } from './markdown';
 import readingTime from 'reading-time';
 
+export interface AffiliateLink {
+  id: string;
+  url: string;
+  platform: string;
+  title: string;
+  description?: string;
+  price?: string;
+  discount?: string;
+  imageUrl?: string;
+}
+
 export interface BlogPostProps {
   slug: string;
   title: string;
@@ -17,6 +28,8 @@ export interface BlogPostProps {
   authorImage: string;
   authorBio: string;
   readingTime: string;
+  affiliateLinks?: AffiliateLink[];
+  hasAffiliateLinks?: boolean;
 }
 
 // Get these from environment variables
@@ -112,7 +125,9 @@ export async function getBlogPosts(): Promise<BlogPostProps[]> {
             author: data.author || 'Anonymous',
             authorImage: data.authorImage || '/profile.jpeg',
             authorBio: data.authorBio || '',
-            readingTime: readingTime(markdown).text
+            readingTime: readingTime(markdown).text,
+            affiliateLinks: data.affiliateLinks || [],
+            hasAffiliateLinks: Array.isArray(data.affiliateLinks) && data.affiliateLinks.length > 0
           };
 
           return post;

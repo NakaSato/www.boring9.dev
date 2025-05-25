@@ -1,0 +1,11 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#007acc"/>
+  <rect x="50" y="50" width="300" height="300" rx="20" fill="#fff"/>
+  <text x="200" y="190" text-anchor="middle" fill="#007acc" font-family="Arial, sans-serif" font-size="24" font-weight="bold">VS Code</text>
+  <text x="200" y="230" text-anchor="middle" fill="#666" font-family="Arial, sans-serif" font-size="14">Code editor redefined</text>
+  <rect x="170" y="130" width="60" height="40" rx="5" fill="#007acc"/>
+  <rect x="175" y="135" width="50" height="30" fill="#fff"/>
+  <rect x="177" y="140" width="8" height="2" fill="#007acc"/>
+  <rect x="177" y="145" width="12" height="2" fill="#007acc"/>
+  <rect x="177" y="150" width="10" height="2" fill="#007acc"/>
+</svg>

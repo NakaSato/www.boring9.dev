@@ -1,0 +1,9 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#24292f"/>
+  <rect x="50" y="50" width="300" height="300" rx="20" fill="#f6f8fa" stroke="#d0d7de" stroke-width="2"/>
+  <text x="200" y="180" text-anchor="middle" fill="#24292f" font-family="Arial, sans-serif" font-size="24" font-weight="bold">GitHub</text>
+  <text x="200" y="210" text-anchor="middle" fill="#24292f" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Copilot</text>
+  <text x="200" y="260" text-anchor="middle" fill="#656d76" font-family="Arial, sans-serif" font-size="14">AI-powered coding assistant</text>
+  <circle cx="200" cy="120" r="30" fill="#0969da"/>
+  <path d="M185 115 L195 125 L215 105" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

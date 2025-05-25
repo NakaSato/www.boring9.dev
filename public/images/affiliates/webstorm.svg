@@ -1,0 +1,9 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="400" fill="#07C3F2"/>
+  <rect x="50" y="50" width="300" height="300" rx="20" fill="#000"/>
+  <text x="200" y="190" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="24" font-weight="bold">WebStorm IDE</text>
+  <text x="200" y="230" text-anchor="middle" fill="#999" font-family="Arial, sans-serif" font-size="14">JetBrains IDE for JavaScript</text>
+  <path d="M120 120h160v40h-160z" fill="#07C3F2"/>
+  <path d="M120 170h120v40h-120z" fill="#07C3F2" fill-opacity="0.8"/>
+  <path d="M120 220h80v40h-80z" fill="#07C3F2" fill-opacity="0.6"/>
+</svg>

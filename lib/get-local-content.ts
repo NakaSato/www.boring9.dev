@@ -74,7 +74,9 @@ export async function getLocalBlogPosts(): Promise<BlogPostProps[]> {
             author: data.author || 'Anonymous',
             authorImage: data.authorImage || '/profile.jpeg',
             authorBio: data.authorBio || '',
-            readingTime: getReadingTime(markdown)
+            readingTime: getReadingTime(markdown),
+            affiliateLinks: data.affiliateLinks || [],
+            hasAffiliateLinks: !!(data.affiliateLinks && data.affiliateLinks.length > 0)
           };
 
           return post;

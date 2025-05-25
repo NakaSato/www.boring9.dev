@@ -1,18 +1,3 @@
-# Blog Content Directory
-
-This directory contains all the blog posts for your website in Markdown format.
-
-## Creating a New Blog Post
-
-1. Create a new `.md` file in this directory
-2. Name it using kebab-case, e.g., `my-new-blog-post.md` (this will be used for the URL slug)
-3. Include the required frontmatter at the top of your file
-
-## Required Frontmatter
-
-Every blog post must include the following frontmatter at the top of the file:
-
-```markdown
 ---
 title: "Your Post Title"
 date: "YYYY-MM-DD"
@@ -23,57 +8,50 @@ coverImage: "/images/blog/default-cover.jpg"
 author: "Your Name"
 authorImage: "/profile.jpeg"
 authorBio: "Brief author biography"
+affiliateLinks:
+  - id: "product-1"
+    url: "https://amazon.com/product?tag=yourcode"
+    platform: "Amazon"
+    title: "Product Name"
+    description: "Brief product description"
+    price: "$29.99"
+    discount: "20% off"
+    imageUrl: "/images/affiliates/product.jpg"
 ---
-```
 
-## Writing Markdown Content
+## Affiliate Links (Optional)
 
-After the frontmatter, write your content using Markdown syntax. Some examples:
+You can add affiliate links to your blog posts by including them in the frontmatter. These will automatically display in a dedicated section with proper FTC compliance disclosures.
 
-### Headers
-
-```markdown
-# Header 1
-## Header 2
-### Header 3
-```
-
-### Lists
+### Example Affiliate Links
 
 ```markdown
-- Item 1
-- Item 2
-  - Nested item
+affiliateLinks:
+  - id: "unique-product-id"
+    url: "https://platform.com/product?ref=yourcode"
+    platform: "Platform Name"
+    title: "Product Title"
+    description: "Brief description"
+    price: "$29.99"
+    discount: "20% off"
+    imageUrl: "/images/affiliates/product.jpg"
 ```
 
-### Code Blocks
+### Supported Platforms
 
-````markdown
-```javascript
-function helloWorld() {
-  console.log("Hello, world!");
-}
-```
-````
+- Amazon Associates
+- AliExpress Affiliate
+- eBay Partner Network
+- Shopee Affiliate
+- Lazada Affiliate
+- Booking.com
+- Agoda
+- Custom platforms
 
-### Images
+### Management
 
-```markdown
-![Alt text](/path/to/image.jpg)
-```
+Use the affiliate link manager at `/admin/affiliate-manager` to create and manage your affiliate links with a visual interface.
 
-### Links
-
-```markdown
-[Link text](https://example.com)
-```
+For detailed documentation, see `/docs/AFFILIATE_LINKS.md`.
 
 ## Using the Post Generator Script
-
-For convenience, you can use the sample post generator script:
-
-```bash
-./scripts/create-sample-post.sh
-```
-
-This will create a new blog post with the current date in the filename.

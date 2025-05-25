@@ -13,7 +13,7 @@ const animation = {
 const AllFavTechs = () => {
   return (
     <div>
-      <p className="text-base text-center lg:text-start mb-2.5 text-gray-400">
+      <p className="text-base text-center lg:text-start mb-2.5 text-gray-600">
         <motion.p
           initial={animation.hide}
           animate={animation.show}

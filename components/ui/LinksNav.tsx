@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { NavItemHeaderAnimation } from '@/types';
 
@@ -32,10 +33,40 @@ export const navItemsSelected: { [key: string]: NavItemHeaderAnimation } = {
   }
 };
 
-const LinksNav = () => {
-  let pathname = usePathname() as string;
+interface LinksNavProps {
+  isMounted?: boolean;
+}
+
+const LinksNav = ({ isMounted = false }: LinksNavProps) => {
+  const [isClientMounted, setIsClientMounted] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsClientMounted(true);
+  }, []);
+
+  // Use prop or internal state to determine if mounted
+  const shouldShowActiveState = isMounted || isClientMounted;
+
+  // Prevent hydration mismatch by not showing active state until mounted
+  if (!shouldShowActiveState) {
+    return (
+      <div className="hidden lg:flex items-center space-x-1">
+        {Object.entries(navItemsSelected).map(([path, { name }]) => (
+          <Link
+            key={path}
+            href={path}
+            className="relative px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 text-gray-600 hover:text-gray-800"
+          >
+            {name}
+          </Link>
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <>
+    <div className="hidden lg:flex items-center space-x-1">
       {Object.entries(navItemsSelected).map(([path, { name }]) => {
         const isActive = path === pathname;
 
@@ -44,10 +75,10 @@ const LinksNav = () => {
             key={path}
             href={path}
             className={cn(
-              'hidden lg:inline-block transition ease hover:text-neutral-200 py-[2px] px-[10px]',
+              'relative px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200',
               {
-                'text-neutral-500': !isActive,
-                'font-bold': isActive
+                'text-gray-600 hover:text-gray-800': !isActive,
+                'text-gray-900 font-bold': isActive
               }
             )}
           >
@@ -55,7 +86,7 @@ const LinksNav = () => {
           </Link>
         );
       })}
-    </>
+    </div>
   );
 };
 

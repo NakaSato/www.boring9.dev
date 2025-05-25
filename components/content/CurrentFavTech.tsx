@@ -4,8 +4,8 @@ import AnimationContainer from '../utils/AnimationContainer';
 const CurrentFavTech = () => {
   return (
     <AnimationContainer>
-      <div className="w-full p-6 bg-gray-900/50 rounded-xl border border-primary-800/20 shadow-lg mb-8">
-        <h2 className="font-bold text-2xl md:text-3xl tracking-tight mb-6 text-white text-start bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+      <div className="w-full p-6 bg-gray-50 rounded-xl border border-gray-200 shadow-lg mb-8">
+        <h2 className="font-bold text-2xl md:text-3xl tracking-tight mb-6 text-gray-900 text-start bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
           Favorite Technologies
         </h2>
         <div className="max-w-2xl mx-auto">
