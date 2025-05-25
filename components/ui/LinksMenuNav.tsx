@@ -34,7 +34,7 @@ const LinksMenuNav = () => {
         >
           <Link 
             href={path} 
-            className="text-gray-800 hover:text-primary-600 transition-colors text-lg font-medium flex items-center justify-start"
+            className="text-white hover:text-primary-400 transition-colors text-lg font-medium flex items-center justify-start"
           >
             {name}
           </Link>

@@ -1,4 +1,4 @@
-// components/projects/ProjectCategories.tsx
+
 'use client';
 
 import { getProjectCategories } from '@/lib/projects';

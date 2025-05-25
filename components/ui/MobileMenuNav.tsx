@@ -9,7 +9,7 @@ import LinksMenuNav from './LinksMenuNav';
 const MenuIcon = (props: JSX.IntrinsicElements['svg']) => {
   return (
     <svg
-      className="h-5 w-5 absolute text-gray-800"
+      className="h-5 w-5 absolute text-gray-200"
       width="20"
       height="20"
       viewBox="0 0 20 20"
@@ -37,7 +37,7 @@ const MenuIcon = (props: JSX.IntrinsicElements['svg']) => {
 const CrossIcon = (props: JSX.IntrinsicElements['svg']) => {
   return (
     <svg
-      className="h-5 w-5 absolute text-gray-800"
+      className="h-5 w-5 absolute text-gray-200"
       viewBox="0 0 24 24"
       width="24"
       height="24"

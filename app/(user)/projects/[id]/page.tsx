@@ -2,19 +2,21 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ExternalLink, Github, Calendar, ArrowLeft } from 'lucide-react';
-import { getProjectById } from '@/lib/projects';
+import { ExternalLink, Github, Calendar, ArrowLeft, Tag } from 'lucide-react';
+import { getProjectById, getProjectsByTag } from '@/lib/projects';
 import SectionContainer from '@/components/utils/SectionContainer';
 import AnimationContainer from '@/components/utils/AnimationContainer';
+import RelatedProjects from '@/components/projects/RelatedProjects';
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-  const project = getProjectById(params.id);
+  const { id } = await params;
+  const project = getProjectById(id);
   
   if (!project) {
     return {
@@ -42,12 +44,18 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   };
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = getProjectById(params.id);
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { id } = await params;
+  const project = getProjectById(id);
   
   if (!project) {
     notFound();
   }
+  
+  // Get related projects based on the first tag
+  const relatedProjects = project.tags.length > 0 ? 
+    getProjectsByTag(project.tags[0]) : 
+    [];
   
   const imagePath = project.image || '/images/projects/placeholder.png';
   
@@ -180,6 +188,12 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             </div>
           </div>
         </AnimationContainer>
+        
+        {/* Related Projects Section */}
+        <RelatedProjects 
+          currentProjectId={project.id}
+          projects={relatedProjects}
+        />
       </div>
     </SectionContainer>
   );

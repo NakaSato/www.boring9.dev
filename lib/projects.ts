@@ -130,3 +130,11 @@ export const searchProjects = (query: string): ProjectType[] => {
     project.techStack.some(tech => tech.toLowerCase().includes(lowercaseQuery))
   );
 };
+
+export const getProjectTags = (): string[] => {
+  const tags = new Set<string>();
+  projects.forEach(project => {
+    project.tags.forEach(tag => tags.add(tag));
+  });
+  return Array.from(tags).sort();
+};
