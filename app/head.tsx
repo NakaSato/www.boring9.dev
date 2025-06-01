@@ -1,17 +1,23 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const Head = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const pathname = usePathname() as string;
+  const [isClient, setIsClient] = useState(false);
 
-  const titleFixedToShow =
-    pathname.slice(1).charAt(0).toUpperCase() + pathname.slice(2);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const titleFixedToShow = isClient
+    ? pathname.slice(1).charAt(0).toUpperCase() + pathname.slice(2)
+    : '';
 
   const meta = {
     title: `Chanthawat Kiriyadee ${
-      pathname === '/' ? '' : '· ' + titleFixedToShow
+      pathname === '/' || !isClient ? '' : '· ' + titleFixedToShow
     }`,
     description: `Hi! My name is Chanthawat Kiriyadee. I'm a software engineer. I write about web development, JavaScript, TypeScript, React, and more.`,
     keywords: 'Chanthawat Kiriyadee',
@@ -25,8 +31,14 @@ const Head = () => {
       <meta name="robots" content="follow, index" />
       <meta content={meta.description} name="description" />
       <meta name="keywords" content={meta.keywords} />
-      <meta property="og:url" content={`https://boring9.dev${pathname}`} />
-      <link rel="canonical" href={`https://boring9.dev${pathname}`} />
+      <meta
+        property="og:url"
+        content={`https://boring9.dev${isClient ? pathname : ''}`}
+      />
+      <link
+        rel="canonical"
+        href={`https://boring9.dev${isClient ? pathname : ''}`}
+      />
       <link rel="me" href="mailto:wit.chanthawat@gmail.com" />
       <meta property="og:type" content={meta.type} />
       <meta property="og:site_name" content="Chanthawat Kiriyadee" />

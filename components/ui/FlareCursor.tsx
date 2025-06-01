@@ -5,25 +5,41 @@ import React, { useState, useEffect } from 'react';
 const FlareCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isPointer, setIsPointer] = useState(false);
+  const [flareSize, setFlareSize] = useState(30);
+  const [cursorStyle, setCursorStyle] = useState({});
+  const [isClient, setIsClient] = useState(false);
 
-  const handleMouseMove = (e: any) => {
+  const handleMouseMove = (e: MouseEvent) => {
     setPosition({ x: e.clientX, y: e.clientY });
 
-    const target = e.target;
+    const target = e.target as Element;
 
-    setIsPointer(
-      window.getComputedStyle(target).getPropertyValue('cursor') === 'pointer'
-    );
+    // Check cursor type safely
+    if (target && typeof window !== 'undefined') {
+      const isPointerCursor =
+        window.getComputedStyle(target).getPropertyValue('cursor') ===
+        'pointer';
+      setIsPointer(isPointerCursor);
+
+      // Update flare size and style based on pointer type
+      setFlareSize(isPointerCursor ? 0 : 30);
+      setCursorStyle(isPointerCursor ? { left: '-100px', top: '-100px' } : {});
+    }
   };
 
   useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    setIsClient(true);
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('mousemove', handleMouseMove);
+      return () => window.removeEventListener('mousemove', handleMouseMove);
+    }
   }, []);
 
-  const flareSize = isPointer ? 0 : 30;
-
-  const cursorStyle = isPointer ? { left: '-100px', top: '-100px' } : {};
+  // Don't render anything until we're on the client
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <div
@@ -33,10 +49,7 @@ const FlareCursor = () => {
         left: `${position.x}px`,
         top: `${position.y}px`,
         width: `${flareSize}px`,
-        height: `${flareSize}px`,
-        border: '2px solid rgba(var(--color-primary-500), 0.3)',
-        background: 'radial-gradient(circle, rgba(var(--color-primary-500), 0.15) 0%, rgba(var(--color-secondary-500), 0.1) 70%, rgba(var(--color-accent-500), 0.05) 100%)',
-        boxShadow: '0 0 10px rgba(var(--color-primary-500), 0.2)'
+        height: `${flareSize}px`
       }}
     ></div>
   );

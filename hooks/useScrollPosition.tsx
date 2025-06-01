@@ -8,16 +8,18 @@ const useScrollPosition = () => {
   // Throttle scroll events for better performance
   const throttle = useCallback((func: Function, limit: number) => {
     let inThrottle: boolean;
-    return function(this: any, ...args: any[]) {
+    return function (this: any, ...args: any[]) {
       if (!inThrottle) {
         func.apply(this, args);
         inThrottle = true;
-        setTimeout(() => inThrottle = false, limit);
+        setTimeout(() => (inThrottle = false), limit);
       }
-    }
+    };
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const updatePosition = throttle(() => {
       setScrollPosition(window.pageYOffset);
     }, 16); // ~60fps
