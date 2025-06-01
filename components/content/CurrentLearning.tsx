@@ -4,7 +4,7 @@ import AnimationContainer from '../utils/AnimationContainer';
 const CurrentLearning = () => {
   return (
     <AnimationContainer>
-      <div className="w-full p-6 bg-gray-900/50 rounded-xl border border-primary-800/20 shadow-lg">
+      <div className="w-full p-6 bg-gray-900/50 rounded-xl shadow-lg">
         <h2 className="font-bold text-2xl md:text-3xl tracking-tight mb-6 text-white text-start bg-gradient-to-r from-secondary-400 to-accent-400 bg-clip-text text-transparent">
           Currently Learning
         </h2>
