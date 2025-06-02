@@ -1,4 +1,3 @@
-import SearchAllProjects from '../content/SearchAllProjects';
 import AnimationContainer from '../utils/AnimationContainer';
 import BlogContainer from '../utils/BlogContainer';
 import TitleSectionPageContainer from '../utils/TitleSectionPageContainer';
@@ -31,8 +30,6 @@ const BlogSection = () => {
         </AnimationContainer>
 
         <SocialShare title="Blog" />
-
-        <SearchAllProjects />
       </div>
     </BlogContainer>
   );

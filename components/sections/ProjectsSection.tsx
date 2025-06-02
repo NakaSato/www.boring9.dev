@@ -1,4 +1,3 @@
-import SearchAllProjects from '../content/SearchAllProjects';
 import AnimationContainer from '../utils/AnimationContainer';
 import SectionContainer from '../utils/SectionContainer';
 import TitleSectionPageContainer from '../utils/TitleSectionPageContainer';
@@ -30,8 +29,6 @@ const ProjectsSection = () => {
             </p>
           </div>
         </AnimationContainer>
-
-        <SearchAllProjects />
       </div>
     </SectionContainer>
   );
