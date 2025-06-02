@@ -18,52 +18,64 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get('q') || '';
   const initialTag = searchParams.get('tag') || '';
-  
+
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [selectedTag, setSelectedTag] = useState(initialTag);
   const [filteredPosts, setFilteredPosts] = useState<BlogPostProps[]>(posts);
-  
+
   // Extract all unique tags from posts
   const allTags = Array.from(
-    new Set(posts.flatMap(post => post.tags))
+    new Set(posts.flatMap((post) => post.tags))
   ).sort();
-  
+
   // Update filtered posts when search query or tag changes
   useEffect(() => {
-    const filtered = posts.filter(post => {
-      const matchesSearch = searchQuery === '' || 
+    const filtered = posts.filter((post) => {
+      const matchesSearch =
+        searchQuery === '' ||
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.content.toLowerCase().includes(searchQuery.toLowerCase());
-      
-      const matchesTag = selectedTag === '' || 
-        post.tags.includes(selectedTag);
-      
+
+      const matchesTag = selectedTag === '' || post.tags.includes(selectedTag);
+
       return matchesSearch && matchesTag;
     });
-    
+
     setFilteredPosts(filtered);
-    
-    // Update URL with search parameters
+  }, [searchQuery, selectedTag, posts]);
+
+  // Separate useEffect for URL updates to prevent infinite loop
+  useEffect(() => {
     const params = new URLSearchParams();
     if (searchQuery) params.set('q', searchQuery);
     if (selectedTag) params.set('tag', selectedTag);
-    
-    const newUrl = `/blog/search${params.toString() ? `?${params.toString()}` : ''}`;
-    router.push(newUrl, { scroll: false });
-  }, [searchQuery, selectedTag, posts, router]);
-  
+
+    const newUrl = `/blog/search${
+      params.toString() ? `?${params.toString()}` : ''
+    }`;
+    const currentUrl = window.location.pathname + window.location.search;
+
+    // Only update URL if it's different from current URL
+    if (newUrl !== currentUrl) {
+      router.replace(newUrl, { scroll: false });
+    }
+  }, [searchQuery, selectedTag, router]);
+
   const handleTagClick = (tag: string) => {
-    setSelectedTag(prevTag => prevTag === tag ? '' : tag);
+    setSelectedTag((prevTag) => (prevTag === tag ? '' : tag));
   };
-  
+
   return (
     <div className="w-full max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-6">Search Blog Posts</h1>
-      
+
       <div className="mb-8">
         <div className="relative mb-4">
-          <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+          <SearchIcon
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            size={20}
+          />
           <input
             type="search"
             placeholder="Search by title, content, or keywords..."
@@ -73,14 +85,14 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
             aria-label="Search blog posts"
           />
         </div>
-        
+
         <div className="mb-6">
           <div className="flex items-center mb-2">
             <FilterIcon size={16} className="mr-2 text-gray-400" />
             <span className="text-sm text-gray-400">Filter by tag:</span>
           </div>
           <div className="flex flex-wrap gap-2">
-            {allTags.map(tag => (
+            {allTags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => handleTagClick(tag)}
@@ -97,13 +109,14 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
           </div>
         </div>
       </div>
-      
+
       <div className="mb-4">
         <p className="text-gray-400">
-          {filteredPosts.length} {filteredPosts.length === 1 ? 'result' : 'results'} found
+          {filteredPosts.length}{' '}
+          {filteredPosts.length === 1 ? 'result' : 'results'} found
         </p>
       </div>
-      
+
       {filteredPosts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredPosts.map((post) => (
@@ -114,7 +127,9 @@ export default function BlogSearch({ posts }: BlogSearchProps) {
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-xl text-gray-400 mb-4">No posts found matching your criteria</p>
+          <p className="text-xl text-gray-400 mb-4">
+            No posts found matching your criteria
+          </p>
           <button
             onClick={() => {
               setSearchQuery('');

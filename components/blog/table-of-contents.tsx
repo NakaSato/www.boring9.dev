@@ -26,7 +26,7 @@ export default function TableOfContents() {
       }));
 
     setHeadings(headingItems);
-    
+
     // Reset active heading when navigating to a new blog post
     setActiveId('');
   }, [pathname]);
@@ -34,72 +34,104 @@ export default function TableOfContents() {
   useEffect(() => {
     if (headings.length === 0) return;
 
-    // Handle scroll to update active heading
+    // Chrome-optimized scroll handler with better viewport detection
     const handleScroll = () => {
-      // Find all headings that are in viewport
-      const headingElements = headings.map(({ id }) => 
-        document.getElementById(id)
-      );
-      
-      // Find the last heading that's above the middle of the viewport
-      const scrollPosition = window.scrollY + 150;
-      
-      const filteredHeadings = headingElements
-        .filter((heading): heading is HTMLElement => heading !== null);
-      
-      // Find the last heading element that's above the scroll position
-      let currentHeading: HTMLElement | null = null;
-      for (let i = 0; i < filteredHeadings.length; i++) {
-        if (filteredHeadings[i].offsetTop <= scrollPosition) {
-          currentHeading = filteredHeadings[i];
-        } else {
+      // Chrome-specific viewport calculations
+      const scrollPosition =
+        window.pageYOffset || document.documentElement.scrollTop;
+      const viewportHeight = window.innerHeight;
+      const headerOffset = 120; // Account for fixed header
+
+      // Find all heading elements
+      const headingElements = headings
+        .map(({ id }) => document.getElementById(id))
+        .filter((element): element is HTMLElement => element !== null);
+
+      if (headingElements.length === 0) return;
+
+      // Chrome-optimized intersection detection
+      let activeHeading: HTMLElement | null = null;
+
+      // Check for heading in the upper third of viewport (better for Chrome)
+      const targetPosition =
+        scrollPosition + viewportHeight * 0.3 + headerOffset;
+
+      for (let i = headingElements.length - 1; i >= 0; i--) {
+        const element = headingElements[i];
+        const elementTop = element.offsetTop;
+
+        if (elementTop <= targetPosition) {
+          activeHeading = element;
           break;
         }
       }
-      
-      if (currentHeading) {
-        setActiveId(currentHeading.id);
+
+      // Fallback: if no heading found, use the first one if we're at the top
+      if (!activeHeading && scrollPosition < 200) {
+        activeHeading = headingElements[0];
+      }
+
+      if (activeHeading && activeHeading.id !== activeId) {
+        setActiveId(activeHeading.id);
       }
     };
-    
-    window.addEventListener('scroll', handleScroll);
-    
+
+    // Chrome-optimized event listener with passive option
+    const throttledScroll = throttle(handleScroll, 100);
+    window.addEventListener('scroll', throttledScroll, { passive: true });
+
     // Initial check on mount
-    handleScroll();
-    
+    setTimeout(handleScroll, 100); // Delay to ensure DOM is ready
+
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', throttledScroll);
     };
-  }, [headings]);
+  }, [headings, activeId]);
+
+  // Simple throttle function for Chrome optimization
+  function throttle(func: Function, limit: number) {
+    let inThrottle: boolean;
+    return function (this: any, ...args: any[]) {
+      if (!inThrottle) {
+        func.apply(this, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  }
 
   if (headings.length < 2) return null;
 
   return (
-    <div className="hidden xl:block sticky top-32 max-h-[calc(100vh-9rem)] overflow-auto">
-      <div className="w-64 bg-gray-900 p-6 rounded-lg shadow-lg mb-6">
-        <h2 className="text-lg font-bold mb-4">Table of Contents</h2>
-        <nav>
+    <div className="hidden xl:block toc-container">
+      <div className="toc-wrapper">
+        <h2 className="text-lg font-bold mb-4 text-white">Table of Contents</h2>
+        <nav className="toc-nav">
           <ul className="flex flex-col space-y-1">
             {headings.map((heading) => (
-              <li 
+              <li
                 key={heading.id}
-                className={`${
-                  heading.level === 3 ? 'ml-4' : ''
-                }`}
+                className={`${heading.level === 3 ? 'ml-4' : ''}`}
               >
                 <a
                   href={`#${heading.id}`}
-                  className={`text-sm hover:text-blue-400 block py-1 transition-colors ${
+                  className={`toc-link ${
                     activeId === heading.id
-                      ? 'text-blue-400 font-medium'
-                      : 'text-gray-400'
+                      ? 'toc-link-active'
+                      : 'toc-link-inactive'
                   }`}
                   onClick={(e) => {
                     e.preventDefault();
-                    document.getElementById(heading.id)?.scrollIntoView({
-                      behavior: 'smooth'
-                    });
-                    setActiveId(heading.id);
+                    const element = document.getElementById(heading.id);
+                    if (element) {
+                      const headerHeight = 120; // Account for fixed header
+                      const elementPosition = element.offsetTop - headerHeight;
+                      window.scrollTo({
+                        top: elementPosition,
+                        behavior: 'smooth'
+                      });
+                      setActiveId(heading.id);
+                    }
                   }}
                 >
                   {heading.text}
