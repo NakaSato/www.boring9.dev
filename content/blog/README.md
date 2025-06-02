@@ -1,22 +1,22 @@
 ---
-title: "Your Post Title"
-date: "YYYY-MM-DD"
-excerpt: "A brief summary of your post (will be displayed in previews)"
-category: "Category Name"
-tags: ["tag1", "tag2", "tag3"]
-coverImage: "/images/blog/default-cover.jpg"
-author: "Your Name"
-authorImage: "/profile.jpeg"
-authorBio: "Brief author biography"
+title: 'Your Post Title'
+date: 'YYYY-MM-DD'
+excerpt: 'A brief summary of your post (will be displayed in previews)'
+category: 'Category Name'
+tags: ['tag1', 'tag2', 'tag3']
+coverImage: '/images/blog/default-cover.jpg'
+author: 'Your Name'
+authorImage: '/profile.jpeg'
+authorBio: 'Detailed author biography that showcases expertise, current role, and interests. Include relevant skills, current projects, or social media handles for better reader connection.'
 affiliateLinks:
-  - id: "product-1"
-    url: "https://amazon.com/product?tag=yourcode"
-    platform: "Amazon"
-    title: "Product Name"
-    description: "Brief product description"
-    price: "$29.99"
-    discount: "20% off"
-    imageUrl: "/images/affiliates/product.jpg"
+  - id: 'product-1'
+    url: 'https://amazon.com/product?tag=yourcode'
+    platform: 'Amazon'
+    title: 'Product Name'
+    description: 'Brief product description'
+    price: '$29.99'
+    discount: '20% off'
+    imageUrl: '/images/affiliates/product.jpg'
 ---
 
 ## Affiliate Links (Optional)
@@ -27,14 +27,15 @@ You can add affiliate links to your blog posts by including them in the frontmat
 
 ```markdown
 affiliateLinks:
-  - id: "unique-product-id"
-    url: "https://platform.com/product?ref=yourcode"
-    platform: "Platform Name"
-    title: "Product Title"
-    description: "Brief description"
-    price: "$29.99"
-    discount: "20% off"
-    imageUrl: "/images/affiliates/product.jpg"
+
+- id: "unique-product-id"
+  url: "https://platform.com/product?ref=yourcode"
+  platform: "Platform Name"
+  title: "Product Title"
+  description: "Brief description"
+  price: "$29.99"
+  discount: "20% off"
+  imageUrl: "/images/affiliates/product.jpg"
 ```
 
 ### Supported Platforms

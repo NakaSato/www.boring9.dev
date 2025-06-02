@@ -1,13 +1,13 @@
 ---
-title: "Styling Markdown with Tailwind Typography"
-date: "2025-05-10"
+title: 'Styling Markdown with Tailwind Typography'
+date: '2025-05-10'
 excerpt: "Learn how to add beautiful typography to your Markdown content using Tailwind's typography plugin"
-category: "Design"
-tags: ["tailwind", "css", "typography", "styling"]
-coverImage: "/images/blog/default-cover.png"
-author: "Chanthawat"
-authorImage: "/profile.jpeg"
-authorBio: "Student at UTCC"
+category: 'Design'
+tags: ['tailwind', 'css', 'typography', 'styling']
+coverImage: '/images/blog/default-cover.png'
+author: 'Chanthawat'
+authorImage: '/profile.jpeg'
+authorBio: 'Full-stack developer and Software Engineering student at UTCC. Specialized in modern web technologies including React, Next.js, and Tailwind CSS. Passionate about creating beautiful, responsive user interfaces and sharing knowledge through technical writing.'
 ---
 
 # Styling Markdown with Tailwind Typography
@@ -34,10 +34,10 @@ module.exports = {
     // ...
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    require('@tailwindcss/typography')
     // ...
-  ],
-}
+  ]
+};
 ```
 
 ## Basic Usage
@@ -45,9 +45,7 @@ module.exports = {
 The simplest way to use the Typography plugin is to add the `prose` class to the containing element of your Markdown content:
 
 ```jsx
-<article className="prose">
-  {/* Your rendered markdown here */}
-</article>
+<article className="prose">{/* Your rendered markdown here */}</article>
 ```
 
 ## Customizing Typography Styles
@@ -63,7 +61,7 @@ module.exports = {
           css: {
             color: theme('colors.gray.800'),
             h2: {
-              color: theme('colors.blue.700'),
+              color: theme('colors.blue.700')
             },
             'code::before': {
               content: '""'
@@ -71,13 +69,13 @@ module.exports = {
             'code::after': {
               content: '""'
             }
-          },
-        },
-      }),
-    },
+          }
+        }
+      })
+    }
   },
-  plugins: [require('@tailwindcss/typography')],
-}
+  plugins: [require('@tailwindcss/typography')]
+};
 ```
 
 ## Dark Mode Support
@@ -94,19 +92,19 @@ module.exports = {
           css: {
             color: theme('colors.gray.300'),
             h1: {
-              color: theme('colors.gray.100'),
+              color: theme('colors.gray.100')
             },
             h2: {
-              color: theme('colors.gray.100'),
-            },
+              color: theme('colors.gray.100')
+            }
             // ... and more element overrides
-          },
-        },
-      }),
-    },
+          }
+        }
+      })
+    }
   },
-  plugins: [require('@tailwindcss/typography')],
-}
+  plugins: [require('@tailwindcss/typography')]
+};
 ```
 
 Then, you can use it like this:

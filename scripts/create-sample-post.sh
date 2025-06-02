@@ -21,7 +21,7 @@ tags: ["sample", "test", "markdown"]
 coverImage: "/images/blog/default-cover.jpg"
 author: "Chanthawat"
 authorImage: "/profile.jpeg"
-authorBio: "Full Stack Developer focused on React and Next.js"
+authorBio: "Software Engineering student at UTCC passionate about modern web technologies. Specializing in React, Next.js, and TypeScript development. Always exploring new tools and frameworks to build better user experiences."
 ---
 
 # Sample Blog Post

@@ -8,7 +8,7 @@ tags:
 coverImage: '/images/blog/default-cover.png'
 author: 'Chanthawat'
 authorImage: '/profile.jpeg'
-authorBio: '@ENWUFT at UTCC'
+authorBio: 'Software Engineering Student at UTCC, passionate about systems programming and IoT solutions. Currently exploring Rust, embedded systems, and fintech technologies. Follow me @ENWUFT for tech insights and coding adventures.'
 affiliateLinks:
   - id: 'vscode-github-copilot'
     url: 'https://github.com/features/copilot?ref=boring9dev'

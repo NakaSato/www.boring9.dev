@@ -1,13 +1,13 @@
 ---
-title: "Using Rust for ESP32 IoT Development"
-date: "2025-05-18"
-excerpt: "Learn how to use Rust programming language for ESP32 microcontrollers in IoT projects with improved reliability and performance"
-category: "IoT"
-tags: ["rust", "esp32", "embedded", "iot", "programming"]
-coverImage: "/images/blog/default-cover.png"
-author: "Chanthawat"
-authorImage: "/profile.jpeg"
-authorBio: "Student at UTCC"
+title: 'Using Rust for ESP32 IoT Development'
+date: '2025-05-18'
+excerpt: 'Learn how to use Rust programming language for ESP32 microcontrollers in IoT projects with improved reliability and performance'
+category: 'IoT'
+tags: ['rust', 'esp32', 'embedded', 'iot', 'programming']
+coverImage: '/images/blog/default-cover.png'
+author: 'Chanthawat'
+authorImage: '/profile.jpeg'
+authorBio: "IoT developer and Software Engineering student at UTCC with expertise in embedded systems and modern programming languages. Fascinated by the intersection of Rust's memory safety and IoT device development. Building the future of connected devices one microcontroller at a time."
 ---
 
 # Using Rust for ESP32 IoT Development
@@ -73,17 +73,17 @@ use esp_idf_sys as _;
 fn main() -> anyhow::Result<()> {
     // Initialize the ESP-IDF runtime
     esp_idf_sys::link_patches();
-    
+
     // Configure GPIO pin for the LED
     let mut led = PinDriver::output(Gpio2::new())?;
-    
+
     println!("ESP32 LED blink example with Rust!");
 
     loop {
         // Toggle the LED
         led.toggle()?;
         println!("LED state toggled");
-        
+
         // Wait for 1 second
         FreeRtos::delay_ms(1000);
     }
@@ -106,42 +106,42 @@ fn main() -> Result<()> {
     // Set up logging
     esp_idf_sys::link_patches();
     esp_idf_svc::log::EspLogger::initialize_default();
-    
+
     info!("Starting WiFi connection example");
-    
+
     // Set up event loop
     let sysloop = EspSystemEventLoop::take()?;
-    
+
     // Set up WiFi
     let mut wifi = BlockingWifi::wrap(
         EspWifi::new(peripherals.modem, sysloop.clone(), None)?,
         sysloop,
     )?;
-    
+
     // Configure WiFi
     let wifi_config = Configuration::Client(ClientConfiguration {
         ssid: "your_ssid".into(),
         password: "your_password".into(),
         ..Default::default()
     });
-    
+
     wifi.set_configuration(&wifi_config)?;
-    
+
     // Start WiFi
     wifi.start()?;
     info!("WiFi started");
-    
+
     // Connect to WiFi
     wifi.connect()?;
     info!("WiFi connected, waiting for IP...");
-    
+
     // Wait for IP address
     wifi.wait_netif_up()?;
     let ip_info = wifi.wifi().sta_netif().get_ip_info()?;
     info!("IP address: {:?}", ip_info.ip);
-    
+
     // Your application code here
-    
+
     Ok(())
 }
 ```
@@ -162,23 +162,23 @@ use std::time::Duration;
 fn main() -> Result<()> {
     // Initialize ESP-IDF and connect to WiFi (as shown in previous example)
     // ...
-    
+
     // Set up MQTT client
     let broker_url = "mqtt://mqtt.eclipse.org:1883";
     let client_id = "esp32-rust-client";
-    
+
     let mqtt_config = MqttClientConfiguration {
         client_id: Some(client_id),
         ..Default::default()
     };
-    
+
     let mut mqtt_client = EspMqttClient::new(broker_url, &mqtt_config)?;
     info!("MQTT client initialized");
-    
+
     // Subscribe to a topic
     mqtt_client.subscribe("esp32/test", QoS::AtMostOnce)?;
     info!("Subscribed to topic: esp32/test");
-    
+
     // Main loop
     let mut counter = 0;
     loop {
@@ -186,7 +186,7 @@ fn main() -> Result<()> {
         let message = format!("Hello from ESP32 Rust! Count: {}", counter);
         mqtt_client.publish("esp32/status", QoS::AtMostOnce, false, message.as_bytes())?;
         info!("Published: {}", message);
-        
+
         counter += 1;
         FreeRtos::delay_ms(5000);
     }
@@ -210,32 +210,32 @@ fn main() -> Result<()> {
     // Initialize ESP-IDF and logging
     esp_idf_sys::link_patches();
     esp_idf_svc::log::EspLogger::initialize_default();
-    
+
     // Set up I2C
     let peripherals = Peripherals::take().unwrap();
     let i2c = peripherals.i2c0;
     let sda = peripherals.pins.gpio21;
     let scl = peripherals.pins.gpio22;
-    
+
     let config = I2cConfig::new().baudrate(100.kHz().into());
     let i2c = I2cDriver::new(i2c, sda, scl, &config)?;
-    
+
     // Initialize BME280 sensor
     let mut bme280 = BME280::new_primary(i2c);
     bme280.init()?;
-    
+
     // Main loop
     loop {
         // Read sensor data
         let measurements = bme280.measure()?;
-        
+
         info!(
             "Temperature: {:.2}°C, Humidity: {:.2}%, Pressure: {:.2} hPa",
             measurements.temperature,
             measurements.humidity,
             measurements.pressure / 100.0 // Convert Pa to hPa
         );
-        
+
         FreeRtos::delay_ms(2000);
     }
 }
@@ -257,29 +257,29 @@ fn main() -> Result<()> {
     // Initialize ESP-IDF and logging
     esp_idf_sys::link_patches();
     esp_idf_svc::log::EspLogger::initialize_default();
-    
+
     info!("Power management example");
-    
+
     // Main loop
     let mut counter = 0;
     loop {
         // Do some work
         info!("Awake and working... (cycle {})", counter);
-        
+
         // Stay awake for 5 seconds
         FreeRtos::delay_ms(5000);
-        
+
         counter += 1;
-        
+
         // Go to deep sleep for 10 seconds
         info!("Going to deep sleep for 10 seconds...");
-        
+
         // Configure wakeup timer (time in microseconds)
         unsafe {
             esp_sleep_enable_timer_wakeup(10 * 1000 * 1000);
             esp_deep_sleep_start();
         }
-        
+
         // This line is never reached as the device resets after deep sleep
     }
 }
