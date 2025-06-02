@@ -201,13 +201,12 @@ export default async function BlogPost({
               <div className="mt-10 pt-6 border-t border-gray-800">
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
-                    <Link
+                    <span
                       key={tag}
-                      href={`/blog/search?tag=${tag}`}
-                      className="px-3 py-1 bg-gray-800 text-gray-300 text-sm rounded-full hover:bg-gray-700 transition-colors"
+                      className="px-3 py-1 bg-gray-800 text-gray-300 text-sm rounded-full cursor-default"
                     >
                       #{tag}
-                    </Link>
+                    </span>
                   ))}
                 </div>
               </div>

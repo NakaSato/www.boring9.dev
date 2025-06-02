@@ -11,6 +11,7 @@ export interface ExternalLinkProps {
   href: string;
   customClassName?: string;
   children: React.ReactNode;
+  title?: string;
 }
 
 export interface NavItemHeaderAnimation {
