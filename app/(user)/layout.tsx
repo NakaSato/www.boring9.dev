@@ -6,6 +6,9 @@ import Footer from '@/components/ui/Footer';
 import Head from '../head';
 import AdvancedFlareCursor from '@/components/ui/AdvancedFlareCursor';
 import { metadata } from './layout-metadata';
+import { MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
+import '@mantine/carousel/styles.css';
 
 export { metadata };
 
@@ -35,12 +38,14 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <Head />
 
       <body className="bg-black text-gray-100 min-h-screen flex flex-col transition-colors duration-300">
-        <AdvancedFlareCursor />
-        <EnhancedHeader />
-        <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 bg-black">
-          {children}
-        </main>
-        <Footer />
+        <MantineProvider>
+          <AdvancedFlareCursor />
+          <EnhancedHeader />
+          <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 bg-black">
+            {children}
+          </main>
+          <Footer />
+        </MantineProvider>
       </body>
     </html>
   );

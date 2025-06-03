@@ -13,12 +13,14 @@ const animation = {
 const AllLearningTechs = () => {
   return (
     <>
-      <p style={{
-        fontSize: '1rem',
-        textAlign: 'center',
-        marginBottom: '0.625rem',
-        color: '#9ca3af'
-      }}>
+      <p
+        style={{
+          fontSize: '1rem',
+          textAlign: 'center',
+          marginBottom: '0.625rem',
+          color: '#9ca3af'
+        }}
+      >
         <motion.span
           initial={animation.hide}
           animate={animation.show}
@@ -42,12 +44,14 @@ const AllLearningTechs = () => {
       >
         {/* PostgreSQL */}
         <motion.li variants={animation} style={{ display: 'inline-block' }}>
-          <div style={{ 
-            transition: 'color 0.2s ease', 
-            cursor: 'pointer'
-          }} 
-          onMouseEnter={(e) => e.currentTarget.style.color = '#0277bd'} 
-          onMouseLeave={(e) => e.currentTarget.style.color = 'currentColor'}>
+          <div
+            style={{
+              transition: 'color 0.2s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#0277bd')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'currentColor')}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"
@@ -69,13 +73,15 @@ const AllLearningTechs = () => {
 
         {/* GraphQL */}
         <motion.li variants={animation} style={{ display: 'inline-block' }}>
-          <div style={{ 
-            transition: 'color 0.2s ease', 
-            color: 'gray', 
-            cursor: 'pointer'
-          }} 
-          onMouseEnter={(e) => e.currentTarget.style.color = '#ff4081'} 
-          onMouseLeave={(e) => e.currentTarget.style.color = 'gray'}>
+          <div
+            style={{
+              transition: 'color 0.2s ease',
+              color: 'gray',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#ff4081')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'gray')}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"
@@ -103,12 +109,14 @@ const AllLearningTechs = () => {
 
         {/* Socket.IO */}
         <motion.li variants={animation} style={{ display: 'inline-block' }}>
-          <div style={{ 
-            transition: 'color 0.2s ease', 
-            cursor: 'pointer'
-          }} 
-          onMouseEnter={(e) => e.currentTarget.style.color = '#FFF'} 
-          onMouseLeave={(e) => e.currentTarget.style.color = 'currentColor'}>
+          <div
+            style={{
+              transition: 'color 0.2s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#FFF')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'currentColor')}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32px"
@@ -125,12 +133,14 @@ const AllLearningTechs = () => {
 
         {/* Docker */}
         <motion.li variants={animation} style={{ display: 'inline-block' }}>
-          <div style={{ 
-            transition: 'color 0.2s ease', 
-            cursor: 'pointer'
-          }} 
-          onMouseEnter={(e) => e.currentTarget.style.color = '#066da5'} 
-          onMouseLeave={(e) => e.currentTarget.style.color = 'currentColor'}>
+          <div
+            style={{
+              transition: 'color 0.2s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#066da5')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'currentColor')}
+          >
             <svg
               viewBox="0 0 24 18"
               width="32px"
@@ -143,8 +153,8 @@ const AllLearningTechs = () => {
               <title>Docker</title>
               <g>
                 <path
-              d="M23.505 6.609c-.54 -0.375 -1.779 -0.516 -2.747 -0.328 -0.112 -0.938 -0.63 -1.758 -1.531 -2.484l-0.518 -0.375 -0.36 0.539c-0.45 0.703 -0.675 1.688 -0.608 2.625 0.022 0.328 0.135 0.914 0.473 1.43 -0.315 0.188 -0.968 0.422 -1.824 0.422H0.108l-0.045 0.188c-0.158 0.937 -0.158 3.867 1.689 6.117 1.396 1.711 3.468 2.578 6.192 2.578 5.9 0 10.268 -2.836 12.317 -7.968 0.811 0.023 2.545 0 3.423 -1.758 0.022 -0.047 0.068 -0.141 0.225 -0.492l0.09 -0.188 -0.495 -0.305ZM13.124 0h-2.477v2.344h2.477V0Zm0 2.812h-2.477v2.344h2.477v-2.344Zm-2.927 0h-2.477v2.344h2.477v-2.344Zm-2.927 0H4.792v2.344h2.477v-2.344ZM4.342 5.625H1.865v2.344H4.342v-2.344Zm2.927 0H4.792v2.344h2.477v-2.344Zm2.927 0h-2.477v2.344h2.477v-2.344Zm2.927 0h-2.477v2.344h2.477v-2.344Zm2.927 0H13.574v2.344h2.477v-2.344Z"
-              fillRule="nonzero"
+                  d="M23.505 6.609c-.54 -0.375 -1.779 -0.516 -2.747 -0.328 -0.112 -0.938 -0.63 -1.758 -1.531 -2.484l-0.518 -0.375 -0.36 0.539c-0.45 0.703 -0.675 1.688 -0.608 2.625 0.022 0.328 0.135 0.914 0.473 1.43 -0.315 0.188 -0.968 0.422 -1.824 0.422H0.108l-0.045 0.188c-0.158 0.937 -0.158 3.867 1.689 6.117 1.396 1.711 3.468 2.578 6.192 2.578 5.9 0 10.268 -2.836 12.317 -7.968 0.811 0.023 2.545 0 3.423 -1.758 0.022 -0.047 0.068 -0.141 0.225 -0.492l0.09 -0.188 -0.495 -0.305ZM13.124 0h-2.477v2.344h2.477V0Zm0 2.812h-2.477v2.344h2.477v-2.344Zm-2.927 0h-2.477v2.344h2.477v-2.344Zm-2.927 0H4.792v2.344h2.477v-2.344ZM4.342 5.625H1.865v2.344H4.342v-2.344Zm2.927 0H4.792v2.344h2.477v-2.344Zm2.927 0h-2.477v2.344h2.477v-2.344Zm2.927 0h-2.477v2.344h2.477v-2.344Zm2.927 0H13.574v2.344h2.477v-2.344Z"
+                  fillRule="nonzero"
                 />
               </g>
             </svg>
@@ -153,12 +163,14 @@ const AllLearningTechs = () => {
 
         {/* Kubernetes */}
         <motion.li variants={animation} style={{ display: 'inline-block' }}>
-          <div style={{ 
-            transition: 'color 0.2s ease', 
-            cursor: 'pointer'
-          }} 
-          onMouseEnter={(e) => e.currentTarget.style.color = '#326DE6'} 
-          onMouseLeave={(e) => e.currentTarget.style.color = 'currentColor'}>
+          <div
+            style={{
+              transition: 'color 0.2s ease',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#326DE6')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'currentColor')}
+          >
             <svg
               width="32px"
               height="32px"
@@ -168,23 +180,26 @@ const AllLearningTechs = () => {
             >
               <title>Kubernetes</title>
               <path d="M4.5 14.569c.214.278.539.431.874.431h5.251c.335 0 .66-.165.875-.434l3.258-4.178c.214-.278.288-.633.214-.978l-1.165-5.207a1.128 1.128 0 00-.606-.777l-4.714-2.31A1.062 1.062 0 008.002 1c-.168 0-.335.038-.485.115l-4.715 2.32a1.129 1.129 0 00-.605.777L1.032 9.42c-.084.345 0 .7.214.978L4.5 14.568z" />
-              <path
-                fill="#ffffff"
-                fillRule="evenodd"
-              />
+              <path fill="#ffffff" fillRule="evenodd" />
             </svg>
           </div>
         </motion.li>
 
         {/* Jenkins */}
         <motion.li variants={animation} style={{ display: 'inline-block' }}>
-          <div style={{ 
-            transition: 'filter 0.2s ease', 
-            filter: 'grayscale(100%)',
-            cursor: 'pointer'
-          }} 
-          onMouseEnter={(e) => e.currentTarget.style.filter = 'grayscale(0%)'} 
-          onMouseLeave={(e) => e.currentTarget.style.filter = 'grayscale(100%)'}>
+          <div
+            style={{
+              transition: 'filter 0.2s ease',
+              filter: 'grayscale(100%)',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.filter = 'grayscale(0%)')
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.filter = 'grayscale(100%)')
+            }
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"
@@ -266,13 +281,19 @@ const AllLearningTechs = () => {
 
         {/* AWS */}
         <motion.li variants={animation} style={{ display: 'inline-block' }}>
-          <div style={{ 
-            transition: 'filter 0.2s ease', 
-            filter: 'grayscale(100%)',
-            cursor: 'pointer'
-          }} 
-          onMouseEnter={(e) => e.currentTarget.style.filter = 'grayscale(0%)'} 
-          onMouseLeave={(e) => e.currentTarget.style.filter = 'grayscale(100%)'}>
+          <div
+            style={{
+              transition: 'filter 0.2s ease',
+              filter: 'grayscale(100%)',
+              cursor: 'pointer'
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.filter = 'grayscale(0%)')
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.filter = 'grayscale(100%)')
+            }
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 48 48"

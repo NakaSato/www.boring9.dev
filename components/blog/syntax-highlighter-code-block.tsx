@@ -162,17 +162,17 @@ export default function SyntaxHighlighterCodeBlock({
 
       {/* Code Content */}
       <div className="relative">
-        <SyntaxHighlighter
-          language={mappedLanguage}
-          style={customTheme}
-          showLineNumbers={showLineNumbers}
-          customStyle={{
+        {(SyntaxHighlighter as any)({
+          language: mappedLanguage,
+          style: customTheme,
+          showLineNumbers: showLineNumbers,
+          customStyle: {
             margin: 0,
             background: 'transparent',
             fontSize: '14px',
             lineHeight: '1.5'
-          }}
-          lineNumberStyle={{
+          },
+          lineNumberStyle: {
             color: '#6b7280',
             backgroundColor: 'rgba(243, 244, 246, 0.5)',
             paddingLeft: '0.5rem',
@@ -181,12 +181,11 @@ export default function SyntaxHighlighterCodeBlock({
             marginRight: '1rem',
             minWidth: '3rem',
             textAlign: 'right'
-          }}
-          wrapLines={true}
-          wrapLongLines={true}
-        >
-          {code}
-        </SyntaxHighlighter>
+          },
+          wrapLines: true,
+          wrapLongLines: true,
+          children: code
+        })}
       </div>
     </div>
   );

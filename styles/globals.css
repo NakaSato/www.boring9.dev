@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import '@mantine/carousel/styles.css';
+
 :root {
   --primary: #0ea5e9;
   --secondary: #10b981;
