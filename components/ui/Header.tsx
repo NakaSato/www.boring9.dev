@@ -35,7 +35,7 @@ const Header = () => {
                   data-magnetic-strength="0.4"
                   className="transition-all duration-300 inline-block group relative overflow-hidden"
                 >
-                  {/* Animated background for brand - removed hover effect */}
+                  {/* Animated background for brand - hover effect removed */}
                   <motion.div
                     style={{
                       position: 'absolute',
@@ -43,6 +43,7 @@ const Header = () => {
                       borderRadius: '8px'
                     }}
                     initial={{ x: '-100%', opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }} // Remove any whileHover or hover color/animation
                     transition={{ duration: 0.6, ease: 'easeInOut' }}
                   />
 
@@ -56,7 +57,7 @@ const Header = () => {
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text'
                     }}
-                    // Removed whileHover scale effect
+                    // No whileHover or hover color/animation
                   >
                     Chanthawat
                   </motion.strong>
@@ -69,9 +70,7 @@ const Header = () => {
                       marginLeft: '4px'
                     }}
                     initial={{ rotate: 0 }}
-                    whileHover={{
-                      rotate: [0, -10, 10, 0]
-                    }}
+                    // Remove whileHover color/animation
                     transition={{
                       rotate: { duration: 0.5, ease: 'easeInOut' }
                     }}

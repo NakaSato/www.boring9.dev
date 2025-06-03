@@ -24,7 +24,7 @@ const HomeSection = () => {
 
         <CurrentTimeLineExp />
 
-        <FavProjects />
+        {/* <FavProjects /> */}
 
         <AnimationContainer>
           <div className="w-full flex flex-col gap-6 mb-12 bg-gray-900/50 p-6 rounded-xl border border-primary-800/20 shadow-lg">
