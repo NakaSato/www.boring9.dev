@@ -33,19 +33,16 @@ const Header = () => {
                   href="/"
                   data-magnetic="true"
                   data-magnetic-strength="0.4"
-                  className="transition-all duration-300 hover:scale-105 inline-block group relative overflow-hidden"
+                  className="transition-all duration-300 inline-block group relative overflow-hidden"
                 >
-                  {/* Animated background for brand */}
+                  {/* Animated background for brand - removed hover effect */}
                   <motion.div
                     style={{
                       position: 'absolute',
                       inset: 0,
-                      background:
-                        'linear-gradient(to right, rgba(14, 165, 233, 0), rgba(14, 165, 233, 0.1), rgba(14, 165, 233, 0))',
                       borderRadius: '8px'
                     }}
                     initial={{ x: '-100%', opacity: 0 }}
-                    whileHover={{ x: '100%', opacity: 1 }}
                     transition={{ duration: 0.6, ease: 'easeInOut' }}
                   />
 
@@ -59,11 +56,7 @@ const Header = () => {
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text'
                     }}
-                    whileHover={{
-                      scale: 1.05,
-                      filter: 'drop-shadow(0 0 20px rgba(14, 165, 233, 0.5))'
-                    }}
-                    transition={{ duration: 0.2 }}
+                    // Removed whileHover scale effect
                   >
                     Chanthawat
                   </motion.strong>
@@ -77,12 +70,10 @@ const Header = () => {
                     }}
                     initial={{ rotate: 0 }}
                     whileHover={{
-                      rotate: [0, -10, 10, 0],
-                      color: '#3b82f6'
+                      rotate: [0, -10, 10, 0]
                     }}
                     transition={{
-                      rotate: { duration: 0.5, ease: 'easeInOut' },
-                      color: { duration: 0.3 }
+                      rotate: { duration: 0.5, ease: 'easeInOut' }
                     }}
                   >
                     ();
@@ -104,7 +95,7 @@ const Header = () => {
                 stiffness: 200,
                 damping: 20
               }}
-              whileHover={{ scale: 1.02 }}
+              // Removed whileHover scale effect
             >
               <MobileMenuNav />
             </motion.div>
@@ -119,7 +110,7 @@ const Header = () => {
                 stiffness: 200,
                 damping: 20
               }}
-              whileHover={{ scale: 1.02 }}
+              // Removed whileHover scale effect
             >
               <NavItem />
             </motion.div>
