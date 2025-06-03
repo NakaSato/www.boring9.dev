@@ -1,65 +1,27 @@
 'use client';
 
-import { Badge } from '@mantine/core';
-
 const ShowSkills = ({ skills }: { skills: string | string[] }) => {
   if (skills instanceof Array) {
     return (
       <>
         {skills.map((skill) => (
-          <Badge
+          <span
             key={skill}
-            className="mx-1 transition-all duration-300 hover:scale-110"
-            color="primary"
-            size="lg"
-            radius="md"
-            variant="filled"
-            styles={(theme) => ({
-              root: {
-                backgroundColor: 'rgba(var(--color-primary-900), 0.8)',
-                borderColor: 'rgba(var(--color-primary-600), 0.3)',
-                color: 'rgba(var(--color-primary-100), 1)',
-                border: '1px solid',
-                padding: '6px 12px',
-                fontWeight: 500,
-                letterSpacing: '0.02em',
-                '&:hover': {
-                  backgroundColor: 'rgba(var(--color-primary-800), 0.9)',
-                }
-              }
-            })}
+            className="mx-1 inline-block px-3 py-1.5 bg-primary-900/80 border border-primary-600/30 text-primary-100 rounded-md font-medium text-sm tracking-wide transition-all duration-300 hover:scale-110 hover:bg-primary-800/90"
           >
             {skill}
-          </Badge>
+          </span>
         ))}
       </>
     );
   }
 
   return (
-    <Badge 
-      color="primary"
-      size="lg"
-      radius="md"
-      variant="filled"
-      styles={(theme) => ({
-        root: {
-          backgroundColor: 'rgba(var(--color-primary-900), 0.8)',
-          borderColor: 'rgba(var(--color-primary-600), 0.3)',
-          color: 'rgba(var(--color-primary-100), 1)',
-          border: '1px solid',
-          padding: '6px 12px',
-          fontWeight: 500,
-          letterSpacing: '0.02em',
-          '&:hover': {
-            backgroundColor: 'rgba(var(--color-primary-800), 0.9)',
-          }
-        }
-      })}
-      className="transition-all duration-300 hover:scale-110"
+    <span 
+      className="inline-block px-3 py-1.5 bg-primary-900/80 border border-primary-600/30 text-primary-100 rounded-md font-medium text-sm tracking-wide transition-all duration-300 hover:scale-110 hover:bg-primary-800/90"
     >
       {skills}
-    </Badge>
+    </span>
   );
 };
 

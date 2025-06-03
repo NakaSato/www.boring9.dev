@@ -33,7 +33,7 @@ const Header = () => {
                   href="/"
                   data-magnetic="true"
                   data-magnetic-strength="0.4"
-                  className="hover:text-primary-300 transition-all duration-300 hover:scale-105 inline-block group relative overflow-hidden"
+                  className="transition-all duration-300 hover:scale-105 inline-block group relative overflow-hidden"
                 >
                   {/* Animated background for brand */}
                   <motion.div

@@ -69,13 +69,13 @@ const HeaderAnimation = ({ children }: { children: React.ReactNode }) => {
       'w-full sticky top-0 flex flex-col justify-center items-center z-50 transition-all duration-500 ease-out';
 
     if (isVeryDeepScrolled) {
-      return `${baseClasses} backdrop-blur-xl bg-gradient-to-r from-gray-900/98 via-black/96 to-gray-900/98 border-b border-primary-500/50 shadow-2xl shadow-primary-500/25`;
+      return `${baseClasses} backdrop-blur-xl border-b border-primary-500/50 shadow-2xl shadow-primary-500/25`;
     } else if (isDeepScrolled) {
-      return `${baseClasses} backdrop-blur-xl bg-gradient-to-r from-gray-900/96 via-black/92 to-gray-900/96 border-b border-primary-500/40 shadow-xl shadow-primary-500/20`;
+      return `${baseClasses} backdrop-blur-xl border-b border-primary-500/40 shadow-xl shadow-primary-500/20`;
     } else if (isScrolled) {
-      return `${baseClasses} backdrop-blur-lg bg-gradient-to-r from-gray-900/94 via-black/88 to-gray-900/94 border-b border-primary-500/30 shadow-lg shadow-primary-500/15`;
+      return `${baseClasses} backdrop-blur-lg border-b border-primary-500/30 shadow-lg shadow-primary-500/15`;
     } else {
-      return `${baseClasses} bg-gradient-to-r from-gray-900/90 via-black/80 to-gray-900/90 backdrop-blur-md border-b border-gray-800/40`;
+      return `${baseClasses} backdrop-blur-md border-b border-gray-800/40`;
     }
   }, [isScrolled, isDeepScrolled, isVeryDeepScrolled]);
 
@@ -93,7 +93,7 @@ const HeaderAnimation = ({ children }: { children: React.ReactNode }) => {
 
   if (!isMounted) {
     return (
-      <header className="w-full sticky top-0 flex flex-col justify-center items-center z-50 bg-gradient-to-r from-gray-900/90 via-black/80 to-gray-900/90 backdrop-blur-md border-b border-gray-800/40">
+      <header className="w-full sticky top-0 flex flex-col justify-center items-center z-50 backdrop-blur-md border-b border-gray-800/40">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,10 +118,6 @@ const HeaderAnimation = ({ children }: { children: React.ReactNode }) => {
           transform: 'translateZ(0)',
           backfaceVisibility: 'hidden'
         }}
-        whileHover={{
-          filter: 'drop-shadow(0 25px 50px rgba(14, 165, 233, 0.2))',
-          transition: { duration: 0.3, ease: 'easeOut' }
-        }}
       >
         <motion.div
           initial={{ opacity: 0, y: -12, scale: 0.98 }}
@@ -135,27 +131,6 @@ const HeaderAnimation = ({ children }: { children: React.ReactNode }) => {
           }}
           style={{ width: '100%', position: 'relative' }}
         >
-          {/* Animated background gradient */}
-          <motion.div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background:
-                'linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.05), transparent)',
-              borderRadius: '0 0 16px 16px',
-              opacity: 0,
-              pointerEvents: 'none'
-            }}
-            initial={{ x: '-100%' }}
-            whileHover={{
-              x: '100%',
-              opacity: 1
-            }}
-            transition={{
-              x: { duration: 0.8, ease: 'easeInOut' },
-              opacity: { duration: 0.5 }
-            }}
-          />
           {children}
         </motion.div>
       </motion.div>

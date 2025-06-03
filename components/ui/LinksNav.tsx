@@ -89,7 +89,7 @@ const LinksNav = ({ isMounted = false }: LinksNavProps) => {
           <Link
             key={path}
             href={path}
-            className="relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 text-gray-300 hover:text-primary-300 hover:bg-primary-500/10"
+            className="relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 text-gray-300"
           >
             <span className="relative z-10">{name}</span>
           </Link>
@@ -122,7 +122,7 @@ const LinksNav = ({ isMounted = false }: LinksNavProps) => {
                 className={cn(
                   'relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 group overflow-hidden nav-item',
                   {
-                    'text-gray-300 hover:text-primary-300': !isActive,
+                    'text-gray-300': !isActive,
                     'text-primary-400 font-bold': isActive
                   }
                 )}
@@ -179,11 +179,7 @@ const LinksNav = ({ isMounted = false }: LinksNavProps) => {
                   style={{ position: 'relative', zIndex: 10 }}
                   animate={{
                     scale: hoveredItem === path || isActive ? 1.05 : 1,
-                    color: isActive
-                      ? '#60a5fa'
-                      : hoveredItem === path
-                      ? '#93c5fd'
-                      : '#d1d5db'
+                    color: isActive ? '#60a5fa' : '#d1d5db'
                   }}
                   transition={{ duration: 0.2 }}
                 >
