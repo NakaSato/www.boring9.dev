@@ -1,54 +1,9 @@
 'use client';
 
-import { Carousel } from '@mantine/carousel';
-import { useMediaQuery } from '@mantine/hooks';
-import {
-  createStyles,
-  Paper,
-  Text,
-  Title,
-  useMantineTheme
-} from '@mantine/core';
+import Carousel from '../ui/Carousel';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 import ExternalLink from '../ui/ExternalLink';
 import AnimationContainer from '../utils/AnimationContainer';
-
-const useStyles = createStyles((theme: any) => ({
-  card: {
-    height: 350,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-center',
-    padding: '16px',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    borderRadius: '12px',
-    border: '1px solid rgba(229, 231, 235, 0.5)',
-    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05)'
-  },
-
-  title: {
-    color: theme.white,
-    lineHeight: 1.2,
-    fontSize: 28,
-    fontWeight: 700,
-    marginTop: theme.spacing.xs,
-    textShadow: '0 2px 4px rgba(0,0,0,0.7)'
-  },
-
-  category: {
-    color: theme.white,
-    opacity: 0.95,
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    backgroundColor: 'rgba(var(--color-primary-600), 0.8)',
-    display: 'inline-block',
-    padding: '4px 8px',
-    borderRadius: '4px',
-    fontSize: '12px',
-    textShadow: '0 1px 2px rgba(0,0,0,0.5)'
-  }
-}));
 
 interface CardProps {
   image: string;
@@ -59,24 +14,20 @@ interface CardProps {
 }
 
 const Card = ({ image, title, category, repo, link }: CardProps) => {
-  const { classes } = useStyles();
-
   return (
-    <Paper
-      shadow="xl"
-      radius="md"
+    <div
+      className="h-[350px] flex flex-col justify-between items-flex-center p-4 bg-cover bg-center rounded-xl border border-gray-200/50 shadow-lg relative"
       style={{ 
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)), url(${image})` 
       }}
-      className={classes.card}
     >
       <div>
-        <Text className={classes.category} size="xs">
+        <span className="text-white opacity-95 font-bold uppercase bg-primary-600/80 inline-block px-2 py-1 rounded text-xs shadow-sm">
           {category}
-        </Text>
-        <Title order={3} className={classes.title}>
+        </span>
+        <h3 className="text-white leading-tight text-2xl font-bold mt-2 drop-shadow-lg">
           {title}
-        </Title>
+        </h3>
       </div>
 
       <div className="flex items-center justify-end gap-3">
@@ -117,7 +68,7 @@ const Card = ({ image, title, category, repo, link }: CardProps) => {
           </svg>
         </ExternalLink>
       </div>
-    </Paper>
+    </div>
   );
 };
 
@@ -132,12 +83,8 @@ const favProjects = [
   }
 ];
 
-const myGithub = 'https://github.com/enwuft';
-
 const FavProjects = () => {
-  const theme = useMantineTheme();
-
-  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`);
+  const mobile = useMediaQuery('(max-width: 768px)');
 
   const slides = favProjects.map((item) => (
     <Carousel.Slide key={item.title}>
@@ -154,25 +101,13 @@ const FavProjects = () => {
 
         <Carousel
           slideSize="50%"
-          breakpoints={[{ maxWidth: 'sm', slideSize: '100%', slideGap: 2 }]}
-          slideGap="md"
+          breakpoints={[{ maxWidth: '768px', slideSize: '100%', slideGap: 2 }]}
+          slideGap="1rem"
           align="center"
           slidesToScroll={mobile ? 1 : 2}
           withControls={true}
-          controlsOffset="xs"
-          style={{ width: '100%', cursor: 'grab' }}
+          className="w-full cursor-grab"
           loop
-          styles={{
-            control: {
-              backgroundColor: 'rgba(var(--color-primary-600), 0.7)',
-              color: 'white',
-              borderRadius: '50%',
-              border: 'none',
-              '&:hover': {
-                backgroundColor: 'rgba(var(--color-primary-700), 0.9)',
-              },
-            }
-          }}
         >
           {slides}
         </Carousel>
