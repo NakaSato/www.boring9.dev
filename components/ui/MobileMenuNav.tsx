@@ -21,7 +21,7 @@ const MenuIcon = (
       style={{ position: 'absolute' }}
     >
       <svg
-        className="h-5 w-5 text-gray-300 hover:text-primary-400 transition-colors"
+        className="h-5 w-5 text-gray-300 transition-colors"
         width="20"
         height="20"
         viewBox="0 0 20 20"

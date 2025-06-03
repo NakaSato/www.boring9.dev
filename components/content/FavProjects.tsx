@@ -1,54 +1,9 @@
 'use client';
 
-import { Carousel } from '@mantine/carousel';
-import { useMediaQuery } from '@mantine/hooks';
-import {
-  createStyles,
-  Paper,
-  Text,
-  Title,
-  useMantineTheme
-} from '@mantine/core';
+import { useCallback, useEffect, useState } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 import ExternalLink from '../ui/ExternalLink';
 import AnimationContainer from '../utils/AnimationContainer';
-
-const useStyles = createStyles((theme: any) => ({
-  card: {
-    height: 350,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-center',
-    padding: '16px',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    borderRadius: '12px',
-    border: '1px solid rgba(229, 231, 235, 0.5)',
-    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05)'
-  },
-
-  title: {
-    color: theme.white,
-    lineHeight: 1.2,
-    fontSize: 28,
-    fontWeight: 700,
-    marginTop: theme.spacing.xs,
-    textShadow: '0 2px 4px rgba(0,0,0,0.7)'
-  },
-
-  category: {
-    color: theme.white,
-    opacity: 0.95,
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    backgroundColor: 'rgba(var(--color-primary-600), 0.8)',
-    display: 'inline-block',
-    padding: '4px 8px',
-    borderRadius: '4px',
-    fontSize: '12px',
-    textShadow: '0 1px 2px rgba(0,0,0,0.5)'
-  }
-}));
 
 interface CardProps {
   image: string;
@@ -58,28 +13,41 @@ interface CardProps {
   link: string;
 }
 
-const Card = ({ image, title, category, repo, link }: CardProps) => {
-  const { classes } = useStyles();
+// Custom hook for media queries
+const useMediaQuery = (query: string) => {
+  const [matches, setMatches] = useState(false);
 
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    window.addEventListener('resize', listener);
+    return () => window.removeEventListener('resize', listener);
+  }, [matches, query]);
+
+  return matches;
+};
+
+const Card = ({ image, title, category, repo, link }: CardProps) => {
   return (
-    <Paper
-      shadow="xl"
-      radius="md"
+    <div
+      className="h-[350px] flex flex-col justify-between items-start p-4 bg-cover bg-center rounded-xl border border-gray-200/50 shadow-xl relative overflow-hidden"
       style={{ 
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)), url(${image})` 
       }}
-      className={classes.card}
     >
-      <div>
-        <Text className={classes.category} size="xs">
+      <div className="z-10">
+        <span className="text-white opacity-95 font-bold uppercase bg-primary-600/80 inline-block px-2 py-1 rounded text-xs shadow-sm">
           {category}
-        </Text>
-        <Title order={3} className={classes.title}>
+        </span>
+        <h3 className="text-white text-2xl font-bold mt-2 leading-tight drop-shadow-lg">
           {title}
-        </Title>
+        </h3>
       </div>
 
-      <div className="flex items-center justify-end gap-3">
+      <div className="flex items-center justify-end gap-3 z-10">
         <ExternalLink
           href={repo}
           customClassName="text-white inline-flex items-center rounded-lg bg-primary-600 p-2 hover:bg-primary-700 transition-all duration-300 shadow-lg"
@@ -117,7 +85,7 @@ const Card = ({ image, title, category, repo, link }: CardProps) => {
           </svg>
         </ExternalLink>
       </div>
-    </Paper>
+    </div>
   );
 };
 
@@ -132,18 +100,39 @@ const favProjects = [
   }
 ];
 
-const myGithub = 'https://github.com/enwuft';
-
 const FavProjects = () => {
-  const theme = useMantineTheme();
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true,
+    align: 'center',
+    skipSnaps: false,
+    dragFree: false
+  });
+  
+  const mobile = useMediaQuery('(max-width: 640px)');
 
-  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`);
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
 
-  const slides = favProjects.map((item) => (
-    <Carousel.Slide key={item.title}>
-      <Card {...item} />
-    </Carousel.Slide>
-  ));
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setCanScrollPrev(emblaApi.canScrollPrev());
+    setCanScrollNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+  }, [emblaApi, onSelect]);
 
   return (
     <AnimationContainer customClassName="w-full">
@@ -152,30 +141,45 @@ const FavProjects = () => {
           Featured Projects
         </h2>
 
-        <Carousel
-          slideSize="50%"
-          breakpoints={[{ maxWidth: 'sm', slideSize: '100%', slideGap: 2 }]}
-          slideGap="md"
-          align="center"
-          slidesToScroll={mobile ? 1 : 2}
-          withControls={true}
-          controlsOffset="xs"
-          style={{ width: '100%', cursor: 'grab' }}
-          loop
-          styles={{
-            control: {
-              backgroundColor: 'rgba(var(--color-primary-600), 0.7)',
-              color: 'white',
-              borderRadius: '50%',
-              border: 'none',
-              '&:hover': {
-                backgroundColor: 'rgba(var(--color-primary-700), 0.9)',
-              },
-            }
-          }}
-        >
-          {slides}
-        </Carousel>
+        <div className="relative">
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex gap-4">
+              {favProjects.map((item, index) => (
+                <div 
+                  key={item.title} 
+                  className={mobile ? "flex-[0_0_100%]" : "flex-[0_0_50%]"}
+                >
+                  <Card {...item} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Navigation buttons */}
+          <button
+            className={`absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-primary-600/70 text-white hover:bg-primary-700/90 transition-all duration-300 flex items-center justify-center ${
+              !canScrollPrev ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            onClick={scrollPrev}
+            disabled={!canScrollPrev}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M10 3L5 8l5 5V3z"/>
+            </svg>
+          </button>
+
+          <button
+            className={`absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-primary-600/70 text-white hover:bg-primary-700/90 transition-all duration-300 flex items-center justify-center ${
+              !canScrollNext ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            onClick={scrollNext}
+            disabled={!canScrollNext}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M6 3l5 5-5 5V3z"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </AnimationContainer>
   );
