@@ -25,8 +25,7 @@ export const projects: ProjectType[] = [
     category: 'web',
     tags: ['react', 'typescript', 'vite', 'solar', 'spa'],
     repo: 'https://github.com/NakaSato/react-vite-spa-internal-app',
-    link: 'https://solar-projects-spa.vercel.app',
-    image: '/images/projects/solar-projects-spa.png',
+    link: 'https://icms.gridtokenx.com',
     featured: true,
     completedAt: '2024-09-25',
     techStack: [
@@ -47,8 +46,7 @@ export const projects: ProjectType[] = [
     category: 'backend',
     tags: ['csharp', 'dotnet', 'signalr', 'api', 'solar'],
     repo: 'https://github.com/NakaSato/construction-dotnet-rest-api',
-    link: 'https://solar-projects-api-dev.azurewebsites.net',
-    image: '/images/projects/solar-projects-api.png',
+    link: 'https://api-icms.gridtokenx.com/index.html',
     featured: true,
     completedAt: '2024-10-20',
     techStack: [
@@ -70,7 +68,6 @@ export const projects: ProjectType[] = [
     tags: ['rust', 'blockchain', 'substrate', 'energy', 'defi'],
     repo: 'https://github.com/NakaSato/poc-grid-network',
     link: 'https://www.gridtokenx.com',
-    image: '/images/projects/gridtokenx-blockchain.png',
     featured: true,
     completedAt: '2024-11-15',
     techStack: [
@@ -91,8 +88,7 @@ export const projects: ProjectType[] = [
     category: 'web',
     tags: ['typescript', 'react', 'nextjs', 'networking'],
     repo: 'https://github.com/NakaSato/netool',
-    link: 'https://cidr.xyz',
-    image: '/images/projects/netool.png',
+    link: 'https://netool.boring9.dev',
     featured: true,
     completedAt: '2024-12-01',
     techStack: [
