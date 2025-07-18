@@ -30,7 +30,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <div className="group relative flex flex-col bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-xl rounded-3xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] border border-white/[0.1] h-full min-h-[350px] max-h-[420px] hover:shadow-[0_20px_40px_0_rgba(0,0,0,0.4)] hover:border-white/[0.15] transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1">
+    <div className="group relative flex flex-col bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-xl rounded-3xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] border border-white/[0.1] h-full min-h-[400px] max-h-[480px] hover:shadow-[0_20px_40px_0_rgba(0,0,0,0.4)] hover:border-white/[0.15] transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1">
       {/* Gradient overlay */}
       <div
         className={`absolute inset-0 bg-gradient-to-br ${getCategoryGradient(project.category)} opacity-[0.02] group-hover:opacity-[0.04] transition-opacity duration-500`}
@@ -104,7 +104,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Enhanced Content */}
-      <div className="flex flex-col flex-grow px-5 pb-5 relative z-10">
+      <div className="flex flex-col flex-grow px-5 pb-6 relative z-10">
         {/* Enhanced Title */}
         <div className="mb-4">
           <h3 className="text-xl font-bold text-white leading-tight tracking-tight font-inter line-clamp-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-300">
@@ -151,32 +151,65 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
 
-        {/* Enhanced Footer */}
-        <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/[0.08]">
-          {/* Enhanced Date display */}
-          <div className="flex items-center gap-2 text-xs text-gray-400 font-mono">
-            <div className="p-1 bg-white/[0.08] rounded-lg backdrop-blur-sm">
-              <Calendar className="w-3 h-3" />
+        {/* Enhanced Footer with Prominent Links */}
+        <div className="flex flex-col gap-4 mt-auto pt-4 border-t border-white/[0.08]">
+          {/* Date and Links Row */}
+          <div className="flex items-center justify-between">
+            {/* Enhanced Date display */}
+            <div className="flex items-center gap-2 text-xs text-gray-400 font-mono">
+              <div className="p-1 bg-white/[0.08] rounded-lg backdrop-blur-sm">
+                <Calendar className="w-3 h-3" />
+              </div>
+              <span className="tracking-wide text-xs font-medium">
+                {new Date(project.completedAt).toLocaleDateString('en-US', {
+                  month: 'short',
+                  year: '2-digit'
+                })}
+              </span>
             </div>
-            <span className="tracking-wide text-xs font-medium">
-              {new Date(project.completedAt).toLocaleDateString('en-US', {
-                month: 'short',
-                year: '2-digit'
-              })}
-            </span>
+
+            {/* Enhanced Action buttons */}
+            <div className="flex gap-2">
+              {project.repo && (
+                <a
+                  href={project.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 text-gray-400 bg-white/[0.08] rounded-xl border border-white/[0.1] backdrop-blur-sm hover:bg-white/[0.15] hover:text-white hover:border-white/[0.2] transition-all duration-300 hover:scale-110"
+                  title="View source code"
+                >
+                  <Github className="w-4 h-4" />
+                </a>
+              )}
+
+              {project.link && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center w-10 h-10 text-gray-400 bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-pink-500/15 rounded-xl border border-white/[0.1] backdrop-blur-sm hover:from-blue-500/25 hover:via-purple-500/25 hover:to-pink-500/25 hover:text-white hover:border-white/[0.2] transition-all duration-300 hover:scale-110 group/btn"
+                  title="View live project"
+                >
+                  <ArrowUpRight className="w-4 h-4 group-hover/btn:rotate-45 transition-transform duration-300" />
+                </a>
+              )}
+            </div>
           </div>
 
-          {/* Enhanced Action buttons */}
+          {/* Enhanced Link Labels */}
           <div className="flex gap-2">
             {project.repo && (
               <a
                 href={project.repo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-9 h-9 text-gray-400 bg-white/[0.08] rounded-xl border border-white/[0.1] backdrop-blur-sm hover:bg-white/[0.15] hover:text-white hover:border-white/[0.2] transition-all duration-300 hover:scale-110"
-                title="View source code"
+                className="group/link flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-gray-800/40 to-gray-900/60 border border-gray-700/40 rounded-xl text-xs font-medium text-gray-300 backdrop-blur-xl shadow-lg hover:shadow-xl hover:border-gray-600/60 hover:scale-105 hover:text-white transition-all duration-300 overflow-hidden flex-1"
               >
-                <Github className="w-4 h-4" />
+                {/* Link shimmer */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent translate-x-[-100%] group-hover/link:translate-x-[100%] transition-transform duration-700"></div>
+
+                <Github className="w-3.5 h-3.5 relative" />
+                <span className="relative font-semibold">Source Code</span>
               </a>
             )}
 
@@ -185,10 +218,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-9 h-9 text-gray-400 bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-pink-500/15 rounded-xl border border-white/[0.1] backdrop-blur-sm hover:from-blue-500/25 hover:via-purple-500/25 hover:to-pink-500/25 hover:text-white hover:border-white/[0.2] transition-all duration-300 hover:scale-110 group/btn"
-                title="View live project"
+                className="group/link flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-pink-500/15 border border-white/[0.1] rounded-xl text-xs font-medium text-gray-200 backdrop-blur-xl shadow-lg hover:shadow-xl hover:from-blue-500/25 hover:via-purple-500/25 hover:to-pink-500/25 hover:border-white/[0.2] hover:scale-105 hover:text-white transition-all duration-300 overflow-hidden flex-1"
               >
-                <ArrowUpRight className="w-4 h-4 group-hover/btn:rotate-45 transition-transform duration-300" />
+                {/* Link shimmer */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent translate-x-[-100%] group-hover/link:translate-x-[100%] transition-transform duration-700"></div>
+
+                <ExternalLink className="w-3.5 h-3.5 relative" />
+                <span className="relative font-semibold">Live Demo</span>
               </a>
             )}
           </div>
