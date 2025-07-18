@@ -265,17 +265,26 @@ export default async function Projects() {
           {/* Additional GitHub Stats */}
           {userData && (
             <div className="mt-4 flex flex-wrap gap-3 justify-center">
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-800/30 border border-gray-700/30 rounded-lg text-sm text-gray-300">
-                <span className="font-medium">{userData.public_repos}</span>
-                <span>Public Repos</span>
+              <div className="group relative flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-gray-800/40 to-gray-900/60 border border-gray-700/40 rounded-2xl text-sm text-gray-300 backdrop-blur-xl shadow-lg hover:shadow-xl hover:border-gray-600/60 hover:scale-105 transition-all duration-300 overflow-hidden">
+                {/* Shimmer effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                
+                <span className="relative font-bold text-white">{userData.public_repos}</span>
+                <span className="relative text-gray-400">Public Repos</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-800/30 border border-gray-700/30 rounded-lg text-sm text-gray-300">
-                <span className="font-medium">{userData.followers}</span>
-                <span>Followers</span>
+              <div className="group relative flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-gray-800/40 to-gray-900/60 border border-gray-700/40 rounded-2xl text-sm text-gray-300 backdrop-blur-xl shadow-lg hover:shadow-xl hover:border-gray-600/60 hover:scale-105 transition-all duration-300 overflow-hidden">
+                {/* Shimmer effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                
+                <span className="relative font-bold text-white">{userData.followers}</span>
+                <span className="relative text-gray-400">Followers</span>
               </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-800/30 border border-gray-700/30 rounded-lg text-sm text-gray-300">
-                <span className="font-medium">{userData.following}</span>
-                <span>Following</span>
+              <div className="group relative flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-gray-800/40 to-gray-900/60 border border-gray-700/40 rounded-2xl text-sm text-gray-300 backdrop-blur-xl shadow-lg hover:shadow-xl hover:border-gray-600/60 hover:scale-105 transition-all duration-300 overflow-hidden">
+                {/* Shimmer effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                
+                <span className="relative font-bold text-white">{userData.following}</span>
+                <span className="relative text-gray-400">Following</span>
               </div>
             </div>
           )}
@@ -378,7 +387,7 @@ export default async function Projects() {
                   <h4 className="text-xs font-medium text-gray-400 uppercase tracking-wide">
                     Technologies
                   </h4>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-2">
                     {[
                       'React',
                       'Next.js',
@@ -392,12 +401,18 @@ export default async function Projects() {
                       'Vercel',
                       'Git',
                       'Linux'
-                    ].map((tech) => (
+                    ].map((tech, index) => (
                       <span
                         key={tech}
-                        className="inline-flex items-center px-2 py-0.5 bg-gray-800/50 border border-gray-700/50 rounded text-xs font-medium text-gray-300 hover:bg-gray-700/50 hover:border-gray-600/50 transition-colors duration-200"
+                        className="group relative inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-gray-800/60 to-gray-900/80 border border-gray-700/60 rounded-xl text-xs font-bold text-gray-200 backdrop-blur-xl shadow-lg hover:shadow-xl hover:bg-gradient-to-r hover:from-gray-700/70 hover:to-gray-800/90 hover:border-gray-600/70 hover:text-white hover:scale-105 transition-all duration-300 overflow-hidden"
+                        style={{
+                          animationDelay: `${index * 50}ms`
+                        }}
                       >
-                        {tech}
+                        {/* Badge shimmer */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
+                        
+                        <span className="relative">{tech}</span>
                       </span>
                     ))}
                   </div>

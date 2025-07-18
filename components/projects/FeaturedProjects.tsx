@@ -50,14 +50,8 @@ export default function FeaturedProjects() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-8 auto-rows-fr">
-          {featuredProjects.map((project, index) => (
-            <div
-              key={project.id}
-              className="opacity-0"
-              style={{
-                animation: `slideInUp 0.6s ease-out ${index * 0.1}s forwards`
-              }}
-            >
+          {featuredProjects.map((project) => (
+            <div key={project.id}>
               <ProjectCard project={project} />
             </div>
           ))}
