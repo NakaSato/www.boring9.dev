@@ -15,10 +15,10 @@ const AboutSection = () => {
         <AnimationContainer customClassName="w-full flex flex-col gap-5 mb-8">
           <div className="p-6 bg-gray-900/50 rounded-xl border border-primary-800/20 shadow-lg">
             <p className="text-base text-gray-300 leading-relaxed">
-              I am a passionate 2 years of work experience in Electrical
-              Engineering and love learning new technologies since I discovered
-              programming, I am currently learning the way to be a Cyber Security
-              specialist.
+              I am a passionate learner with 3 years of work experience in
+              Electrical Engineering and love learning new technologies since I
+              discovered programming, I am currently learning the way to be a
+              Cyber Security specialist.
             </p>
           </div>
         </AnimationContainer>
@@ -54,8 +54,8 @@ const AboutSection = () => {
 
           <div className="p-6 bg-gray-900/50 rounded-xl border border-primary-800/20 shadow-lg">
             <p className="text-base text-gray-300 leading-relaxed">
-              I am interested in learning Backend with other language like Rust,
-              Go or with Python.
+              I am interested in learning Backend with other language like Rust
+              or with Python.
             </p>
           </div>
         </AnimationContainer>

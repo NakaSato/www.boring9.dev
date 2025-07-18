@@ -79,25 +79,30 @@ export default async function Blog() {
 
   return (
     <BlogContainer>
-      <div className="flex flex-col w-full gap-6">
+      <div className="flex flex-col w-full">
         {/* Add JSON-LD structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(blogListSchema) }}
         />
 
-        <SocialShare title="Blog" />
-
         <BlogList posts={posts} />
 
-        {/* Add pagination component when there are multiple pages */}
+        {/* Enhanced Pagination */}
         {totalPages > 1 && (
-          <Pagination
-            currentPage={1}
-            totalPages={totalPages}
-            basePath="/blog/page"
-          />
+          <div className="mt-16 flex justify-center">
+            <Pagination
+              currentPage={1}
+              totalPages={totalPages}
+              basePath="/blog/page"
+            />
+          </div>
         )}
+
+        {/* Social Share Section */}
+        <div className="mt-12 pt-8 border-t border-gray-800/50">
+          <SocialShare title="Blog" />
+        </div>
       </div>
     </BlogContainer>
   );

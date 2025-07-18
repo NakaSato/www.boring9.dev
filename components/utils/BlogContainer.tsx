@@ -1,7 +1,7 @@
 const BlogContainer = ({ children }: { children: React.ReactNode }) => {
   return (
-    <section className="flex flex-col items-center justify-center w-3/4 pb-16 mt-8 lg:max-w-screen-md lg:items-start lg:mx-auto">
-      {children}
+    <section className="min-h-screen w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+      <div className="flex flex-col gap-8">{children}</div>
     </section>
   );
 };
