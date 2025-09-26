@@ -1,92 +1,10 @@
 {
-  "date": "2025-05-18T15:45:51.954Z",
+  "date": "2025-09-26T11:30:45.935Z",
   "summary": {
-    "totalLinks": 10,
-    "totalPosts": 6,
-    "statusCounts": {
-      "200": 5,
-      "403": 2,
-      "404": 1,
-      "skipped": 2
-    },
-    "brokenLinks": 3
+    "totalLinks": 0,
+    "totalPosts": 2,
+    "statusCounts": {},
+    "brokenLinks": 0
   },
-  "results": {
-    "rust-lang-for-esp32-iot": [
-      {
-        "post": "rust-lang-for-esp32-iot",
-        "url": "https://github.com/esp-rs",
-        "text": "esp-rs GitHub organization",
-        "status": 200,
-        "type": "link"
-      },
-      {
-        "post": "rust-lang-for-esp32-iot",
-        "url": "https://docs.rust-embedded.org/book/",
-        "text": "The Embedded Rust Book",
-        "status": 200,
-        "type": "link"
-      },
-      {
-        "post": "rust-lang-for-esp32-iot",
-        "url": "https://crates.io/crates/esp-idf-sys",
-        "text": "ESP32 IDF Rust Crate",
-        "status": 404,
-        "type": "link"
-      },
-      {
-        "post": "rust-lang-for-esp32-iot",
-        "url": "https://embassy.dev/",
-        "text": "Embassy",
-        "status": 200,
-        "type": "link"
-      }
-    ],
-    "markdown-test": [
-      {
-        "post": "markdown-test",
-        "url": "https://www.example.com",
-        "text": "Link text",
-        "status": "skipped",
-        "type": "link"
-      },
-      {
-        "post": "markdown-test",
-        "url": "https://twitter.com",
-        "text": "Twitter",
-        "status": 403,
-        "type": "link"
-      },
-      {
-        "post": "markdown-test",
-        "url": "https://github.com",
-        "text": "GitHub",
-        "status": 200,
-        "type": "link"
-      }
-    ],
-    "getting-started-with-markdown": [
-      {
-        "post": "getting-started-with-markdown",
-        "url": "https://www.example.com",
-        "text": "Link text",
-        "status": "skipped",
-        "type": "link"
-      },
-      {
-        "post": "getting-started-with-markdown",
-        "url": "https://twitter.com",
-        "text": "Twitter",
-        "status": 403,
-        "type": "link"
-      },
-      {
-        "post": "getting-started-with-markdown",
-        "url": "https://github.com",
-        "text": "GitHub",
-        "status": 200,
-        "type": "link"
-      }
-    ]
-  }
+  "results": {}
 }
