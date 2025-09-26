@@ -4,10 +4,9 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import ReadingProgressBar from '@/components/blog/reading-progress';
-import RelatedPosts from '@/components/blog/related-posts';
 import TableOfContents from '@/components/blog/table-of-contents';
 import SocialSharing from '@/components/blog/social-sharing';
-import EnhancedCodeBlock from '@/components/blog/enhanced-code-block';
+import CodeBlock from '@/components/blog/code-block';
 import AffiliateLinksSection from '@/components/blog/affiliate-links-section';
 import AffiliateDisclosure from '@/components/blog/affiliate-disclosure';
 
@@ -115,8 +114,8 @@ export default async function BlogPost({
       {/* Reading Progress Bar */}
       <ReadingProgressBar />
 
-      {/* Code block enhancement for copy functionality */}
-      <EnhancedCodeBlock />
+      {/* Code block for copy functionality */}
+      <CodeBlock />
 
       <div className="max-w-7xl mx-auto py-10 px-4 md:px-6">
         <div className="flex flex-col xl:flex-row xl:space-x-10">
@@ -144,7 +143,7 @@ export default async function BlogPost({
               <BlogHeader
                 author={{
                   name: post.author,
-                  handle: '@' + post.author.toLowerCase().replace(/\s+/g, ''),
+                  handle: post.author.toLowerCase().replace(/\s+/g, ''),
                   avatar: post.authorImage
                 }}
                 date={new Date(post.date).toLocaleDateString('en-US', {
@@ -208,46 +207,6 @@ export default async function BlogPost({
                       #{tag}
                     </span>
                   ))}
-                </div>
-              </div>
-            )}
-
-            {post.authorBio && (
-              <div className="mt-12 pt-8 border-t border-gray-800/60">
-                <div className="bg-gradient-to-br from-gray-900/80 to-gray-800/60 rounded-2xl p-6 lg:p-8 backdrop-blur-sm border border-gray-700/30">
-                  <div className="flex items-start gap-6">
-                    <div className="relative">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 rounded-full blur opacity-75"></div>
-                      <Image
-                        src={post.authorImage}
-                        alt={post.author}
-                        width={80}
-                        height={80}
-                        className="relative rounded-full border-2 border-gray-700/50"
-                      />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 mb-3">
-                        <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                          {post.author}
-                        </h3>
-                        <div className="px-3 py-1 bg-blue-500/20 text-blue-300 text-sm rounded-full font-medium border border-blue-500/30">
-                          Author
-                        </div>
-                      </div>
-                      <p className="text-gray-300 leading-relaxed text-lg">
-                        {post.authorBio}
-                      </p>
-                      <div className="mt-4 flex items-center gap-4">
-                        <div className="text-sm text-gray-400">
-                          📧 Connect for collaboration
-                        </div>
-                        <div className="text-sm text-gray-400">
-                          🚀 Follow for more tech insights
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             )}

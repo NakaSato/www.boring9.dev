@@ -88,7 +88,6 @@ export default async function Blog() {
 
         <BlogList posts={posts} />
 
-        {/* Enhanced Pagination */}
         {totalPages > 1 && (
           <div className="mt-16 flex justify-center">
             <Pagination
