@@ -155,7 +155,7 @@ const CursorModeSelector = ({ onModeChange, currentMode }: CursorModeProps) => {
   );
 };
 
-const AdvancedFlareCursor = () => {
+const FlareCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isPointer, setIsPointer] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
@@ -186,10 +186,10 @@ const AdvancedFlareCursor = () => {
   const currentConfig = isClicking
     ? springConfig.click
     : isHoveringText
-    ? springConfig.text
-    : magneticTarget
-    ? springConfig.magnetic
-    : springConfig.default;
+      ? springConfig.text
+      : magneticTarget
+        ? springConfig.magnetic
+        : springConfig.default;
 
   const springX = useSpring(cursorX, currentConfig);
   const springY = useSpring(cursorY, currentConfig);
@@ -322,10 +322,10 @@ const AdvancedFlareCursor = () => {
         cursorMode === 'particle'
           ? Math.random() > 0.3
           : cursorMode === 'neon'
-          ? Math.random() > 0.6
-          : cursorMode === 'rainbow'
-          ? Math.random() > 0.4
-          : Math.random() > 0.7;
+            ? Math.random() > 0.6
+            : cursorMode === 'rainbow'
+              ? Math.random() > 0.4
+              : Math.random() > 0.7;
 
       if (shouldAddTrail && velocity > 1) {
         addTrail(newX, newY, trailOpacity);
@@ -392,10 +392,10 @@ const AdvancedFlareCursor = () => {
       cursorMode === 'particle'
         ? 12
         : cursorMode === 'neon'
-        ? 8
-        : cursorMode === 'rainbow'
-        ? 10
-        : 6;
+          ? 8
+          : cursorMode === 'rainbow'
+            ? 10
+            : 6;
 
     for (let i = 0; i < explosionCount; i++) {
       setTimeout(() => {
@@ -543,32 +543,32 @@ const AdvancedFlareCursor = () => {
             cursorVariant === 'hover'
               ? 1.2
               : cursorVariant === 'click'
-              ? 0.6
-              : cursorVariant === 'magnetic'
-              ? 1.3
-              : cursorVariant === 'text'
-              ? 0.8
-              : 1,
+                ? 0.6
+                : cursorVariant === 'magnetic'
+                  ? 1.3
+                  : cursorVariant === 'text'
+                    ? 0.8
+                    : 1,
           opacity:
             cursorVariant === 'hover'
               ? 1
               : cursorVariant === 'click'
-              ? 1
-              : cursorVariant === 'magnetic'
-              ? 0.9
-              : cursorVariant === 'text'
-              ? 0.7
-              : 0.8,
+                ? 1
+                : cursorVariant === 'magnetic'
+                  ? 0.9
+                  : cursorVariant === 'text'
+                    ? 0.7
+                    : 0.8,
           rotate:
             cursorVariant === 'hover'
               ? 90
               : cursorVariant === 'click'
-              ? 360
-              : cursorVariant === 'magnetic'
-              ? 180
-              : cursorVariant === 'text'
-              ? 45
-              : 0
+                ? 360
+                : cursorVariant === 'magnetic'
+                  ? 180
+                  : cursorVariant === 'text'
+                    ? 45
+                    : 0
         }}
         transition={{
           type: 'spring',
@@ -587,8 +587,8 @@ const AdvancedFlareCursor = () => {
               cursorMode === 'neon'
                 ? 'radial-gradient(circle, rgba(0, 255, 255, 0.4) 0%, rgba(255, 0, 255, 0.2) 50%, transparent 80%)'
                 : cursorMode === 'rainbow'
-                ? 'conic-gradient(from 0deg, rgba(255, 0, 0, 0.3), rgba(255, 128, 0, 0.3), rgba(255, 255, 0, 0.3), rgba(128, 255, 0, 0.3), rgba(0, 255, 0, 0.3), rgba(0, 255, 128, 0.3), rgba(0, 255, 255, 0.3), rgba(0, 128, 255, 0.3), rgba(0, 0, 255, 0.3), rgba(128, 0, 255, 0.3), rgba(255, 0, 255, 0.3), rgba(255, 0, 128, 0.3), rgba(255, 0, 0, 0.3))'
-                : 'radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 70%)'
+                  ? 'conic-gradient(from 0deg, rgba(255, 0, 0, 0.3), rgba(255, 128, 0, 0.3), rgba(255, 255, 0, 0.3), rgba(128, 255, 0, 0.3), rgba(0, 255, 0, 0.3), rgba(0, 255, 128, 0.3), rgba(0, 255, 255, 0.3), rgba(0, 128, 255, 0.3), rgba(0, 0, 255, 0.3), rgba(128, 0, 255, 0.3), rgba(255, 0, 255, 0.3), rgba(255, 0, 128, 0.3), rgba(255, 0, 0, 0.3))'
+                  : 'radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 70%)'
           }}
           animate={{
             scale: cursorVariant === 'click' ? [1, 1.8, 1] : [1, 1.1, 1],
@@ -601,8 +601,8 @@ const AdvancedFlareCursor = () => {
               cursorVariant === 'click'
                 ? 0.4
                 : cursorMode === 'rainbow'
-                ? 3
-                : 2,
+                  ? 3
+                  : 2,
             ease: 'easeInOut',
             repeat: Infinity,
             repeatType: 'loop'
@@ -623,8 +623,8 @@ const AdvancedFlareCursor = () => {
                     cursorMode === 'neon'
                       ? 'rgba(0, 255, 255, 0.8)'
                       : cursorMode === 'rainbow'
-                      ? 'rgba(255, 255, 255, 0.8)'
-                      : 'rgba(236, 72, 153, 0.6)'
+                        ? 'rgba(255, 255, 255, 0.8)'
+                        : 'rgba(236, 72, 153, 0.6)'
                 }}
                 initial={{ scale: 0, opacity: 1 }}
                 animate={{ scale: 4, opacity: 0 }}
@@ -683,20 +683,20 @@ const AdvancedFlareCursor = () => {
                         trail.opacity * 0.2
                       }) 50%, transparent 80%)`
                     : cursorMode === 'rainbow'
-                    ? `radial-gradient(circle, hsl(${
-                        (index * 30) % 360
-                      }, 100%, 60%) 0%, transparent 80%)`
-                    : cursorMode === 'particle'
-                    ? `radial-gradient(circle, rgba(147, 51, 234, ${
-                        trail.opacity * 0.4
-                      }) 0%, rgba(236, 72, 153, ${
-                        trail.opacity * 0.3
-                      }) 50%, transparent 80%)`
-                    : `radial-gradient(circle, rgba(14, 165, 233, ${
-                        trail.opacity * 0.3
-                      }) 0%, rgba(52, 211, 153, ${
-                        trail.opacity * 0.2
-                      }) 50%, transparent 80%)`,
+                      ? `radial-gradient(circle, hsl(${
+                          (index * 30) % 360
+                        }, 100%, 60%) 0%, transparent 80%)`
+                      : cursorMode === 'particle'
+                        ? `radial-gradient(circle, rgba(147, 51, 234, ${
+                            trail.opacity * 0.4
+                          }) 0%, rgba(236, 72, 153, ${
+                            trail.opacity * 0.3
+                          }) 50%, transparent 80%)`
+                        : `radial-gradient(circle, rgba(14, 165, 233, ${
+                            trail.opacity * 0.3
+                          }) 0%, rgba(52, 211, 153, ${
+                            trail.opacity * 0.2
+                          }) 50%, transparent 80%)`,
                 border:
                   cursorMode === 'minimal'
                     ? `1px solid rgba(255, 255, 255, ${trail.opacity * 0.3})`
@@ -737,8 +737,8 @@ const AdvancedFlareCursor = () => {
             cursorMode === 'neon'
               ? 'radial-gradient(circle, rgba(0, 255, 255, 0.12) 0%, rgba(255, 0, 255, 0.08) 40%, transparent 80%)'
               : cursorMode === 'rainbow'
-              ? 'conic-gradient(from 0deg, rgba(255, 0, 0, 0.1), rgba(255, 128, 0, 0.08), rgba(255, 255, 0, 0.06), rgba(0, 255, 0, 0.08), rgba(0, 255, 255, 0.1), rgba(0, 0, 255, 0.08), rgba(255, 0, 255, 0.06), transparent)'
-              : 'radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, rgba(52, 211, 153, 0.05) 40%, transparent 80%)',
+                ? 'conic-gradient(from 0deg, rgba(255, 0, 0, 0.1), rgba(255, 128, 0, 0.08), rgba(255, 255, 0, 0.06), rgba(0, 255, 0, 0.08), rgba(0, 255, 255, 0.1), rgba(0, 0, 255, 0.08), rgba(255, 0, 255, 0.06), transparent)'
+                : 'radial-gradient(circle, rgba(14, 165, 233, 0.08) 0%, rgba(52, 211, 153, 0.05) 40%, transparent 80%)',
           filter: 'blur(25px)'
         }}
         animate={{
@@ -746,18 +746,18 @@ const AdvancedFlareCursor = () => {
             cursorVariant === 'hover'
               ? 1.4
               : cursorVariant === 'magnetic'
-              ? 1.6
-              : cursorVariant === 'click'
-              ? 0.6
-              : 1,
+                ? 1.6
+                : cursorVariant === 'click'
+                  ? 0.6
+                  : 1,
           opacity:
             cursorVariant === 'hover'
               ? 0.9
               : cursorVariant === 'magnetic'
-              ? 1
-              : cursorVariant === 'click'
-              ? 1.2
-              : 0.5,
+                ? 1
+                : cursorVariant === 'click'
+                  ? 1.2
+                  : 0.5,
           rotate: cursorMode === 'rainbow' ? 360 : 0
         }}
         transition={
@@ -778,4 +778,4 @@ const AdvancedFlareCursor = () => {
   );
 };
 
-export default AdvancedFlareCursor;
+export default FlareCursor;

@@ -40,6 +40,7 @@ export default function SmartBlogGrid({
       ? posts.slice(0, postsPerPage)
       : posts;
     setDisplayedPosts(initialPosts);
+    setCurrentPage(1);
   }, [posts, enableInfiniteScroll, postsPerPage]);
 
   // Responsive container width detection
@@ -69,6 +70,8 @@ export default function SmartBlogGrid({
 
   const optimalColumns = calculateColumns();
 
+  const hasMorePosts = displayedPosts.length < posts.length;
+
   // Load more posts for infinite scroll
   const loadMorePosts = () => {
     if (isLoading) return;
@@ -85,8 +88,6 @@ export default function SmartBlogGrid({
       setIsLoading(false);
     }, 500);
   };
-
-  const hasMorePosts = displayedPosts.length < posts.length;
 
   // Infinite scroll observer
   useEffect(() => {
@@ -107,6 +108,7 @@ export default function SmartBlogGrid({
     }
 
     return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enableInfiniteScroll, hasMorePosts, isLoading]);
 
   // Smart layout selection based on content and screen size

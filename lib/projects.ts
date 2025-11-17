@@ -63,20 +63,19 @@ export const projects: ProjectType[] = [
     id: 'gridtokenx-blockchain',
     title: 'GridTokenX Blockchain - Energy Trading Platform',
     description:
-      'Revolutionary blockchain-based platform for peer-to-peer energy trading in Thailand. Features Oracle Gateway Bridge, real-time grid integration, automated token generation, smart contracts for energy trading, and comprehensive governance system with 1:1 kWh-Token ratio.',
+      'Revolutionary blockchain-based platform for peer-to-peer energy trading in Thailand. Features Oracle Gateway Bridge for real-time grid integration, automated token generation with 1:1 kWh-Token ratio, smart contracts for secure energy trading, comprehensive governance system, and decentralized energy marketplace.',
     category: 'blockchain',
-    tags: ['rust', 'blockchain', 'substrate', 'energy', 'defi'],
-    repo: 'https://github.com/NakaSato/poc-grid-network',
+    tags: ['rust', 'blockchain', 'solana', 'energy', 'anchor'],
+    repo: 'https://github.com/NakaSato/gridtokenx-platform',
     link: 'https://www.gridtokenx.com',
     featured: true,
-    completedAt: '2024-11-15',
+    completedAt: '',
     techStack: [
       'Rust',
-      'Substrate',
+      'Anchor',
+      'Solana',
       'Blockchain',
-      'WebAssembly',
       'PostgreSQL',
-      'Oracle Integration',
       'Smart Contracts'
     ]
   },

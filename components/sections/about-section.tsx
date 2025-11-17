@@ -15,10 +15,11 @@ const AboutSection = () => {
         <AnimationContainer customClassName="w-full flex flex-col gap-5 mb-8">
           <div className="p-6 bg-gray-900/50 rounded-xl border border-primary-800/20 shadow-lg">
             <p className="text-base text-gray-300 leading-relaxed">
-              I am a passionate learner with 3 years of work experience in
-              Electrical Engineering and love learning new technologies since I
-              discovered programming, I am currently learning the way to be a
-              Cyber Security specialist.
+              Currently pursuing expertise in Cybersecurity while actively
+              building full-stack applications. I thrive on continuous learning,
+              exploring new frameworks, and contributing to projects that
+              challenge me to grow. My goal is to bridge the gap between secure,
+              scalable systems and exceptional user experiences.
             </p>
           </div>
         </AnimationContainer>
@@ -45,18 +46,25 @@ const AboutSection = () => {
           </div>
         </AnimationContainer>
 
-        <ProcessWork />
+        {/* <ProcessWork /> */}
 
         <AnimationContainer customClassName="w-full flex flex-col gap-5">
           <h2 className="font-bold text-2xl md:text-2xl tracking-tight mb-2 text-white text-start bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
             Interests & Goals
           </h2>
 
-          <div className="p-6 bg-gray-900/50 rounded-xl border border-primary-800/20 shadow-lg">
-            <p className="text-base text-gray-300 leading-relaxed">
-              I am interested in learning Backend with other language like Rust
-              or with Python.
-            </p>
+          <div className="p-6 bg-gray-900/50 rounded-xl border border-primary-800/20 shadow-lg space-y-4">
+            <div>
+              <h3 className="font-semibold text-lg text-white mb-2">
+                Current Focus
+              </h3>
+              <p className="text-base text-gray-300 leading-relaxed">
+                Deepening my expertise in backend development with Rust and
+                Python, exploring their performance characteristics and use
+                cases. Particularly interested in building high-performance APIs
+                and secure distributed systems.
+              </p>
+            </div>
           </div>
         </AnimationContainer>
       </div>

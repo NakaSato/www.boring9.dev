@@ -216,7 +216,7 @@ export default async function Projects() {
   return (
     <SectionContainer>
       <div className="flex flex-col w-full gap-8">
-        {/* Enhanced Header Section */}
+        {/* Header Section */}
         <div className="relative">
           <TitleSectionPageContainer title="Projects" />
 
@@ -268,22 +268,28 @@ export default async function Projects() {
               <div className="group relative flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-gray-800/40 to-gray-900/60 border border-gray-700/40 rounded-2xl text-sm text-gray-300 backdrop-blur-xl shadow-lg hover:shadow-xl hover:border-gray-600/60 hover:scale-105 transition-all duration-300 overflow-hidden">
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                
-                <span className="relative font-bold text-white">{userData.public_repos}</span>
+
+                <span className="relative font-bold text-white">
+                  {userData.public_repos}
+                </span>
                 <span className="relative text-gray-400">Public Repos</span>
               </div>
               <div className="group relative flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-gray-800/40 to-gray-900/60 border border-gray-700/40 rounded-2xl text-sm text-gray-300 backdrop-blur-xl shadow-lg hover:shadow-xl hover:border-gray-600/60 hover:scale-105 transition-all duration-300 overflow-hidden">
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                
-                <span className="relative font-bold text-white">{userData.followers}</span>
+
+                <span className="relative font-bold text-white">
+                  {userData.followers}
+                </span>
                 <span className="relative text-gray-400">Followers</span>
               </div>
               <div className="group relative flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-gray-800/40 to-gray-900/60 border border-gray-700/40 rounded-2xl text-sm text-gray-300 backdrop-blur-xl shadow-lg hover:shadow-xl hover:border-gray-600/60 hover:scale-105 transition-all duration-300 overflow-hidden">
                 {/* Shimmer effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                
-                <span className="relative font-bold text-white">{userData.following}</span>
+
+                <span className="relative font-bold text-white">
+                  {userData.following}
+                </span>
                 <span className="relative text-gray-400">Following</span>
               </div>
             </div>
@@ -392,10 +398,7 @@ export default async function Projects() {
                       'React',
                       'Next.js',
                       'Node.js',
-                      'Express',
                       'PostgreSQL',
-                      'MongoDB',
-                      'Redis',
                       'Docker',
                       'AWS',
                       'Vercel',
@@ -411,7 +414,7 @@ export default async function Projects() {
                       >
                         {/* Badge shimmer */}
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500"></div>
-                        
+
                         <span className="relative">{tech}</span>
                       </span>
                     ))}
@@ -422,12 +425,12 @@ export default async function Projects() {
           </div>
         </AnimationContainer>
 
-        {/* Enhanced Projects Section */}
+        {/* Projects Section */}
         <div className="space-y-16">
           <FeaturedProjects />
         </div>
 
-        {/* Enhanced GitHub Repository Link */}
+        {/* GitHub Repository Link */}
         <AnimationContainer customClassName="w-full">
           <div className="text-center py-12">
             <div className="max-w-md mx-auto">

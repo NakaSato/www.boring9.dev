@@ -1,12 +1,22 @@
 export const skills = [
   {
     title: 'Languages',
-    techs: ['HTML', 'CSS', 'JavaScript', 'TypeScript']
+    techs: ['HTML', 'CSS', 'JavaScript']
   },
-  // {
-  //   title: 'Frameworks and libraries',
-  //   techs: ['jQuery', 'Angular', 'React', 'Next.js', 'Ionic', 'Electron.js']
-  // },
+  {
+    title: 'Tools',
+    techs: [
+      'VS Code',
+      'BurpSuite (Penetration testing)',
+      'Git',
+      'GitHub',
+      'Code AI Agent'
+    ]
+  },
+  {
+    title: 'Frameworks and libraries',
+    techs: ['React', 'Next.js', 'Tailwind CSS', 'Shadcn UI']
+  }
   // {
   //   title: 'JavaScript libraries',
   //   techs: ['Redux', 'TanStack Query', 'Zustand', 'Formik', 'Jest', 'Storybook']
