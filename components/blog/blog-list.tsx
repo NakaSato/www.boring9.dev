@@ -214,9 +214,8 @@ export default function BlogList({ posts, showSearch = true }: BlogListProps) {
         </h1>
 
         <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-          Exploring the latest in web development, IoT solutions, and fintech
-          innovations. Learn through practical examples and real-world
-          applications.
+          Exploring the latest in web development, and fintech innovations.
+          Learn through practical applications.
         </p>
       </div>
 

@@ -42,9 +42,7 @@ export default function BlogHero({ featuredPost, stats }: BlogHeroProps) {
           </h1>
 
           <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Deep dives into web development, IoT innovations, and fintech
-            solutions. Learn through practical tutorials, real-world examples,
-            and cutting-edge technologies.
+            Deep dives into web development.
           </p>
         </div>
 

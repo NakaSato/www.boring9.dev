@@ -3,8 +3,9 @@
 import useScrollPosition from '@/hooks/useScrollPosition';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useMemo, useEffect, useState } from 'react';
+import NavItem from '@/components/ui/NavItem';
 
-const HeaderAnimation = ({ children }: { children: React.ReactNode }) => {
+const HeaderAnimation = ({ children }: { children?: React.ReactNode } = {}) => {
   const scrollPosition = useScrollPosition();
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -100,7 +101,19 @@ const HeaderAnimation = ({ children }: { children: React.ReactNode }) => {
           transition={{ duration: 0.6, ease: 'easeOut' }}
           style={{ width: '100%' }}
         >
-          {children}
+          {children || (
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-row items-center justify-between py-6 sm:py-8">
+              <h1 className="text-xl md:text-2xl font-bold text-white">
+                <a href="/" className="hover:text-primary-300">
+                  <strong className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-500">
+                    Chanthawat
+                  </strong>
+                  <span className="text-blue-400">();</span>
+                </a>
+              </h1>
+              <NavItem />
+            </div>
+          )}
         </motion.div>
       </header>
     );
@@ -119,20 +132,17 @@ const HeaderAnimation = ({ children }: { children: React.ReactNode }) => {
           backfaceVisibility: 'hidden'
         }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: -12, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{
-            type: 'spring',
-            stiffness: 400,
-            damping: 25,
-            delay: 0.1,
-            duration: 0.6
-          }}
-          style={{ width: '100%', position: 'relative' }}
-        >
-          {children}
-        </motion.div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-row items-center justify-between py-6 sm:py-8">
+          <h1 className="text-xl md:text-2xl font-bold text-white">
+            <a href="/" className="hover:text-primary-300">
+              <strong className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-500">
+                Chanthawat
+              </strong>
+              <span className="text-blue-400">();</span>
+            </a>
+          </h1>
+          <NavItem />
+        </div>
       </motion.div>
     </header>
   );
