@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
 :root {
   --primary: #0ea5e9;
@@ -618,7 +616,6 @@ main {
   opacity: 0;
   transition: opacity 0.6s ease;
   z-index: -1;
-  
 }
 
 .footer-section:hover::before {
@@ -644,7 +641,7 @@ main {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  
+
   letter-spacing: 0.75px;
   text-transform: uppercase;
   font-family:
@@ -822,7 +819,6 @@ main {
   opacity: 0;
   transition: opacity 0.4s ease;
   z-index: -1;
-  
 }
 
 .footer-link:hover .footer-icon-wrapper {
@@ -875,7 +871,6 @@ footer {
     #0f172a 100%
   );
   background-size: 400% 400%;
-  
 }
 
 footer::before {
@@ -912,7 +907,6 @@ footer::before {
       transparent 30%
     );
   pointer-events: none;
-  
 }
 
 footer::after {
@@ -924,13 +918,11 @@ footer::after {
   bottom: 0;
   background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3Ccircle cx='0' cy='0' r='1'/%3E%3Ccircle cx='60' cy='60' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   opacity: 0.5;
-  
 }
 
 /* Footer wave animation */
 
 footer svg {
-  
 }
 
 /* Footer responsive enhancements */
@@ -986,7 +978,6 @@ footer svg {
 }
 
 .footer-link.loading .footer-icon {
-  
 }
 
 /* Footer success states */
@@ -1076,7 +1067,6 @@ footer svg {
   }
 
   footer svg {
-    
   }
 
   .footer-link::before {
@@ -1106,7 +1096,6 @@ footer svg {
   opacity: 0;
   transition: opacity 0.8s ease;
   z-index: -1;
-  
 }
 
 .footer-section:hover::after {
@@ -1123,7 +1112,6 @@ footer svg {
 /* Enhanced floating animation for icons */
 
 .footer-icon {
-  
   transform-style: preserve-3d;
 }
 
@@ -1148,7 +1136,6 @@ footer svg {
     #60a5fa 100%
   );
   background-size: 400% 400%;
-  
 }
 
 /* Morphing border effect */
@@ -1163,7 +1150,6 @@ footer svg {
     rgba(96, 165, 250, 0.6) 100%
   );
   background-size: 300% 300%;
-  
 }
 
 /* Premium icon glow animation */
@@ -1182,7 +1168,6 @@ footer svg {
     0 0 0 1px rgba(96, 165, 250, 0.5),
     inset 0 1px 0 rgba(255, 255, 255, 0.3),
     inset 0 -1px 0 rgba(96, 165, 250, 0.2);
-  
 }
 
 /* Advanced hover ripple effect */
@@ -1279,7 +1264,6 @@ footer::before {
       rgba(245, 158, 11, 0.06) 0%,
       transparent 50%
     );
-  
 }
 
 /* Premium scroll indicator enhancement */
@@ -1295,7 +1279,7 @@ footer::before {
     #60a5fa 360deg
   );
   background-size: 200% 200%;
-  
+
   box-shadow:
     0 2px 8px rgba(96, 165, 250, 0.4),
     0 4px 16px rgba(96, 165, 250, 0.2);
@@ -1312,7 +1296,6 @@ footer::before {
   }
 
   .footer-icon {
-    
   }
 
   .footer-link::after {

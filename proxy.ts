@@ -1,14 +1,14 @@
 import { NextResponse, NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const response = NextResponse.next();
   const url = request.nextUrl.pathname;
-  
+
   // Static assets caching (images, CSS, JS, fonts)
   if (
-    url.includes('/images/') || 
-    url.includes('/_next/static/') || 
-    url.endsWith('.css') || 
+    url.includes('/images/') ||
+    url.includes('/_next/static/') ||
+    url.endsWith('.css') ||
     url.endsWith('.js') ||
     url.includes('/fonts/')
   ) {
@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
       'Cache-Control',
       'public, max-age=604800, stale-while-revalidate=86400'
     );
-  } 
+  }
   // Blog posts
   else if (url.startsWith('/blog/') && !url.endsWith('/blog/')) {
     // Cache blog posts for 1 day but allow revalidation
@@ -34,6 +34,6 @@ export function middleware(request: NextRequest) {
       'public, max-age=300, stale-while-revalidate=60'
     );
   }
-  
+
   return response;
 }
