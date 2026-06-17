@@ -1,224 +1,150 @@
 'use client';
 
-import styles from '../../styles/mobileMenu.module.css';
-import { JSX, useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import cn from 'classnames';
 import useMenuNav from '@/hooks/useMenuNav';
 import LinksMenuNav from './LinksMenuNav';
 
-const MenuIcon = (
-  props: JSX.IntrinsicElements['svg'] & { isOpen?: boolean }
-) => {
-  return (
-    <motion.div
-      animate={{
-        rotate: props.isOpen ? 180 : 0,
-        opacity: props.isOpen ? 0 : 1,
-        scale: props.isOpen ? 0.8 : 1
-      }}
-      transition={{ duration: 0.3, ease: 'easeInOut' }}
-      style={{ position: 'absolute' }}
-    >
-      <svg
-        className="h-5 w-5 text-gray-300 transition-colors"
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-      >
-        <path
-          d="M2.5 7.5H17.5"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M2.5 12.5H17.5"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </motion.div>
-  );
+// Stagger the link reveal once the sheet has slid in.
+const list = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.06, delayChildren: 0.12 }
+  }
 };
 
-const CrossIcon = (
-  props: JSX.IntrinsicElements['svg'] & { isOpen?: boolean }
-) => {
+const Burger = ({ isOpen }: { isOpen: boolean }) => {
+  const bar = 'absolute left-0 block h-0.5 w-5 rounded-full bg-current';
   return (
-    <motion.div
-      animate={{
-        rotate: props.isOpen ? 0 : -180,
-        opacity: props.isOpen ? 1 : 0,
-        scale: props.isOpen ? 1 : 0.8
-      }}
-      transition={{ duration: 0.3, ease: 'easeInOut' }}
-      style={{ position: 'absolute' }}
-    >
-      <svg
-        className="h-5 w-5 text-gray-300 hover:text-primary-400 transition-colors"
-        viewBox="0 0 24 24"
-        width="24"
-        height="24"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-        shapeRendering="geometricPrecision"
-      >
-        <path d="M18 6L6 18" />
-        <path d="M6 6l12 12" />
-      </svg>
-    </motion.div>
+    <span className="relative block h-3.5 w-5">
+      <motion.span
+        className={`${bar} top-0`}
+        animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }}
+        transition={{ duration: 0.25, ease: 'easeInOut' }}
+      />
+      <motion.span
+        className={`${bar} bottom-0`}
+        animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -6 : 0 }}
+        transition={{ duration: 0.25, ease: 'easeInOut' }}
+      />
+    </span>
   );
 };
 
 const MobileMenuNav = () => {
-  const { isMenuOpen, toggleMenu, isMenuMounted, isMenuRendered } =
-    useMenuNav();
-  const [isMounted, setIsMounted] = useState(false);
+  const { isMenuOpen, toggleMenu, closeMenu } = useMenuNav();
+  const pathname = usePathname();
 
+  // Close when the route changes.
   useEffect(() => {
-    setIsMounted(true);
-    return function cleanup() {
-      document.body.style.overflow = '';
-    };
-  }, []);
+    closeMenu();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
-  // Prevent hydration mismatch by not rendering dynamic parts until mounted
-  if (!isMounted) {
-    return (
-      <button
-        className="flex lg:hidden items-center justify-center w-10 h-10 rounded-md opacity-50"
-        aria-label="Toggle menu"
-        type="button"
-        disabled={true}
-      >
-        <div style={{ position: 'relative' }}>
-          <MenuIcon isOpen={false} />
-        </div>
-      </button>
-    );
-  }
+  // Lock body scroll + close on Escape while open.
+  useEffect(() => {
+    if (!isMenuOpen) {
+      document.body.style.overflow = '';
+      return;
+    }
+
+    document.body.style.overflow = 'hidden';
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeMenu();
+    };
+    window.addEventListener('keydown', onKey);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMenuOpen]);
 
   return (
-    <>
-      <motion.button
-        {...({
-          className: cn(
-            styles.burger,
-            'visible lg:hidden hover:bg-primary-500/10 rounded-lg p-2 transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/20 relative overflow-hidden'
-          ),
-          'aria-label': 'Toggle menu',
-          'data-magnetic': 'true',
-          'data-magnetic-strength': '0.6',
-          type: 'button',
-          onClick: toggleMenu
-        } as any)}
-        whileHover={{
-          scale: 1.05,
-          backgroundColor: 'rgba(14, 165, 233, 0.1)'
-        }}
-        whileTap={{
-          scale: 0.95
-        }}
-        transition={{ duration: 0.2 }}
+    <div className="flex lg:hidden">
+      <button
+        type="button"
+        onClick={toggleMenu}
+        aria-label="Toggle menu"
+        aria-expanded={isMenuOpen}
+        aria-controls="mobile-menu"
+        data-magnetic="true"
+        data-magnetic-strength="0.5"
+        className="relative z-50 flex h-10 w-10 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-white transition-colors duration-200 hover:bg-white/10 hover:text-primary-400"
       >
-        {/* Ripple effect */}
-        <motion.div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            borderRadius: '8px',
-            background:
-              'radial-gradient(circle, rgba(14, 165, 233, 0.3) 0%, transparent 70%)',
-            opacity: 0
-          }}
-          animate={{
-            scale: isMenuOpen ? [1, 1.5] : 1,
-            opacity: isMenuOpen ? [0.5, 0] : 0
-          }}
-          transition={{ duration: 0.3 }}
-        />
+        <Burger isOpen={isMenuOpen} />
+      </button>
 
-        <div style={{ position: 'relative', width: '20px', height: '20px' }}>
-          <MenuIcon isOpen={isMenuOpen} />
-          <CrossIcon isOpen={isMenuOpen} />
-        </div>
-      </motion.button>
-
-      <AnimatePresence mode="wait">
-        {isMenuMounted && (
-          <motion.ul
-            {...({
-              className: cn(
-                styles.menu,
-                'flex flex-col items-start justify-center absolute right-0 backdrop-blur-xl bg-gradient-to-br from-gray-900/95 via-black/90 to-gray-800/95 text-end p-6 rounded-xl shadow-2xl border border-primary-500/30 z-50 overflow-hidden',
-                isMenuRendered && styles.menuRendered
-              )
-            } as any)}
-            initial={{
-              opacity: 0,
-              scale: 0.95,
-              y: -20,
-              rotateX: -15
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              y: 0,
-              rotateX: 0
-            }}
-            exit={{
-              opacity: 0,
-              scale: 0.95,
-              y: -20,
-              rotateX: -15
-            }}
-            transition={{
-              duration: 0.4,
-              type: 'spring',
-              stiffness: 300,
-              damping: 30
-            }}
-          >
-            {/* Animated background pattern */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            {/* Scrim */}
             <motion.div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background:
-                  'linear-gradient(45deg, transparent, rgba(14, 165, 233, 0.05), transparent)',
-                borderRadius: '12px'
-              }}
-              animate={{
-                rotate: [0, 360]
-              }}
-              transition={{
-                duration: 20,
-                repeat: Infinity,
-                ease: 'linear'
-              }}
-            />
-
-            {/* Content */}
-            <motion.div
-              style={{ position: 'relative', zIndex: 10 }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.3 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={closeMenu}
+              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm"
+            />
+
+            {/* Top sheet */}
+            <motion.nav
+              id="mobile-menu"
+              initial={{ opacity: 0, y: -24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -24 }}
+              transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+              className="fixed inset-x-0 top-0 z-50 origin-top border-b border-white/10 bg-gray-950/95 shadow-2xl shadow-black/50 backdrop-blur-xl"
             >
-              <LinksMenuNav />
-            </motion.div>
-          </motion.ul>
+              <div className="w-full max-w-4xl mx-auto px-5 sm:px-8">
+                <div className="flex items-center justify-between py-5">
+                  <Link
+                    href="/"
+                    onClick={closeMenu}
+                    className="font-bold text-lg uppercase tracking-tight text-gray-50 transition-colors duration-200 hover:text-primary-400"
+                  >
+                    Chanthawat<span className="text-primary-400">.</span>
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={closeMenu}
+                    aria-label="Close menu"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg text-gray-300 transition-colors duration-200 hover:bg-white/5 hover:text-primary-400"
+                  >
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M18 6 6 18" />
+                      <path d="m6 6 12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                <motion.div
+                  variants={list}
+                  initial="hidden"
+                  animate="show"
+                  className="pb-8"
+                >
+                  <LinksMenuNav onNavigate={closeMenu} />
+                </motion.div>
+              </div>
+            </motion.nav>
+          </>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 };
 

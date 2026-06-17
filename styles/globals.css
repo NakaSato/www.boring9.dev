@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@config '../tailwind.config.js';
 
 :root {
   --primary: #0ea5e9;
@@ -220,7 +221,7 @@ main {
 @supports not (backdrop-filter: none) {
   .sticky-nav {
     backdrop-filter: none;
-    @apply bg-opacity-100;
+    background-color: var(--dark-bg-primary);
   }
 }
 

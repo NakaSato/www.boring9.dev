@@ -2,55 +2,66 @@
 
 import Image from 'next/image';
 import AnimationContainer from '../utils/AnimationContainer';
-import { motion } from 'framer-motion';
 
 const Hero = () => {
   return (
-    <div className="flex flex-col-reverse items-center justify-between w-full lg:flex-row mb-16 md:mb-24 gap-8 lg:gap-12">
-      <AnimationContainer customClassName="w-full lg:w-3/5">
-        <div className="flex flex-col items-center justify-between lg:items-start p-0 lg:pr-8">
-          <h1 className="mx-auto mb-4 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-center lg:text-start lg:mx-0 bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400">
-            Chanthawat Kiriyadee
-          </h1>
+    <div className="w-full mb-20 md:mb-28">
+      <AnimationContainer customClassName="w-full">
+        <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-10 lg:gap-12">
+          <div className="lg:flex-1">
+            <p className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-primary-400/80">
+              Hi, I&apos;m
+            </p>
+            <h1 className="font-bold uppercase tracking-tight leading-[0.9] text-gray-50 text-5xl sm:text-7xl lg:text-8xl">
+              Chanthawat
+              <br />
+              <span className="text-white/90">Kiriyadee</span>
+            </h1>
+          </div>
+
+          <div className="group relative w-44 sm:w-52 lg:w-60 shrink-0">
+            <span
+              aria-hidden
+              className="absolute -bottom-3 -right-3 h-full w-full border border-primary-500/40 transition-all duration-500 group-hover:-bottom-2 group-hover:-right-2"
+            />
+            <div className="relative aspect-[4/5] overflow-hidden">
+              <Image
+                alt="Chanthawat Kiriyadee"
+                fill
+                src="/profile.jpeg"
+                sizes="(max-width: 640px) 176px, (max-width: 1024px) 208px, 240px"
+                priority
+                className="object-cover grayscale transition-all duration-700 ease-out scale-105 group-hover:grayscale-0 group-hover:scale-100"
+              />
+              <span
+                aria-hidden
+                className="absolute inset-0 ring-1 ring-inset ring-white/10"
+              />
+            </div>
+          </div>
         </div>
 
-        <h2 className="flex items-center gap-2 mx-auto mb-6 text-gray-700 text-xl lg:text-2xl lg:mx-0 justify-center lg:justify-start">
-          <span className="font-semibold text-primary-600 px-1 py-1 rounded-md">
-            ComEng X
-          </span>
-          <span className="font-semibold text-gray-300">AI</span>
-          <span className="relative font-medium text-gray-200">
-            Student
-            <motion.span
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                width: '100%',
-                height: '2px',
-                backgroundColor: 'var(--color-primary-100)'
-              }}
-              initial={{ width: 0 }}
-              animate={{ width: '100%' }}
-              transition={{ duration: 1, delay: 0.5 }}
-            />
-          </span>
-        </h2>
+        <div className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xl sm:text-2xl">
+          <span className="font-semibold text-primary-400">ComEng</span>
+          <span className="text-gray-600">×</span>
+          <span className="font-semibold text-gray-200">AI</span>
+          <span className="font-medium text-gray-400">Student</span>
+        </div>
 
-        <p className="text-gray-400 text-lg max-w-lg mb-8 text-center lg:text-left leading-relaxed">
+        <p className="mt-8 max-w-xl text-lg text-gray-400 leading-relaxed">
           Passionate about building beautiful and functional web experiences.
           Constantly learning and experimenting with new technologies.
         </p>
 
-        <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+        <div className="mt-10 flex flex-wrap gap-4">
           <a
             href="https://github.com/NakaSato"
             target="_blank"
             rel="noopener noreferrer"
-            className="group px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-lg hover:scale-105 transform"
+            className="group inline-flex items-center gap-2 px-6 py-3 bg-gray-50 text-gray-950 font-semibold rounded-none hover:bg-primary-400 transition-colors duration-300"
           >
             <svg
-              className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300"
+              className="w-5 h-5"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -61,15 +72,15 @@ const Hero = () => {
                 clipRule="evenodd"
               ></path>
             </svg>
-            <span className="font-medium">GitHub</span>
+            <span>GitHub</span>
           </a>
           <a
             href="mailto:wit.chanthawat@gmail.com"
-            className="group px-6 py-3 bg-gradient-to-r from-accent-600 to-secondary-600 hover:from-accent-700 hover:to-secondary-700 text-white rounded-lg transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-lg hover:scale-105 transform"
+            className="group inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-gray-100 font-semibold rounded-none hover:border-primary-400 hover:text-primary-400 transition-colors duration-300"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
+              className="w-5 h-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -81,24 +92,8 @@ const Hero = () => {
                 d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
               />
             </svg>
-            <span className="font-medium">Contact Me</span>
+            <span>Contact Me</span>
           </a>
-        </div>
-      </AnimationContainer>
-
-      <AnimationContainer customClassName="w-full lg:w-2/5 flex justify-center lg:justify-end">
-        <div className="relative w-[160px] sm:w-[240px] mb-6 lg:mb-0 group">
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-accent-500 via-secondary-500 to-primary-500 blur-xl opacity-60 group-hover:opacity-90 transition-all duration-500"></div>
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-primary-500 via-accent-500 to-secondary-500 blur-lg opacity-40 group-hover:opacity-70 transition-all duration-700"></div>
-          <Image
-            alt="Chanthawat Kiriyadee"
-            height={240}
-            width={240}
-            src="/profile.jpeg"
-            sizes="(max-width: 640px) 160px, 240px"
-            priority
-            className="rounded-2xl relative z-10 filter grayscale hover:grayscale-0 transition-all duration-500 ease transform group-hover:scale-105 shadow-2xl border-4 border-white/20 backdrop-blur-sm"
-          />
         </div>
       </AnimationContainer>
     </div>

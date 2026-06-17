@@ -3,8 +3,6 @@ import { notFound } from 'next/navigation';
 import BlogList from '@/components/blog/blog-list';
 import Pagination from '@/components/blog/pagination';
 import BlogContainer from '@/components/utils/BlogContainer';
-import TitleSectionPageContainer from '@/components/utils/TitleSectionPageContainer';
-import AnimationContainer from '@/components/utils/AnimationContainer';
 import SocialShare from '@/components/sections/social-share';
 import BackToCategoriesButton from '@/components/blog/back-to-categories-button';
 
@@ -120,36 +118,46 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
   
   return (
     <BlogContainer>
-      <div className="flex flex-col w-full gap-6">
-        <TitleSectionPageContainer title={`Category: ${categoryName}`} />
-        
+      <div className="mx-auto flex w-full max-w-5xl flex-col">
         {/* Add JSON-LD structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(categorySchema) }}
         />
-        
-        <BackToCategoriesButton />
-        
-        <AnimationContainer customClassName="w-full flex flex-col gap-5 mb-8">
-          <p className="w-full text-base text-gray-400">
-            Browsing {totalPosts} {totalPosts === 1 ? 'article' : 'articles'} in the {categoryName} category.
-            {totalPages > 1 && ` Page ${validatedPageNumber} of ${totalPages}.`}
+
+        {/* Header */}
+        <header className="mb-12">
+          <BackToCategoriesButton />
+          <div className="mt-6 mb-4 font-mono text-xs uppercase tracking-[0.2em] text-primary-400">
+            Category
+          </div>
+          <h1 className="text-4xl font-bold tracking-tight text-gray-50 sm:text-5xl">
+            {categoryName}
+          </h1>
+          <p className="mt-4 text-lg leading-relaxed text-gray-400">
+            {totalPosts} {totalPosts === 1 ? 'article' : 'articles'}
+            {totalPages > 1 &&
+              ` · page ${validatedPageNumber} of ${totalPages}`}
           </p>
-        </AnimationContainer>
-        
-        <SocialShare title={`${categoryName} Articles`} />
-        
-        <BlogList posts={paginatedPosts} />
-        
+        </header>
+
+        <BlogList posts={paginatedPosts} showHeader={false} showSearch={false} />
+
         {/* Add pagination when there are multiple pages */}
         {totalPages > 1 && (
-          <Pagination 
-            currentPage={validatedPageNumber} 
-            totalPages={totalPages} 
-            basePath={`/blog/categories/${categorySlug}`} 
-          />
+          <div className="mt-12">
+            <Pagination
+              currentPage={validatedPageNumber}
+              totalPages={totalPages}
+              basePath={`/blog/categories/${categorySlug}`}
+            />
+          </div>
         )}
+
+        {/* Share */}
+        <div className="mt-12 border-t border-white/[0.07] pt-8">
+          <SocialShare title={`${categoryName} Articles`} />
+        </div>
       </div>
     </BlogContainer>
   );

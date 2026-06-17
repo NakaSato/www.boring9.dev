@@ -8,27 +8,23 @@ interface RelatedPostsProps {
   maxPosts?: number;
 }
 
-export default function RelatedPosts({ 
-  currentPost, 
-  allPosts, 
-  maxPosts = 3 
+export default function RelatedPosts({
+  currentPost,
+  allPosts,
+  maxPosts = 3
 }: RelatedPostsProps) {
-  // Simple algorithm to find related posts based on tags
+  // Match on shared tags first, then backfill with recent posts.
   const relatedPosts = allPosts
-    .filter((post) => post.slug !== currentPost.slug) // Exclude current post
-    .filter((post) => {
-      // Check if posts share at least one tag
-      return currentPost.tags.some((tag) => post.tags.includes(tag));
-    })
+    .filter((post) => post.slug !== currentPost.slug)
+    .filter((post) => currentPost.tags.some((tag) => post.tags.includes(tag)))
     .slice(0, maxPosts);
 
-  // If we don't have enough related posts by tags, add some recent posts
   if (relatedPosts.length < maxPosts) {
     const recentPosts = allPosts
       .filter((post) => post.slug !== currentPost.slug)
       .filter((post) => !relatedPosts.some((rp) => rp.slug === post.slug))
       .slice(0, maxPosts - relatedPosts.length);
-    
+
     relatedPosts.push(...recentPosts);
   }
 
@@ -37,28 +33,40 @@ export default function RelatedPosts({
   }
 
   return (
-    <div className="mt-12 pt-8 border-t border-gray-800">
-      <h3 className="text-2xl font-bold mb-6">Related Posts</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="mt-16 border-t border-white/[0.07] pt-10">
+      <div className="mb-6 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-primary-400">
+        <span className="h-1 w-1 rounded-full bg-primary-500/60" />
+        <span>Keep reading</span>
+      </div>
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {relatedPosts.map((post) => (
-          <Link key={post.slug} href={`/blog/${post.slug}`} className="group">
-            <div className="flex flex-col bg-gray-900 rounded-lg overflow-hidden shadow-md transition-all hover:shadow-xl group-hover:transform group-hover:-translate-y-1">
-              {post.coverImage && (
-                <div className="relative w-full aspect-video">
-                  <Image
-                    src={post.coverImage}
-                    alt={`Cover image for ${post.title}`}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 20vw"
-                    loading="lazy"
-                  />
-                </div>
-              )}
-              <div className="p-4">
-                <h4 className="text-lg font-semibold group-hover:text-blue-400 transition-colors">{post.title}</h4>
-                <p className="text-sm text-gray-400 mt-2 line-clamp-2">{post.excerpt}</p>
+          <Link
+            key={post.slug}
+            href={`/blog/${post.slug}`}
+            className="group flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] transition-colors duration-300 hover:border-primary-500/40"
+          >
+            {post.coverImage && (
+              <div className="relative aspect-[16/9] w-full overflow-hidden bg-gray-900">
+                <Image
+                  src={post.coverImage}
+                  alt={`Cover image for ${post.title}`}
+                  fill
+                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  loading="lazy"
+                />
               </div>
+            )}
+            <div className="flex flex-col p-4">
+              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary-400/80">
+                {post.category}
+              </span>
+              <h4 className="mt-2 font-semibold leading-snug text-gray-100 transition-colors line-clamp-2 group-hover:text-primary-300">
+                {post.title}
+              </h4>
+              <p className="mt-2 text-sm leading-relaxed text-gray-400 line-clamp-2">
+                {post.excerpt}
+              </p>
             </div>
           </Link>
         ))}

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import NavItem from './NavItem';
+import HeaderBar from './HeaderBar';
 
 // Dynamically import animated header animation wrapper with a smooth transition
 const AnimatedHeader = dynamic(() => import('../utils/HeaderAnimation'), {
@@ -12,20 +12,8 @@ const AnimatedHeader = dynamic(() => import('../utils/HeaderAnimation'), {
 
 // Simple static header component for initial render
 const StaticHeader = () => (
-  <header className="w-full sticky top-0 z-50 bg-black border-b border-gray-800/40">
-    <nav className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-row items-center justify-between py-6 sm:py-8">
-      <div className="flex-shrink-0">
-        <h1 className="text-xl md:text-2xl font-bold text-white">
-          <a href="/" className="hover:text-primary-300">
-            <strong className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-500">
-              Chanthawat
-            </strong>
-            <span className="text-blue-400">();</span>
-          </a>
-        </h1>
-      </div>
-      <NavItem />
-    </nav>
+  <header className="w-full sticky top-0 z-50 bg-gray-950/90 backdrop-blur-md border-b border-white/10">
+    <HeaderBar />
   </header>
 );
 
