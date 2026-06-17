@@ -19,7 +19,7 @@ bun fix-affiliates # Generate missing affiliate placeholder images
 bun seo-validate   # GET /api/seo-validation (dev server must be running)
 ```
 
-No test runner configured. Package manager is **Bun 1.0.30** (`bun.lock`); do not use npm/yarn. Prettier: single quotes, 2-space tabs, no trailing comma, always-parens arrows.
+No test runner configured. Package manager is **Bun 1.3.14** (`bun.lock`, pinned via `packageManager`); do not use npm/yarn. Prettier: single quotes, 2-space tabs, no trailing comma, always-parens arrows.
 
 ## Architecture
 
