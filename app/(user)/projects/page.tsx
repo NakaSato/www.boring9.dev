@@ -8,6 +8,7 @@ import ActivityCard from '@/components/projects/ActivityCard';
 import ContributionsGraph from '@/components/projects/ContributionsGraph';
 import TechStackCard from '@/components/projects/TechStackCard';
 import { Github, ExternalLink } from 'lucide-react';
+import { projects } from '@/lib/projects';
 import {
   GITHUB_USER_URL,
   getGitHubUserData,
@@ -20,25 +21,99 @@ import {
   getContributions
 } from '@/lib/github-stats';
 
+const PAGE_URL = 'https://www.boring9.dev/projects';
+const PAGE_TITLE = 'Projects | Boring9 Developer';
+const PAGE_DESCRIPTION =
+  'View my portfolio of web development and programming projects, including full-stack applications, APIs, and more.';
+const OG_IMAGE = 'https://www.boring9.dev/images/projects/og-image.png';
+
 export const metadata: Metadata = {
-  title: 'Projects | Boring9 Developer',
-  description:
-    'View my portfolio of web development and programming projects, including full-stack applications, APIs, and more.',
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+  keywords: [
+    'projects',
+    'portfolio',
+    'web development',
+    'full-stack',
+    'open source',
+    ...Array.from(new Set(projects.flatMap((p) => p.techStack)))
+  ].join(', '),
+  alternates: {
+    canonical: PAGE_URL
+  },
   openGraph: {
-    title: 'Projects | Boring9 Developer',
-    description:
-      'View my portfolio of web development and programming projects, including full-stack applications, APIs, and more.',
-    url: 'https://www.boring9.dev/projects',
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    url: PAGE_URL,
     type: 'website',
     images: [
       {
-        url: 'https://www.boring9.dev/images/projects/og-image.png',
+        url: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: 'Projects | Boring9 Developer'
+        alt: PAGE_TITLE
       }
     ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [OG_IMAGE],
+    creator: '@boring9dev'
   }
+};
+
+// Structured data: a project collection + breadcrumb trail for rich results.
+const projectsJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      name: PAGE_TITLE,
+      description: PAGE_DESCRIPTION,
+      url: PAGE_URL,
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: projects.map((project, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          item: {
+            '@type': 'SoftwareSourceCode',
+            name: project.title,
+            description: project.description,
+            url: project.link || project.repo || PAGE_URL,
+            codeRepository: project.repo || undefined,
+            programmingLanguage: project.techStack,
+            keywords: project.tags.join(', '),
+            dateCreated: project.completedAt,
+            author: {
+              '@type': 'Person',
+              name: 'Boring9 Developer',
+              url: GITHUB_USER_URL
+            }
+          }
+        }))
+      }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.boring9.dev'
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Projects',
+          item: PAGE_URL
+        }
+      ]
+    }
+  ]
 };
 
 export default async function Projects() {
@@ -56,6 +131,10 @@ export default async function Projects() {
 
   return (
     <SectionContainer>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsJsonLd) }}
+      />
       <div className="flex flex-col w-full gap-8">
         {/* Header Section */}
         <div className="relative">
