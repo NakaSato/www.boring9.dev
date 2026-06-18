@@ -1,4 +1,5 @@
 // components/projects/FeaturedProjects.tsx
+import { FolderOpen } from 'lucide-react';
 import { getFeaturedProjects } from '@/lib/projects';
 import ProjectCard from './ProjectCard';
 import AnimationContainer from '../utils/AnimationContainer';
@@ -11,19 +12,7 @@ export default function FeaturedProjects() {
       <AnimationContainer>
         <div className="text-center py-16">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-800/50 rounded-full mb-4">
-            <svg
-              className="w-8 h-8 text-gray-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-              />
-            </svg>
+            <FolderOpen className="w-8 h-8 text-gray-500" strokeWidth={1.5} />
           </div>
           <h3 className="text-xl font-semibold text-gray-300 mb-2">
             No Featured Projects
@@ -36,6 +25,8 @@ export default function FeaturedProjects() {
       </AnimationContainer>
     );
   }
+
+  const count = featuredProjects.length;
 
   return (
     <section className="mb-12">
@@ -51,20 +42,15 @@ export default function FeaturedProjects() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-8 auto-rows-fr">
           {featuredProjects.map((project) => (
-            <div key={project.id}>
-              <ProjectCard project={project} />
-            </div>
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
 
-        {featuredProjects.length > 0 && (
-          <div className="mt-8 text-center">
-            <p className="text-sm text-gray-500">
-              {featuredProjects.length} featured project
-              {featuredProjects.length !== 1 ? 's' : ''} showcased
-            </p>
-          </div>
-        )}
+        <div className="mt-8 text-center">
+          <p className="text-sm text-gray-500">
+            {count} featured project{count !== 1 ? 's' : ''} showcased
+          </p>
+        </div>
       </AnimationContainer>
     </section>
   );

@@ -3,7 +3,6 @@ import {
   ExternalLink,
   Github,
   Calendar,
-  Code2,
   Star,
   ArrowUpRight
 } from 'lucide-react';
@@ -13,221 +12,124 @@ interface ProjectCardProps {
   project: ProjectType;
 }
 
+// One accent hue per category — used for the badge dot + label.
+const CATEGORY_ACCENT: Record<string, { dot: string; text: string }> = {
+  web: { dot: 'bg-blue-400', text: 'text-blue-300' },
+  backend: { dot: 'bg-emerald-400', text: 'text-emerald-300' },
+  blockchain: { dot: 'bg-violet-400', text: 'text-violet-300' },
+  mobile: { dot: 'bg-pink-400', text: 'text-pink-300' }
+};
+
+const getAccent = (category: string) =>
+  CATEGORY_ACCENT[category] || { dot: 'bg-slate-400', text: 'text-slate-300' };
+
 export default function ProjectCard({ project }: ProjectCardProps) {
-  const getCategoryGradient = (category: string) => {
-    switch (category) {
-      case 'web':
-        return 'from-blue-500 to-cyan-500';
-      case 'backend':
-        return 'from-green-500 to-emerald-500';
-      case 'blockchain':
-        return 'from-purple-500 to-violet-500';
-      case 'mobile':
-        return 'from-pink-500 to-rose-500';
-      default:
-        return 'from-gray-500 to-slate-500';
-    }
-  };
+  const accent = getAccent(project.category);
+  const extraTags = project.tags.length - 3;
+  const extraTech = project.techStack.length - 4;
 
   return (
-    <div className="group relative flex flex-col bg-gradient-to-br from-white/[0.03] to-white/[0.01] backdrop-blur-xl rounded-3xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] border border-white/[0.1] h-full min-h-[400px] max-h-[480px] hover:shadow-[0_20px_40px_0_rgba(0,0,0,0.4)] hover:border-white/[0.15] transition-all duration-500 hover:scale-[1.02] hover:-translate-y-1">
-      {/* Gradient overlay */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${getCategoryGradient(project.category)} opacity-[0.02] group-hover:opacity-[0.04] transition-opacity duration-500`}
-      ></div>
-
-      {/* Header */}
-      <div className="relative p-5 pb-4">
-        <div className="flex items-start justify-between mb-4">
-          {/* Modern Category badge */}
-          <div
-            className={`group/badge relative flex items-center gap-2.5 bg-gradient-to-r ${getCategoryGradient(project.category)} bg-opacity-15 backdrop-blur-xl text-white text-xs font-bold px-4 py-2 rounded-2xl border border-white/10 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 overflow-hidden`}
+    <div className="group flex h-full min-h-[380px] flex-col rounded-2xl border border-white/[0.08] bg-gray-900/50 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.16] hover:bg-gray-900/70">
+      {/* Header: category + featured */}
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.04] px-3 py-1">
+          <span className={`h-1.5 w-1.5 rounded-full ${accent.dot}`}></span>
+          <span
+            className={`font-mono text-xs font-medium capitalize tracking-wide ${accent.text}`}
           >
-            {/* Animated background overlay */}
-            <div
-              className={`absolute inset-0 bg-gradient-to-r ${getCategoryGradient(project.category)} opacity-0 group-hover/badge:opacity-20 transition-opacity duration-300`}
-            ></div>
+            {project.category}
+          </span>
+        </span>
 
-            {/* Glowing dot */}
-            <div className="relative flex items-center justify-center">
-              <div
-                className={`w-2 h-2 rounded-full bg-gradient-to-r ${getCategoryGradient(project.category)} shadow-lg`}
-              ></div>
-              <div
-                className={`absolute w-2 h-2 rounded-full bg-gradient-to-r ${getCategoryGradient(project.category)} animate-ping opacity-75`}
-              ></div>
-            </div>
+        {project.featured && (
+          <span className="inline-flex items-center gap-1 rounded-full border border-amber-400/20 bg-amber-400/10 px-2.5 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-amber-300">
+            <Star className="h-3 w-3 fill-current" />
+            Featured
+          </span>
+        )}
+      </div>
 
-            <span className="relative capitalize font-mono text-xs tracking-wider font-bold">
-              {project.category}
-            </span>
-          </div>
+      {/* Tags */}
+      <div className="mb-4 flex flex-wrap gap-1.5">
+        {project.tags.slice(0, 3).map((tag) => (
+          <span
+            key={tag}
+            className="rounded-md bg-white/[0.03] px-2 py-0.5 font-mono text-xs text-gray-400"
+          >
+            #{tag}
+          </span>
+        ))}
+        {extraTags > 0 && (
+          <span className="rounded-md px-2 py-0.5 font-mono text-xs text-gray-600">
+            +{extraTags}
+          </span>
+        )}
+      </div>
 
-          {/* Modern Featured badge */}
-          {project.featured && (
-            <div className="relative group/featured">
-              {/* Glow effect */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 rounded-2xl blur-sm opacity-75 group-hover/featured:opacity-100 transition duration-300"></div>
+      {/* Title + description */}
+      <h3 className="mb-2 text-lg font-semibold leading-tight text-gray-50 line-clamp-2 transition-colors group-hover:text-white">
+        {project.title}
+      </h3>
+      <p className="mb-5 flex-grow text-sm leading-relaxed text-gray-400 line-clamp-3">
+        {project.description}
+      </p>
 
-              <div className="relative flex items-center gap-2 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 text-white text-xs font-black px-4 py-2 rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                <Star className="w-3.5 h-3.5 fill-current animate-pulse" />
-                <span className="tracking-wider text-xs font-black">
-                  FEATURED
-                </span>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Modern Tag pills */}
-        <div className="flex flex-wrap gap-2">
-          {project.tags.slice(0, 3).map((tag, index) => (
+      {/* Tech stack */}
+      <div className="mb-5">
+        <p className="mb-2 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-gray-500">
+          Tech Stack
+        </p>
+        <div className="flex flex-wrap gap-1.5">
+          {project.techStack.slice(0, 4).map((tech) => (
             <span
-              key={tag}
-              className="group/tag relative inline-flex items-center bg-gradient-to-r from-white/[0.08] to-white/[0.04] text-gray-200 text-xs font-semibold px-3 py-1.5 rounded-xl border border-white/[0.08] backdrop-blur-xl hover:bg-gradient-to-r hover:from-white/[0.15] hover:to-white/[0.08] hover:border-white/[0.15] hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden"
-              style={{
-                animationDelay: `${index * 100}ms`
-              }}
+              key={tech}
+              className="rounded-md border border-white/[0.06] bg-white/[0.03] px-2 py-1 text-xs text-gray-300"
             >
-              {/* Subtle shimmer effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.05] to-transparent translate-x-[-100%] group-hover/tag:translate-x-[100%] transition-transform duration-700"></div>
-
-              <span className="relative">#{tag}</span>
+              {tech}
             </span>
           ))}
-          {project.tags.length > 3 && (
-            <span className="inline-flex items-center bg-gradient-to-r from-white/[0.04] to-white/[0.02] text-gray-400 text-xs font-medium px-3 py-1.5 rounded-xl border border-white/[0.04] backdrop-blur-xl hover:bg-white/[0.08] hover:text-gray-300 transition-all duration-300">
-              +{project.tags.length - 3} more
+          {extraTech > 0 && (
+            <span className="rounded-md px-2 py-1 text-xs text-gray-600">
+              +{extraTech} more
             </span>
           )}
         </div>
       </div>
 
-      {/* Enhanced Content */}
-      <div className="flex flex-col flex-grow px-5 pb-6 relative z-10">
-        {/* Enhanced Title */}
-        <div className="mb-4">
-          <h3 className="text-xl font-bold text-white leading-tight tracking-tight font-inter line-clamp-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-all duration-300">
-            {project.title}
-          </h3>
-        </div>
+      {/* Footer: date + actions */}
+      <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/[0.08] pt-4">
+        <span className="inline-flex items-center gap-1.5 font-mono text-xs text-gray-500">
+          <Calendar className="h-3.5 w-3.5" />
+          {new Date(project.completedAt).toLocaleDateString('en-US', {
+            month: 'short',
+            year: '2-digit'
+          })}
+        </span>
 
-        {/* Enhanced Description */}
-        <p className="text-gray-300/95 text-sm leading-relaxed line-clamp-3 flex-grow mb-4 font-light tracking-wide group-hover:text-gray-200 transition-colors duration-300">
-          {project.description}
-        </p>
-
-        {/* Modern Tech stack */}
-        <div className="mb-4">
-          <div className="flex items-center gap-2.5 text-gray-400 text-xs font-medium mb-3">
-            <div className="relative p-1.5 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg shadow-lg">
-              <Code2 className="w-3.5 h-3.5 text-blue-400" />
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg animate-pulse"></div>
-            </div>
-            <span className="font-mono uppercase tracking-wider font-bold text-gray-300">
-              Tech Stack
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {project.techStack.slice(0, 4).map((tech, index) => (
-              <span
-                key={tech}
-                className="group/tech relative inline-flex items-center justify-center bg-gradient-to-r from-blue-500/12 via-purple-500/12 to-pink-500/12 text-gray-200 text-xs font-bold px-3 py-2 rounded-xl border border-white/[0.06] backdrop-blur-xl shadow-lg hover:shadow-xl hover:scale-105 hover:from-blue-500/20 hover:via-purple-500/20 hover:to-pink-500/20 hover:border-white/[0.12] transition-all duration-300 overflow-hidden"
-                style={{
-                  animationDelay: `${index * 50}ms`
-                }}
-              >
-                {/* Tech badge shimmer */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent translate-x-[-100%] group-hover/tech:translate-x-[100%] transition-transform duration-500"></div>
-
-                <span className="relative">{tech}</span>
-              </span>
-            ))}
-            {project.techStack.length > 4 && (
-              <span className="inline-flex items-center justify-center bg-gradient-to-r from-white/[0.04] to-white/[0.02] text-gray-400 text-xs font-medium px-3 py-2 rounded-xl border border-white/[0.04] hover:bg-white/[0.08] hover:text-gray-300 transition-all duration-300">
-                +{project.techStack.length - 4} more
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Enhanced Footer with Prominent Links */}
-        <div className="flex flex-col gap-4 mt-auto pt-4 border-t border-white/[0.08]">
-          {/* Date and Links Row */}
-          <div className="flex items-center justify-between">
-            {/* Enhanced Date display */}
-            <div className="flex items-center gap-2 text-xs text-gray-400 font-mono">
-              <div className="p-1 bg-white/[0.08] rounded-lg backdrop-blur-sm">
-                <Calendar className="w-3 h-3" />
-              </div>
-              <span className="tracking-wide text-xs font-medium">
-                {new Date(project.completedAt).toLocaleDateString('en-US', {
-                  month: 'short',
-                  year: '2-digit'
-                })}
-              </span>
-            </div>
-
-            {/* Enhanced Action buttons */}
-            <div className="flex gap-2">
-              {project.repo && (
-                <a
-                  href={project.repo}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 text-gray-400 bg-white/[0.08] rounded-xl border border-white/[0.1] backdrop-blur-sm hover:bg-white/[0.15] hover:text-white hover:border-white/[0.2] transition-all duration-300 hover:scale-110"
-                  title="View source code"
-                >
-                  <Github className="w-4 h-4" />
-                </a>
-              )}
-
-              {project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 text-gray-400 bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-pink-500/15 rounded-xl border border-white/[0.1] backdrop-blur-sm hover:from-blue-500/25 hover:via-purple-500/25 hover:to-pink-500/25 hover:text-white hover:border-white/[0.2] transition-all duration-300 hover:scale-110 group/btn"
-                  title="View live project"
-                >
-                  <ArrowUpRight className="w-4 h-4 group-hover/btn:rotate-45 transition-transform duration-300" />
-                </a>
-              )}
-            </div>
-          </div>
-
-          {/* Enhanced Link Labels */}
-          <div className="flex gap-2">
-            {project.repo && (
-              <a
-                href={project.repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/link flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-gray-800/40 to-gray-900/60 border border-gray-700/40 rounded-xl text-xs font-medium text-gray-300 backdrop-blur-xl shadow-lg hover:shadow-xl hover:border-gray-600/60 hover:scale-105 hover:text-white transition-all duration-300 overflow-hidden flex-1"
-              >
-                {/* Link shimmer */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent translate-x-[-100%] group-hover/link:translate-x-[100%] transition-transform duration-700"></div>
-
-                <Github className="w-3.5 h-3.5 relative" />
-                <span className="relative font-semibold">Source Code</span>
-              </a>
-            )}
-
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/link flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-500/15 via-purple-500/15 to-pink-500/15 border border-white/[0.1] rounded-xl text-xs font-medium text-gray-200 backdrop-blur-xl shadow-lg hover:shadow-xl hover:from-blue-500/25 hover:via-purple-500/25 hover:to-pink-500/25 hover:border-white/[0.2] hover:scale-105 hover:text-white transition-all duration-300 overflow-hidden flex-1"
-              >
-                {/* Link shimmer */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent translate-x-[-100%] group-hover/link:translate-x-[100%] transition-transform duration-700"></div>
-
-                <ExternalLink className="w-3.5 h-3.5 relative" />
-                <span className="relative font-semibold">Live Demo</span>
-              </a>
-            )}
-          </div>
+        <div className="flex gap-2">
+          {project.repo && (
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-gray-300 transition-colors hover:bg-white/[0.07] hover:text-white"
+            >
+              <Github className="h-3.5 w-3.5" />
+              Code
+            </a>
+          )}
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/live inline-flex items-center gap-1.5 rounded-lg border border-blue-400/20 bg-blue-400/10 px-3 py-1.5 text-xs font-medium text-blue-200 transition-colors hover:bg-blue-400/20 hover:text-white"
+            >
+              <ExternalLink className="h-3.5 w-3.5" />
+              Live
+              <ArrowUpRight className="h-3 w-3 transition-transform group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5" />
+            </a>
+          )}
         </div>
       </div>
     </div>
