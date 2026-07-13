@@ -1,7 +1,11 @@
 // components/projects/FeaturedProjects.tsx
 import { FolderOpen } from 'lucide-react';
 import { getFeaturedProjects } from '@/lib/projects';
-import { getGitHubRepos, getRepoStats } from '@/lib/github-stats';
+import {
+  getGitHubRepos,
+  getRepoStats,
+  getDetectedTechnologies
+} from '@/lib/github-stats';
 import ProjectCard from './ProjectCard';
 import AnimationContainer from '../utils/AnimationContainer';
 
@@ -29,6 +33,13 @@ export default async function FeaturedProjects() {
 
   const count = featuredProjects.length;
   const repos = await getGitHubRepos();
+  const liveTechByProject = await Promise.all(
+    featuredProjects.map((project) => {
+      const repoName = project.repo?.split('/').filter(Boolean).pop();
+      const repo = repoName ? repos.find((r) => r.name === repoName) : undefined;
+      return repo ? getDetectedTechnologies(repo) : Promise.resolve([]);
+    })
+  );
 
   return (
     <section className="mb-12">
@@ -43,13 +54,14 @@ export default async function FeaturedProjects() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-8 auto-rows-fr">
-          {featuredProjects.map((project) => (
+          {featuredProjects.map((project, index) => (
             <ProjectCard
               key={project.id}
               project={project}
               liveStats={
                 project.repo ? getRepoStats(repos, project.repo) : null
               }
+              liveTech={liveTechByProject[index]}
             />
           ))}
         </div>

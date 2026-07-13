@@ -326,6 +326,11 @@ const TECH_ALIAS: Record<string, string> = {
   leaflet: 'Leaflet',
   'react-leaflet': 'Leaflet',
   axios: 'Axios',
+  '@solana/web3.js': 'Solana',
+  '@solana/kit': 'Solana',
+  '@solana/spl-token': 'SPL Token',
+  '@anchor-lang/core': 'Anchor',
+  '@coral-xyz/anchor': 'Anchor',
   // cargo
   'anchor-lang': 'Anchor',
   'anchor-spl': 'Anchor',
@@ -354,7 +359,7 @@ async function fetchRawFile(
 ): Promise<string | null> {
   try {
     const response = await fetch(
-      `https://raw.githubusercontent.com/${repoPath}/${branch}/${path}`,
+      `https://raw.githubusercontent.com/${GITHUB_USER}/${repoPath}/${branch}/${path}`,
       { next: { revalidate: 86400 } } // raw CDN, not subject to api.github.com rate limits
     );
     if (!response.ok) return null;
@@ -436,8 +441,10 @@ async function findManifestPaths(
 }
 
 // Detects real frameworks/libs for one repo by reading its package.json,
-// Cargo.toml, and/or *.csproj — falls back to a full tree search only when
-// root-level files aren't found.
+// Cargo.toml, and/or *.csproj — falls back to a full tree search when
+// root-level files don't exist OR none of their deps match TECH_ALIAS
+// (monorepos commonly have a root package.json plus nested Cargo.toml/
+// *.csproj that only the tree search will find).
 export async function getDetectedTechnologies(
   repo: GitHubRepo
 ): Promise<string[]> {
@@ -447,17 +454,16 @@ export async function getDetectedTechnologies(
   const rootPkg = await fetchRawFile(repo.name, branch, 'package.json');
   const rootCargo = await fetchRawFile(repo.name, branch, 'Cargo.toml');
 
-  if (rootPkg || rootCargo) {
-    parsePackageJsonDeps(rootPkg ?? '').forEach((dep) => {
-      const label = TECH_ALIAS[dep.toLowerCase()];
-      if (label) found.add(label);
-    });
-    parseCargoTomlDeps(rootCargo ?? '').forEach((dep) => {
-      const label = TECH_ALIAS[dep.toLowerCase()];
-      if (label) found.add(label);
-    });
-    return Array.from(found);
-  }
+  parsePackageJsonDeps(rootPkg ?? '').forEach((dep) => {
+    const label = TECH_ALIAS[dep.toLowerCase()];
+    if (label) found.add(label);
+  });
+  parseCargoTomlDeps(rootCargo ?? '').forEach((dep) => {
+    const label = TECH_ALIAS[dep.toLowerCase()];
+    if (label) found.add(label);
+  });
+
+  if (found.size > 0) return Array.from(found);
 
   const paths = await findManifestPaths(repo.name, branch);
   for (const path of paths) {

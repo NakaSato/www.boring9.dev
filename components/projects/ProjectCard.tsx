@@ -13,6 +13,7 @@ import { formatRelativeTime, type RepoStats } from '@/lib/github-stats';
 interface ProjectCardProps {
   project: ProjectType;
   liveStats?: RepoStats | null;
+  liveTech?: string[];
 }
 
 // One accent hue per category — used for the badge dot + label.
@@ -26,10 +27,16 @@ const CATEGORY_ACCENT: Record<string, { dot: string; text: string }> = {
 const getAccent = (category: string) =>
   CATEGORY_ACCENT[category] || { dot: 'bg-slate-400', text: 'text-slate-300' };
 
-export default function ProjectCard({ project, liveStats }: ProjectCardProps) {
+export default function ProjectCard({
+  project,
+  liveStats,
+  liveTech
+}: ProjectCardProps) {
   const accent = getAccent(project.category);
   const extraTags = project.tags.length - 3;
-  const extraTech = project.techStack.length - 4;
+  const techStack =
+    liveTech && liveTech.length > 0 ? liveTech : project.techStack;
+  const extraTech = techStack.length - 4;
 
   return (
     <div className="group flex h-full min-h-[380px] flex-col rounded-2xl border border-white/[0.08] bg-gray-900/50 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.16] hover:bg-gray-900/70">
@@ -83,7 +90,7 @@ export default function ProjectCard({ project, liveStats }: ProjectCardProps) {
           Tech Stack
         </p>
         <div className="flex flex-wrap gap-1.5">
-          {project.techStack.slice(0, 4).map((tech) => (
+          {techStack.slice(0, 4).map((tech) => (
             <span
               key={tech}
               className="rounded-md border border-white/[0.06] bg-white/[0.03] px-2 py-1 text-xs text-gray-300"
