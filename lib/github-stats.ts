@@ -13,6 +13,7 @@ export interface GitHubRepo {
   archived: boolean;
   language: string | null;
   size: number;
+  default_branch: string;
 }
 
 export interface GitHubUser {
@@ -28,12 +29,17 @@ export interface LanguageStat {
   color: string;
 }
 
+const GITHUB_HEADERS: Record<string, string> = {
+  Accept: 'application/vnd.github.v3+json',
+  'User-Agent': 'boring9-portfolio'
+};
+if (process.env.GITHUB_TOKEN) {
+  GITHUB_HEADERS.Authorization = `token ${process.env.GITHUB_TOKEN}`;
+}
+
 const FETCH_OPTS = {
   next: { revalidate: 3600 }, // Cache for 1 hour
-  headers: {
-    Accept: 'application/vnd.github.v3+json',
-    'User-Agent': 'boring9-portfolio'
-  }
+  headers: GITHUB_HEADERS
 } as const;
 
 export { GITHUB_USER_URL };
@@ -207,28 +213,295 @@ export function formatRelativeTime(iso: string): string {
   return 'just now';
 }
 
-// Top 6 languages by repo count, with display percentage + color
-export function getLanguageStats(repos: GitHubRepo[]): LanguageStat[] {
-  const languageCounts: Record<string, number> = {};
+export interface RepoStats {
+  stars: number;
+  forks: number;
+  language: string | null;
+  pushedAt: string;
+}
 
-  repos.forEach((repo) => {
-    if (repo.language && !repo.archived) {
-      languageCounts[repo.language] = (languageCounts[repo.language] || 0) + 1;
-    }
+// Match a project's repo URL (e.g. github.com/NakaSato/netool) against the
+// fetched repo list by name, for live stars/forks/language on project cards.
+export function getRepoStats(
+  repos: GitHubRepo[],
+  repoUrl: string
+): RepoStats | null {
+  const name = repoUrl.split('/').filter(Boolean).pop();
+  if (!name) return null;
+
+  const repo = repos.find((r) => r.name === name);
+  if (!repo) return null;
+
+  return {
+    stars: repo.stargazers_count,
+    forks: repo.forks_count,
+    language: repo.language,
+    pushedAt: repo.pushed_at
+  };
+}
+
+// Bytes-per-language for a single repo, e.g. { TypeScript: 48213, CSS: 1022 }.
+async function getRepoLanguages(
+  repoName: string
+): Promise<Record<string, number>> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${GITHUB_USER}/${repoName}/languages`,
+      FETCH_OPTS
+    );
+    if (!response.ok) return {};
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching languages for ${repoName}:`, error);
+    return {};
+  }
+}
+
+// Top 6 languages by total bytes across non-archived repos, with display
+// percentage + color. One API call per repo — batched to stay well under
+// GitHub's rate limits (5000/hr authenticated via GITHUB_TOKEN, 60/hr not).
+export async function getLanguageStats(
+  repos: GitHubRepo[]
+): Promise<LanguageStat[]> {
+  const activeRepos = repos.filter((repo) => !repo.archived && repo.size > 0);
+
+  const BATCH_SIZE = 10;
+  const perRepoLanguages: Record<string, number>[] = [];
+  for (let i = 0; i < activeRepos.length; i += BATCH_SIZE) {
+    const batch = activeRepos.slice(i, i + BATCH_SIZE);
+    const results = await Promise.all(
+      batch.map((repo) => getRepoLanguages(repo.name))
+    );
+    perRepoLanguages.push(...results);
+  }
+
+  const languageBytes: Record<string, number> = {};
+  perRepoLanguages.forEach((languages) => {
+    Object.entries(languages).forEach(([name, bytes]) => {
+      languageBytes[name] = (languageBytes[name] || 0) + bytes;
+    });
   });
 
-  const totalRepos = Object.values(languageCounts).reduce(
-    (sum, count) => sum + count,
+  const totalBytes = Object.values(languageBytes).reduce(
+    (sum, bytes) => sum + bytes,
     0
   );
+  if (totalBytes === 0) return [];
 
-  return Object.entries(languageCounts)
-    .map(([name, count]) => ({
+  return Object.entries(languageBytes)
+    .map(([name, bytes]) => ({
       name,
-      count,
-      percentage: Math.round((count / totalRepos) * 100),
+      count: bytes,
+      percentage: Math.round((bytes / totalBytes) * 100),
       color: LANGUAGE_COLORS[name] || 'bg-gray-500'
     }))
     .sort((a, b) => b.count - a.count)
     .slice(0, 6);
+}
+
+// Known npm / cargo / nuget dependency names -> display label. Only
+// dependencies present in this map surface as a Technology tag — keeps
+// lockfile noise (eslint, @types/*, test runners) out of the UI.
+const TECH_ALIAS: Record<string, string> = {
+  react: 'React',
+  'react-dom': 'React',
+  next: 'Next.js',
+  '@next/third-parties': 'Next.js',
+  vite: 'Vite',
+  tailwindcss: 'Tailwind CSS',
+  '@mui/material': 'Material UI',
+  '@radix-ui/react-dialog': 'Radix UI',
+  '@radix-ui/react-dropdown-menu': 'Radix UI',
+  'chart.js': 'Chart.js',
+  'react-chartjs-2': 'Chart.js',
+  d3: 'D3.js',
+  'framer-motion': 'Framer Motion',
+  zustand: 'Zustand',
+  redux: 'Redux',
+  '@reduxjs/toolkit': 'Redux Toolkit',
+  'react-router-dom': 'React Router',
+  'react-router': 'React Router',
+  'socket.io-client': 'Socket.IO',
+  i18next: 'i18next',
+  leaflet: 'Leaflet',
+  'react-leaflet': 'Leaflet',
+  axios: 'Axios',
+  // cargo
+  'anchor-lang': 'Anchor',
+  'anchor-spl': 'Anchor',
+  'solana-program': 'Solana',
+  'solana-sdk': 'Solana',
+  'spl-token': 'SPL Token',
+  // nuget (matched by prefix, see matchNugetAlias)
+  'microsoft.entityframeworkcore': 'Entity Framework Core',
+  'microsoft.aspnetcore.signalr': 'SignalR',
+  npgsql: 'PostgreSQL (Npgsql)',
+  'system.identitymodel.tokens.jwt': 'JWT'
+};
+
+function matchNugetAlias(packageName: string): string | null {
+  const lower = packageName.toLowerCase();
+  const prefixMatch = Object.keys(TECH_ALIAS).find((key) =>
+    lower.startsWith(key)
+  );
+  return prefixMatch ? TECH_ALIAS[prefixMatch] : null;
+}
+
+async function fetchRawFile(
+  repoPath: string,
+  branch: string,
+  path: string
+): Promise<string | null> {
+  try {
+    const response = await fetch(
+      `https://raw.githubusercontent.com/${repoPath}/${branch}/${path}`,
+      { next: { revalidate: 86400 } } // raw CDN, not subject to api.github.com rate limits
+    );
+    if (!response.ok) return null;
+    return await response.text();
+  } catch {
+    return null;
+  }
+}
+
+function parsePackageJsonDeps(text: string): string[] {
+  try {
+    const json = JSON.parse(text);
+    return [
+      ...Object.keys(json.dependencies ?? {}),
+      ...Object.keys(json.devDependencies ?? {})
+    ];
+  } catch {
+    return [];
+  }
+}
+
+function parseCargoTomlDeps(text: string): string[] {
+  const names: string[] = [];
+  let inDepsSection = false;
+  for (const rawLine of text.split('\n')) {
+    const line = rawLine.trim();
+    if (/^\[(dev-|build-)?dependencies/.test(line)) {
+      inDepsSection = true;
+      continue;
+    }
+    if (line.startsWith('[')) {
+      inDepsSection = false;
+      continue;
+    }
+    if (inDepsSection) {
+      const match = line.match(/^([a-zA-Z0-9_-]+)\s*=/);
+      if (match) names.push(match[1]);
+    }
+  }
+  return names;
+}
+
+function parseCsprojDeps(text: string): string[] {
+  const names: string[] = [];
+  const regex = /<PackageReference\s+Include="([^"]+)"/g;
+  let match: RegExpExecArray | null;
+  while ((match = regex.exec(text))) names.push(match[1]);
+  return names;
+}
+
+// Find manifest files (package.json / Cargo.toml / *.csproj) anywhere in the
+// repo via a single recursive tree listing. Only called when a root-level
+// probe finds nothing — one api.github.com call per repo, worst case.
+async function findManifestPaths(
+  repoName: string,
+  branch: string
+): Promise<string[]> {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${GITHUB_USER}/${repoName}/git/trees/${branch}?recursive=1`,
+      FETCH_OPTS
+    );
+    if (!response.ok) return [];
+    const json: { tree?: Array<{ path: string; type: string }> } =
+      await response.json();
+    return (json.tree ?? [])
+      .filter(
+        (item) =>
+          item.type === 'blob' &&
+          !item.path.includes('node_modules') &&
+          (item.path.endsWith('package.json') ||
+            item.path.endsWith('Cargo.toml') ||
+            item.path.endsWith('.csproj'))
+      )
+      .map((item) => item.path);
+  } catch {
+    return [];
+  }
+}
+
+// Detects real frameworks/libs for one repo by reading its package.json,
+// Cargo.toml, and/or *.csproj — falls back to a full tree search only when
+// root-level files aren't found.
+export async function getDetectedTechnologies(
+  repo: GitHubRepo
+): Promise<string[]> {
+  const branch = repo.default_branch || 'main';
+  const found = new Set<string>();
+
+  const rootPkg = await fetchRawFile(repo.name, branch, 'package.json');
+  const rootCargo = await fetchRawFile(repo.name, branch, 'Cargo.toml');
+
+  if (rootPkg || rootCargo) {
+    parsePackageJsonDeps(rootPkg ?? '').forEach((dep) => {
+      const label = TECH_ALIAS[dep.toLowerCase()];
+      if (label) found.add(label);
+    });
+    parseCargoTomlDeps(rootCargo ?? '').forEach((dep) => {
+      const label = TECH_ALIAS[dep.toLowerCase()];
+      if (label) found.add(label);
+    });
+    return Array.from(found);
+  }
+
+  const paths = await findManifestPaths(repo.name, branch);
+  for (const path of paths) {
+    const text = await fetchRawFile(repo.name, branch, path);
+    if (!text) continue;
+    if (path.endsWith('package.json')) {
+      parsePackageJsonDeps(text).forEach((dep) => {
+        const label = TECH_ALIAS[dep.toLowerCase()];
+        if (label) found.add(label);
+      });
+    } else if (path.endsWith('Cargo.toml')) {
+      parseCargoTomlDeps(text).forEach((dep) => {
+        const label = TECH_ALIAS[dep.toLowerCase()];
+        if (label) found.add(label);
+      });
+    } else if (path.endsWith('.csproj')) {
+      parseCsprojDeps(text).forEach((dep) => {
+        const label = matchNugetAlias(dep);
+        if (label) found.add(label);
+      });
+    }
+  }
+
+  return Array.from(found);
+}
+
+// Union of detected technologies across all featured repos, real-data
+// replacement for the old hand-curated TECHNOLOGIES list. Matches project
+// repo URLs against the fetched repo list by name (same approach as
+// getRepoStats) to get each repo's default_branch.
+export async function getAllDetectedTechnologies(
+  repos: GitHubRepo[],
+  projectRepoUrls: string[]
+): Promise<string[]> {
+  const matched = projectRepoUrls
+    .filter(Boolean)
+    .map((url) => {
+      const name = url.split('/').filter(Boolean).pop();
+      return repos.find((r) => r.name === name);
+    })
+    .filter((repo): repo is GitHubRepo => Boolean(repo));
+
+  const perRepo = await Promise.all(
+    matched.map((repo) => getDetectedTechnologies(repo))
+  );
+  return Array.from(new Set(perRepo.flat()));
 }

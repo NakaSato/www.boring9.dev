@@ -1,10 +1,11 @@
 // components/projects/FeaturedProjects.tsx
 import { FolderOpen } from 'lucide-react';
 import { getFeaturedProjects } from '@/lib/projects';
+import { getGitHubRepos, getRepoStats } from '@/lib/github-stats';
 import ProjectCard from './ProjectCard';
 import AnimationContainer from '../utils/AnimationContainer';
 
-export default function FeaturedProjects() {
+export default async function FeaturedProjects() {
   const featuredProjects = getFeaturedProjects();
 
   if (featuredProjects.length === 0) {
@@ -27,6 +28,7 @@ export default function FeaturedProjects() {
   }
 
   const count = featuredProjects.length;
+  const repos = await getGitHubRepos();
 
   return (
     <section className="mb-12">
@@ -42,7 +44,13 @@ export default function FeaturedProjects() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-8 auto-rows-fr">
           {featuredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard
+              key={project.id}
+              project={project}
+              liveStats={
+                project.repo ? getRepoStats(repos, project.repo) : null
+              }
+            />
           ))}
         </div>
 

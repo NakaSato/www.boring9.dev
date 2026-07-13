@@ -4,12 +4,15 @@ import {
   Github,
   Calendar,
   Star,
+  GitFork,
   ArrowUpRight
 } from 'lucide-react';
 import { ProjectType } from '@/lib/projects';
+import { formatRelativeTime, type RepoStats } from '@/lib/github-stats';
 
 interface ProjectCardProps {
   project: ProjectType;
+  liveStats?: RepoStats | null;
 }
 
 // One accent hue per category — used for the badge dot + label.
@@ -23,7 +26,7 @@ const CATEGORY_ACCENT: Record<string, { dot: string; text: string }> = {
 const getAccent = (category: string) =>
   CATEGORY_ACCENT[category] || { dot: 'bg-slate-400', text: 'text-slate-300' };
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, liveStats }: ProjectCardProps) {
   const accent = getAccent(project.category);
   const extraTags = project.tags.length - 3;
   const extraTech = project.techStack.length - 4;
@@ -96,15 +99,37 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
       </div>
 
-      {/* Footer: date + actions */}
+      {/* Footer: date + live stats + actions */}
       <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/[0.08] pt-4">
-        <span className="inline-flex items-center gap-1.5 font-mono text-xs text-gray-500">
-          <Calendar className="h-3.5 w-3.5" />
-          {new Date(project.completedAt).toLocaleDateString('en-US', {
-            month: 'short',
-            year: '2-digit'
-          })}
-        </span>
+        <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-gray-500">
+          {project.completedAt && (
+            <span className="inline-flex items-center gap-1.5">
+              <Calendar className="h-3.5 w-3.5" />
+              {new Date(project.completedAt).toLocaleDateString('en-US', {
+                month: 'short',
+                year: '2-digit'
+              })}
+            </span>
+          )}
+          {liveStats && (
+            <>
+              <span className="inline-flex items-center gap-1">
+                <Star className="h-3.5 w-3.5" />
+                {liveStats.stars}
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <GitFork className="h-3.5 w-3.5" />
+                {liveStats.forks}
+              </span>
+              <span
+                className="hidden sm:inline"
+                title={`Last pushed ${formatRelativeTime(liveStats.pushedAt)}`}
+              >
+                Updated {formatRelativeTime(liveStats.pushedAt)}
+              </span>
+            </>
+          )}
+        </div>
 
         <div className="flex gap-2">
           {project.repo && (

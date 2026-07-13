@@ -18,7 +18,8 @@ import {
   getTotalForks,
   getLanguageStats,
   getRecentRepos,
-  getContributions
+  getContributions,
+  getAllDetectedTechnologies
 } from '@/lib/github-stats';
 
 const PAGE_URL = 'https://www.boring9.dev/projects';
@@ -126,8 +127,12 @@ export default async function Projects() {
   const activeProjects = getActiveProjects(repos);
   const totalStars = getTotalStars(repos);
   const totalForks = getTotalForks(repos);
-  const languageStats = getLanguageStats(repos);
+  const languageStats = await getLanguageStats(repos);
   const recentRepos = getRecentRepos(repos);
+  const technologies = await getAllDetectedTechnologies(
+    repos,
+    projects.map((p) => p.repo)
+  );
 
   return (
     <SectionContainer>
@@ -163,7 +168,10 @@ export default async function Projects() {
 
         {/* GitHub-style Tech Stack Section */}
         <AnimationContainer customClassName="w-full">
-          <TechStackCard languageStats={languageStats} />
+          <TechStackCard
+            languageStats={languageStats}
+            technologies={technologies}
+          />
         </AnimationContainer>
 
         {/* Projects Section */}

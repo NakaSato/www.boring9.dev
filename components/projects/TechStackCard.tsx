@@ -3,19 +3,8 @@ import type { LanguageStat } from '@/lib/github-stats';
 
 interface TechStackCardProps {
   languageStats: LanguageStat[];
+  technologies: string[];
 }
-
-const TECHNOLOGIES = [
-  'React',
-  'Next.js',
-  'Node.js',
-  'PostgreSQL',
-  'Docker',
-  'AWS',
-  'Vercel',
-  'Git',
-  'Linux'
-];
 
 // Shown when the GitHub API returns no language data.
 const FALLBACK_LANGUAGES: LanguageStat[] = [
@@ -47,7 +36,10 @@ function LanguageRow({ name, percentage, color }: LanguageStat) {
   );
 }
 
-export default function TechStackCard({ languageStats }: TechStackCardProps) {
+export default function TechStackCard({
+  languageStats,
+  technologies
+}: TechStackCardProps) {
   const languages =
     languageStats.length > 0 ? languageStats : FALLBACK_LANGUAGES;
 
@@ -85,7 +77,7 @@ export default function TechStackCard({ languageStats }: TechStackCardProps) {
               Technologies
             </h4>
             <div className="flex flex-wrap gap-2">
-              {TECHNOLOGIES.map((tech, index) => (
+              {technologies.map((tech, index) => (
                 <span
                   key={tech}
                   className="group relative inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-gray-800/60 to-gray-900/80 border border-gray-700/60 rounded-xl text-xs font-bold text-gray-200 backdrop-blur-xl shadow-lg hover:shadow-xl hover:bg-gradient-to-r hover:from-gray-700/70 hover:to-gray-800/90 hover:border-gray-600/70 hover:text-white hover:scale-105 transition-all duration-300 overflow-hidden"
